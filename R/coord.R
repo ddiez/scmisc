@@ -18,7 +18,7 @@ get_coord <- function(x, name = "tSNE", annotate = TRUE, cols = NULL) {
 #' @rdname get_coord
 #' @export
 get_coord.SingleCellExperiment <- function(x, name = "tSNE", annotate = TRUE, cols = NULL) {
-  d <- reducedDim(x, name) %>% as.data.frame() %>% dplyr::rename(dim1 = 1, dim2 = 2)
+  d <- reducedDim(x, name) %>% fix_coords()
 
   if (annotate) {
     cdata <- colData(x)
@@ -27,4 +27,8 @@ get_coord.SingleCellExperiment <- function(x, name = "tSNE", annotate = TRUE, co
     d <- cbind(d, cdata %>% as.data.frame())
   }
   d
+}
+
+fix_coords <- function(x) {
+  as.data.frame(x) %>% dplyr::rename(dim1 = 1, dim2 = 2)
 }
