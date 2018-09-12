@@ -29,6 +29,8 @@ get_coord.SingleCellExperiment <- function(x, name = "tSNE", annotate = TRUE, co
   d
 }
 
+#' @rdname get_coord
+#' @export
 get_coord.CellDataSet <- function(x, name = NULL, annotate = TRUE, cols = NULL) {
   d <- t(x@reducedDimA) %>% fix_coords()
 

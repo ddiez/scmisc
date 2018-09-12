@@ -3,12 +3,16 @@
 \name{get_coord}
 \alias{get_coord}
 \alias{get_coord.SingleCellExperiment}
+\alias{get_coord.CellDataSet}
 \title{get_coord}
 \usage{
 get_coord(x, name = "tSNE", annotate = TRUE, cols = NULL)
 
 \method{get_coord}{SingleCellExperiment}(x, name = "tSNE",
   annotate = TRUE, cols = NULL)
+
+\method{get_coord}{CellDataSet}(x, name = NULL, annotate = TRUE,
+  cols = NULL)
 }
 \arguments{
 \item{x}{object to obtain coordinates.}
