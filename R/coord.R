@@ -29,6 +29,18 @@ get_coord.SingleCellExperiment <- function(x, name = "tSNE", annotate = TRUE, co
   d
 }
 
+get_coord.CellDataSet <- function(x, name = NULL, annotate = TRUE, cols = NULL) {
+  d <- t(x@reducedDimA) %>% fix_coords()
+
+  if (annotate) {
+    pdata <- pData(x)
+    if (! is.null(cols))
+      pdata <- pdata[, colnames(pdata) %in% cols, drop = FALSE]
+    d <- cbind(d, pdata %>% as.data.frame())
+  }
+  d
+}
+
 fix_coords <- function(x) {
   as.data.frame(x) %>% dplyr::rename(dim1 = 1, dim2 = 2)
 }
