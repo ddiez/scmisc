@@ -3,8 +3,14 @@ Title: Miscellaneus tools for the analysis of single cell data
 Version: 0.0.0.9000
 Authors@R: 'Diego Diez <diego10ruiz@gmail.com> [aut, cre]'
 Description: Miscellaneus tools for the analysis of single cell data.
-Imports: monocle
 Depends: R (>= 3.5.0)
+Imports:
+    dplyr,
+    Biobase,
+    SummarizedExperiment,
+    SingleCellExperiment,
+    monocle,
+    VGAM
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
