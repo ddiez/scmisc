@@ -4,6 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 'Diego Diez <diego10ruiz@gmail.com> [aut, cre]'
 Description: Miscellaneus tools for the analysis of single cell data.
 Depends: R (>= 3.5.1)
+Imports: monocle
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
