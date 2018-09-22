@@ -6,15 +6,15 @@
 \alias{get_expression}
 \title{Compute summary from assay matrix}
 \usage{
-get_assay_summary(x, sum.fun = mean, ...)
+get_assay_summary(x, ...)
 
 \method{get_assay_summary}{SingleCellExperiment}(x, name,
-  assay.name = "logcounts", column = "symbol", sum.fun = mean)
+  assay.name = "logcounts", column = "symbol", sum.fun = mean, ...)
 
 get_expression(...)
 }
 \arguments{
-\item{sum.fun}{summary function (by default mean).}
+\item{x}{object to compute summary.}
 
 \item{...}{arguments passed down to specific methods.}
 
@@ -23,6 +23,8 @@ get_expression(...)
 \item{assay.name}{name of the assay slot (defualt: 'logcounts').}
 
 \item{column}{name of the column where to find 'name' (default: 'symbol').}
+
+\item{sum.fun}{summary function (by default mean).}
 }
 \description{
 Compute summary from assay matrix
