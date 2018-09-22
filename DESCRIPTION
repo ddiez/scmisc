@@ -10,7 +10,8 @@ Imports:
     SummarizedExperiment,
     SingleCellExperiment,
     monocle,
-    VGAM
+    VGAM,
+    MASS
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
