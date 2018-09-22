@@ -2,9 +2,18 @@
 % Please edit documentation in R/density.R
 \name{get_density}
 \alias{get_density}
+\alias{get_density.default}
+\alias{get_density.SingleCellExperiment}
+\alias{get_density.CellDataSet}
 \title{get_density}
 \usage{
-get_density(x, y, n = 100)
+get_density(x, ...)
+
+\method{get_density}{default}(x, y, n = 100)
+
+\method{get_density}{SingleCellExperiment}(x, name = "tSNE")
+
+\method{get_density}{CellDataSet}(x, name = "A")
 }
 \arguments{
 \item{x}{x coordinate of data}
