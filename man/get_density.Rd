@@ -9,18 +9,22 @@
 \usage{
 get_density(x, ...)
 
-\method{get_density}{default}(x, y, n = 100)
+\method{get_density}{default}(x, y, n = 100, ...)
 
-\method{get_density}{SingleCellExperiment}(x, name = "tSNE")
+\method{get_density}{SingleCellExperiment}(x, name = "tSNE", ...)
 
-\method{get_density}{CellDataSet}(x, name = "A")
+\method{get_density}{CellDataSet}(x, name = "A", ...)
 }
 \arguments{
 \item{x}{x coordinate of data}
 
+\item{...}{additional arguments passed down to methods.}
+
 \item{y}{y coordinate of data}
 
 \item{n}{Number of grid points in each direction. Can be scalar or a length-2 integer vector.}
+
+\item{name}{name of coordinates for some methods.}
 }
 \description{
 get_density
