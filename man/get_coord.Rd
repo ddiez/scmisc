@@ -11,7 +11,7 @@ get_coord(x, name = "tSNE", annotate = TRUE, cols = NULL)
 \method{get_coord}{SingleCellExperiment}(x, name = "tSNE",
   annotate = TRUE, cols = NULL)
 
-\method{get_coord}{CellDataSet}(x, name = NULL, annotate = TRUE,
+\method{get_coord}{CellDataSet}(x, name = "A", annotate = TRUE,
   cols = NULL)
 }
 \arguments{

@@ -31,8 +31,9 @@ get_coord.SingleCellExperiment <- function(x, name = "tSNE", annotate = TRUE, co
 
 #' @rdname get_coord
 #' @export
-get_coord.CellDataSet <- function(x, name = NULL, annotate = TRUE, cols = NULL) {
-  d <- t(x@reducedDimA) %>% fix_coords()
+get_coord.CellDataSet <- function(x, name = "A", annotate = TRUE, cols = NULL) {
+  coord <- do.call(paste0("reducedDim", name), list(cds = x))
+  d <- t(coord) %>% fix_coords()
 
   if (annotate) {
     pdata <- pData(x)
