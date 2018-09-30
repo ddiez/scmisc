@@ -47,3 +47,43 @@ get_coord.CellDataSet <- function(x, name = "A", annotate = TRUE, cols = NULL) {
 fix_coords <- function(x) {
   as.data.frame(x) %>% dplyr::rename(dim1 = 1, dim2 = 2)
 }
+
+
+#' reduce_dim
+#'
+#' @param x matrix object.
+#' @param method tyoe of dimensionality reduction.
+#' @param assay.name name of assay slot.
+#' @param coord.name name of reducedDim slot.
+#' @param perplexity perplexity for tSNE.
+#' @param initial_dims initial PCA dimensions for tSNE.
+#' @param ...  arguments to be passed down to methods.
+#'
+#' @export
+#'
+reduce_dim <- function(x, method = "PCA", ...) {
+  UseMethod("reduce_dim")
+}
+
+#' @rdname reduce_dim
+#' @export
+reduce_dim.SingleCellExperiment <- function(x, method = "PCA", assay.name = "logcounts", coord.name = method, perplexity = NULL, initial_dims = 50, ...) {
+  method <- match.arg(method, c("PCA", "tSNE"))
+
+  y <- assay(x, assay.name)
+
+  if (method == "PCA") {
+    z <- prcomp(t(y))
+    reducedDim(x, coord.name) <- z$x[, 1:2]
+  }
+
+  if (method == "tSNE") {
+    if (is.null(perplexity)) {
+      perplexity <- sqrt(ncol(y))
+    }
+    z <- Rtsne(t(y), perplexity = perplexity, initial_dims = initial_dims)
+    reducedDim(x, coord.name) <- z$Y
+  }
+
+  x
+}

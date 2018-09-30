@@ -10,6 +10,8 @@ Imports:
     SummarizedExperiment,
     SingleCellExperiment,
     monocle,
+    stats,
+    Rtsne,
     VGAM,
     MASS
 License: MIT + file LICENSE
