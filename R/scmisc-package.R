@@ -4,10 +4,10 @@
 #' @docType package
 #'
 #' @import Biobase SummarizedExperiment SingleCellExperiment
-#' @importFrom monocle newCellDataSet
+#' @importFrom monocle newCellDataSet clusterCells reducedDimA<-
 #' @importFrom VGAM negbinomial.size
 #' @importFrom MASS kde2d
 #' @importFrom dplyr %>% rename
-#' @importFrom stats prcomp
+#' @importFrom stats prcomp kmeans
 #' @importFrom Rtsne Rtsne
 NULL
