@@ -9,7 +9,7 @@
 #' @return a CellDataSet object.
 #' @export
 as.CellDataSet <- function(x, expressionFamily = NULL, gene_short_name = "symbol") {
-  UseMethod(generic = 'as.CellDataSet')
+  UseMethod("as.CellDataSet")
 }
 
 #' @rdname as.CellDataSet
