@@ -35,3 +35,9 @@ compute_density.CellDataSet <- function(x, name = "A", ...) {
   y <- get_coord(x, name = name, annotate = FALSE)
   compute_density(y[, 1], y[, 2])
 }
+
+#' @rdname compute_density
+#' @export
+cell_density <- function(x, ...) {
+  compute_density(x, ...)
+}

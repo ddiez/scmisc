@@ -5,6 +5,7 @@
 \alias{compute_density.default}
 \alias{compute_density.SingleCellExperiment}
 \alias{compute_density.CellDataSet}
+\alias{cell_density}
 \title{compute_density}
 \usage{
 compute_density(x, ...)
@@ -14,6 +15,8 @@ compute_density(x, ...)
 \method{compute_density}{SingleCellExperiment}(x, name = "tSNE", ...)
 
 \method{compute_density}{CellDataSet}(x, name = "A", ...)
+
+cell_density(x, ...)
 }
 \arguments{
 \item{x}{x coordinate of data}
