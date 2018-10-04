@@ -3,12 +3,16 @@
 \name{reduce_dim}
 \alias{reduce_dim}
 \alias{reduce_dim.SingleCellExperiment}
+\alias{reduce_dim.matrix}
 \title{reduce_dim}
 \usage{
 reduce_dim(x, method = "PCA", ...)
 
 \method{reduce_dim}{SingleCellExperiment}(x, method = "PCA",
   assay.name = "logcounts", coord.name = method, perplexity = NULL,
+  initial_dims = 50, ...)
+
+\method{reduce_dim}{matrix}(x, method = "PCA", perplexity = NULL,
   initial_dims = 50, ...)
 }
 \arguments{
