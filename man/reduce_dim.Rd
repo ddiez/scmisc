@@ -6,19 +6,21 @@
 \alias{reduce_dim.matrix}
 \title{reduce_dim}
 \usage{
-reduce_dim(x, method = "PCA", ...)
+reduce_dim(x, method = "PCA", dims = 2, ...)
 
-\method{reduce_dim}{SingleCellExperiment}(x, method = "PCA",
+\method{reduce_dim}{SingleCellExperiment}(x, method = "PCA", dims = 2,
   assay.name = "logcounts", coord.name = method, perplexity = NULL,
   initial_dims = 50, ...)
 
-\method{reduce_dim}{matrix}(x, method = "PCA", perplexity = NULL,
-  initial_dims = 50, ...)
+\method{reduce_dim}{matrix}(x, method = "PCA", dims = 2,
+  perplexity = NULL, initial_dims = 50, ...)
 }
 \arguments{
 \item{x}{matrix object.}
 
 \item{method}{tyoe of dimensionality reduction.}
+
+\item{dims}{number of dimensions to keep in final result.}
 
 \item{...}{arguments to be passed down to methods.}
 

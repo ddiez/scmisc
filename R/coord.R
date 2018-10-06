@@ -53,6 +53,7 @@ fix_coords <- function(x) {
 #'
 #' @param x matrix object.
 #' @param method tyoe of dimensionality reduction.
+#' @param dims number of dimensions to keep in final result.
 #' @param assay.name name of assay slot.
 #' @param coord.name name of reducedDim slot.
 #' @param perplexity perplexity for tSNE.
@@ -61,17 +62,17 @@ fix_coords <- function(x) {
 #'
 #' @export
 #'
-reduce_dim <- function(x, method = "PCA", ...) {
+reduce_dim <- function(x, method = "PCA", dims = 2, ...) {
   UseMethod("reduce_dim")
 }
 
 #' @rdname reduce_dim
 #' @export
-reduce_dim.SingleCellExperiment <- function(x, method = "PCA", assay.name = "logcounts", coord.name = method, perplexity = NULL, initial_dims = 50, ...) {
+reduce_dim.SingleCellExperiment <- function(x, method = "PCA", dims = 2, assay.name = "logcounts", coord.name = method, perplexity = NULL, initial_dims = 50, ...) {
   method <- match.arg(method, c("PCA", "tSNE"))
 
   y <- assay(x, assay.name)
-  z <- reduce_dim(y, method = method, perplexity = perplexity, initial_dims = initial_dims, ...)
+  z <- reduce_dim(y, method = method, dims = dims, perplexity = perplexity, initial_dims = initial_dims, ...)
   reducedDim(x, coord.name) <- z
 
   x
@@ -79,21 +80,22 @@ reduce_dim.SingleCellExperiment <- function(x, method = "PCA", assay.name = "log
 
 #' @rdname reduce_dim
 #' @export
-reduce_dim.matrix <- function(x, method = "PCA", perplexity = NULL, initial_dims = 50, ...) {
+reduce_dim.matrix <- function(x, method = "PCA", dims = 2, perplexity = NULL, initial_dims = 50, ...) {
   method <- match.arg(method, c("PCA", "tSNE"))
 
   if (method == "PCA") {
-    z <- prcomp(t(x))[["x"]][, 1:2]
+    dims <- seq_len(dims)
+    z <- prcomp(t(x))[["x"]][, dims, drop = FALSE]
   }
 
   if (method == "tSNE") {
     if (is.null(perplexity)) {
       perplexity <- sqrt(ncol(x))
     }
-    z <- Rtsne(t(x), perplexity = perplexity, initial_dims = initial_dims)[["Y"]]
+    z <- Rtsne(t(x), dims = dims, perplexity = perplexity, initial_dims = initial_dims, ...)[["Y"]]
   }
 
-  colnames(z) <- c("dim1", "dim2")
+  colnames(z) <- paste0("dim", seq_len(ncol(z)))
   rownames(z) <- colnames(x)
 
   z
