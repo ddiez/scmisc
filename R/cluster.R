@@ -6,6 +6,8 @@
 #' @param assay.name name of assay slot.
 #' @param coord.name name of reducedDim slot.
 #' @param column.name name of column to store cluster class.
+#' @param hclust.method method for hierarchical clustering (default: ward.D).
+#' @param dist.method method for distance calculation (default: euclidean).
 #' @param ... arguments passed down to methods.
 #'
 #' @export
@@ -16,14 +18,19 @@ cluster_cells <- function(x, method = "kmeans", ...) {
 
 #' @rdname cluster_cells
 #' @export
-cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = NULL, assay.name = "logcounts", coord.name = "PCA", column.name = paste0("cluster_", method), ...) {
-  method <- match.arg(method, c("kmeans", "density"))
+cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = NULL, assay.name = "logcounts", coord.name = "PCA", column.name = paste0("cluster_", method), hclust.method = "ward.D", dist.method = "euclidean", ...) {
+  method <- match.arg(method, c("kmeans", "hclust", "density"))
 
   y <- assay(x, assay.name)
 
   if (method == "kmeans") {
     cl <- kmeans(t(y), centers = ncluster, ...)
-    colData(x)[[column.name]] <- factor(cl$cluster)
+    colData(x)[[column.name]] <- factor(cl[["cluster"]])
+  }
+
+  if (method == "hclust") {
+    cl <- hclust(dist(t(y), method = dist.method), method = hclust.method, ...)
+    colData(x)[[column.name]] <- factor(cutree(cl, k = ncluster))
   }
 
   if (method == "density") {

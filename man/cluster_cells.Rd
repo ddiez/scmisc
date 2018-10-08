@@ -9,7 +9,8 @@ cluster_cells(x, method = "kmeans", ...)
 
 \method{cluster_cells}{SingleCellExperiment}(x, method = "kmeans",
   ncluster = NULL, assay.name = "logcounts", coord.name = "PCA",
-  column.name = paste0("cluster_", method), ...)
+  column.name = paste0("cluster_", method), hclust.method = "ward.D",
+  dist.method = "euclidean", ...)
 }
 \arguments{
 \item{x}{object with data matrix.}
@@ -25,6 +26,10 @@ cluster_cells(x, method = "kmeans", ...)
 \item{coord.name}{name of reducedDim slot.}
 
 \item{column.name}{name of column to store cluster class.}
+
+\item{hclust.method}{method for hierarchical clustering (default: ward.D).}
+
+\item{dist.method}{method for distance calculation (default: euclidean).}
 }
 \description{
 cluster_cells
