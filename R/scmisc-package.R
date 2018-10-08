@@ -8,6 +8,6 @@
 #' @importFrom VGAM negbinomial.size
 #' @importFrom MASS kde2d
 #' @importFrom dplyr %>% rename
-#' @importFrom stats prcomp kmeans
+#' @importFrom stats prcomp kmeans dist hclust cutree
 #' @importFrom Rtsne Rtsne
 NULL
