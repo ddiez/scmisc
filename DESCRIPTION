@@ -1,6 +1,6 @@
 Package: scmisc
 Title: Miscellaneus tools for the analysis of single cell data
-Version: 0.0.5.9000
+Version: 0.0.6.9000
 Authors@R: 'Diego Diez <diego10ruiz@gmail.com> [aut, cre]'
 Description: Miscellaneus tools for the analysis of single cell data.
 Depends: R (>= 3.5.0)
