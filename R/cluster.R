@@ -33,6 +33,12 @@ cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = 
     colData(x)[[column.name]] <- factor(cutree(cl, k = ncluster))
   }
 
+  if (method == "louvain") {
+    g <- buildSNNGraph(y)
+    cl <- cluster_louvain(g)
+    colData(x)[[column.name]] <- factor(cl$membership)
+  }
+
   if (method == "density") {
     cds <- as.CellDataSet(x)
     reducedDimA(cds) <- t(reducedDim(x, coord.name))

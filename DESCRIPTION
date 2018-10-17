@@ -13,7 +13,9 @@ Imports:
     stats,
     Rtsne,
     VGAM,
-    MASS
+    MASS,
+    scran,
+    igraph
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
