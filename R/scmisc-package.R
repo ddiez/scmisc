@@ -3,7 +3,7 @@
 #' @name scmisc
 #' @docType package
 #'
-#' @import Biobase SummarizedExperiment SingleCellExperiment ggplot2
+#' @import Biobase SummarizedExperiment SingleCellExperiment
 #' @importFrom monocle newCellDataSet clusterCells reducedDimA<-
 #' @importFrom VGAM negbinomial.size
 #' @importFrom MASS kde2d
