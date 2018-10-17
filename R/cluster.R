@@ -19,7 +19,7 @@ cluster_cells <- function(x, method = "kmeans", ...) {
 #' @rdname cluster_cells
 #' @export
 cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = NULL, assay.name = "logcounts", coord.name = "PCA", column.name = paste0("cluster_", method), hclust.method = "ward.D", dist.method = "euclidean", ...) {
-  method <- match.arg(method, c("kmeans", "hclust", "density"))
+  method <- match.arg(method, c("kmeans", "hclust", "louvain", "density"))
 
   y <- assay(x, assay.name)
 
