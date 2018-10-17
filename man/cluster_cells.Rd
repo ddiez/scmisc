@@ -9,7 +9,7 @@ cluster_cells(x, method = "kmeans", ...)
 
 \method{cluster_cells}{SingleCellExperiment}(x, method = "kmeans",
   ncluster = NULL, assay.name = "logcounts", coord.name = "PCA",
-  column.name = paste0("cluster_", method), hclust.method = "ward.D",
+  column.name = "cluster", hclust.method = "ward.D",
   dist.method = "euclidean", ...)
 }
 \arguments{
