@@ -6,6 +6,7 @@ Description: Miscellaneus tools for the analysis of single cell data.
 Depends: R (>= 3.5.0)
 Imports:
     dplyr,
+    tidyr,
     Biobase,
     SummarizedExperiment,
     SingleCellExperiment,

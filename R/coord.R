@@ -48,6 +48,45 @@ fix_coords <- function(x) {
   as.data.frame(x) %>% dplyr::rename(dim1 = 1, dim2 = 2)
 }
 
+#' expand_column
+#'
+#' @param x a data.frame or similar object.
+#' @param col.name  column from the data.frame to expand.
+#' @param out.name  column in the data.frame where to store expanded values.
+#' @param value.name  column in the data.frame where to store logical vector.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+expand_column <- function(x, ...) {
+  UseMethod("expand_column")
+}
+
+#' @rdname expand_column
+#' @export
+expand_column.data.frame <- function(x, col.name = NULL, out.name = col.name, value.name = "value", ...) {
+  if (is.null(col.name)) stop("col.name is required.")
+  if (! col.name %in% colnames(x)) stop("col.name not a colname of x.")
+
+  ll <- unique(x[[col.name]])
+  tmp <- sapply(ll, function(l) {
+    x[[col.name]] == l
+  }) %>% as.data.frame()
+  colnames(tmp) <- ll
+  y <- bind_cols(tmp, x)
+
+  y <- y %>% gather(!!out.name, !!value.name, seq_len(length(ll)))
+
+  if (is.factor(x[[col.name]]))
+    y[[out.name]] <- factor(y[[out.name]], levels = levels(x[[col.name]]))
+
+  if (is.numeric(x[[col.name]]))
+    y[[out.name]] <- as.numeric(y[[out.name]])
+
+  if (is.integer(x[[col.name]]))
+    y[[out.name]] <- as.integer(y[[out.name]])
+
+  y
+}
 
 #' reduce_dim
 #'
