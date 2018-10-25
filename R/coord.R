@@ -44,6 +44,17 @@ get_coord.CellDataSet <- function(x, name = "A", annotate = TRUE, cols = NULL) {
   d
 }
 
+#' @rdname get_coord
+#' @export
+get_coord.seurat <- function(x, name = "tsne", annotate = TRUE, cols = NULL) {
+  d <- x@dr[[name]]@cell.embeddings %>% fix_coords()
+
+  if (annotate) {
+    d <- cbind(d, x@meta.data)
+  }
+  d
+}
+
 fix_coords <- function(x) {
   as.data.frame(x) %>% dplyr::rename(dim1 = 1, dim2 = 2)
 }

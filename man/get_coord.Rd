@@ -4,6 +4,7 @@
 \alias{get_coord}
 \alias{get_coord.SingleCellExperiment}
 \alias{get_coord.CellDataSet}
+\alias{get_coord.seurat}
 \title{get_coord}
 \usage{
 get_coord(x, name = "tSNE", annotate = TRUE, cols = NULL)
@@ -12,6 +13,9 @@ get_coord(x, name = "tSNE", annotate = TRUE, cols = NULL)
   annotate = TRUE, cols = NULL)
 
 \method{get_coord}{CellDataSet}(x, name = "A", annotate = TRUE,
+  cols = NULL)
+
+\method{get_coord}{seurat}(x, name = "tsne", annotate = TRUE,
   cols = NULL)
 }
 \arguments{
