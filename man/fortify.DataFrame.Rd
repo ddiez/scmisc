@@ -4,7 +4,7 @@
 \alias{fortify.DataFrame}
 \title{fortify.DataFrame}
 \usage{
-fortify.DataFrame(model, data, ...)
+\method{fortify}{DataFrame}(model, data, ...)
 }
 \arguments{
 \item{model}{model or other R object to convert to data frame}
