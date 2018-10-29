@@ -5,6 +5,7 @@ Authors@R: 'Diego Diez <diego10ruiz@gmail.com> [aut, cre]'
 Description: Miscellaneus tools for the analysis of single cell data.
 Depends: R (>= 3.5.0)
 Imports:
+    tibble,
     dplyr,
     tidyr,
     Biobase,

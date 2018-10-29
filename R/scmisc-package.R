@@ -3,11 +3,11 @@
 #' @name scmisc
 #' @docType package
 #'
-#' @import Biobase SummarizedExperiment SingleCellExperiment
+#' @import tibble Biobase SummarizedExperiment SingleCellExperiment
 #' @importFrom monocle newCellDataSet clusterCells reducedDimA<-
 #' @importFrom VGAM negbinomial.size
 #' @importFrom MASS kde2d
-#' @importFrom dplyr %>% rename filter bind_cols
+#' @importFrom dplyr %>% rename filter bind_cols sample_n pull group_by_
 #' @importFrom tidyr gather
 #' @importFrom stats prcomp kmeans dist hclust cutree
 #' @importFrom Rtsne Rtsne
