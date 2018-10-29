@@ -3,7 +3,7 @@
 #' @name scmisc
 #' @docType package
 #'
-#' @import tibble Biobase SummarizedExperiment SingleCellExperiment
+#' @import tibble dplyr ggplot2 SummarizedExperiment SingleCellExperiment
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom monocle newCellDataSet clusterCells reducedDimA<-
 #' @importFrom VGAM negbinomial.size

@@ -8,6 +8,7 @@ Imports:
     tibble,
     dplyr,
     tidyr,
+    ggplot2,
     Biobase,
     SummarizedExperiment,
     SingleCellExperiment,
