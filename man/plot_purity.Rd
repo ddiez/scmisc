@@ -3,11 +3,15 @@
 \name{plot_purity}
 \alias{plot_purity}
 \alias{plot_purity.SingleCellExperiment}
+\alias{plot_purity.data.frame}
 \title{plot_purity}
 \usage{
 plot_purity(x, ...)
 
 \method{plot_purity}{SingleCellExperiment}(x, col.x = "celltype",
+  col.y = "cluster", ...)
+
+\method{plot_purity}{data.frame}(x, col.x = "celltype",
   col.y = "cluster", ...)
 }
 \arguments{

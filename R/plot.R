@@ -13,8 +13,15 @@ plot_purity <- function(x, ...) {
 #' @rdname plot_purity
 #' @export
 plot_purity.SingleCellExperiment <- function(x, col.x = "celltype", col.y = "cluster", ...) {
-  d <- colData(x) %>% as.data.frame() %>%
-    select(.data[[col.x]], .data[[col.y]]) %>%
+  d <- colData(x) %>% as.data.frame()
+
+  plot_purity(d, col.x = col.x, col.y = col.y, ...)
+}
+
+#' @rdname plot_purity
+#' @export
+plot_purity.data.frame <- function(x, col.x = "celltype", col.y = "cluster", ...) {
+  d <- select(x, .data[[col.x]], .data[[col.y]]) %>%
     group_by_(col.y) %>%
     mutate(total = n()) %>%
     group_by_(col.x, col.y) %>%
