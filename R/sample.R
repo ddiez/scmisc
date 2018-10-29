@@ -4,6 +4,9 @@
 #' optionally by grouping.
 #'
 #' @param x an object to sample from.
+#' @param group optional grouping variable.
+#' @param n number of cells to sample (per group).
+#' @param seed seed for the random number generation.
 #' @param ... parameters passed down to methods.
 #'
 #' @export

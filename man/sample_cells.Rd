@@ -14,6 +14,12 @@ sample_cells(x, ...)
 \item{x}{an object to sample from.}
 
 \item{...}{parameters passed down to methods.}
+
+\item{group}{optional grouping variable.}
+
+\item{n}{number of cells to sample (per group).}
+
+\item{seed}{seed for the random number generation.}
 }
 \description{
 Subset a single cell experiment object by sampling the number of specified cells,
