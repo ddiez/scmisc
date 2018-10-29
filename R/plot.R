@@ -18,7 +18,7 @@ plot_purity.SingleCellExperiment <- function(x, col.x = "celltype", col.y = "clu
     group_by_(col.y) %>%
     mutate(total = n()) %>%
     group_by_(col.x, col.y) %>%
-    summarize(count = n(), percentage = count / unique(total))
+    summarize(count = n(), percentage = count / first(.data$total))
 
   ggplot(d, aes_string(col.x, col.y, fill = "percentage")) +
     geom_tile() +

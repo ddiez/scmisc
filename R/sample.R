@@ -26,7 +26,7 @@ sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, seed = NU
 
   sel.cells <- cdata %>%
     sample_n(n) %>%
-    pull(.id)
+    pull(.data$.id)
 
   x[, sel.cells]
 }
