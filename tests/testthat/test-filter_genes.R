@@ -4,7 +4,7 @@ x <- scmisc::sce
 x <- filter_genes(x)
 
 test_that("filter_genes works", {
-  expect_equal(dim(x), c(387, 493))
+  expect_equal(dim(x), c(392, 493))
 })
 
 x <- filter_genes(x, min.cell = 100)
@@ -16,5 +16,5 @@ test_that("filter_genes works", {
 x <- filter_genes(x, min.count = 10)
 
 test_that("filter_genes works", {
-  expect_equal(dim(x), c(94, 493))
+  expect_equal(dim(x), c(97, 493))
 })
