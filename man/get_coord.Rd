@@ -7,9 +7,9 @@
 \alias{get_coord.seurat}
 \title{get_coord}
 \usage{
-get_coord(x, name = "tSNE", annotate = TRUE, cols = NULL)
+get_coord(x, name = "TSNE", annotate = TRUE, cols = NULL)
 
-\method{get_coord}{SingleCellExperiment}(x, name = "tSNE",
+\method{get_coord}{SingleCellExperiment}(x, name = "TSNE",
   annotate = TRUE, cols = NULL)
 
 \method{get_coord}{CellDataSet}(x, name = "A", annotate = TRUE,

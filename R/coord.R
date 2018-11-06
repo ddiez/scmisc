@@ -11,13 +11,13 @@
 #' @return A data.frame object.
 #'
 #' @export
-get_coord <- function(x, name = "tSNE", annotate = TRUE, cols = NULL) {
+get_coord <- function(x, name = "TSNE", annotate = TRUE, cols = NULL) {
   UseMethod("get_coord")
 }
 
 #' @rdname get_coord
 #' @export
-get_coord.SingleCellExperiment <- function(x, name = "tSNE", annotate = TRUE, cols = NULL) {
+get_coord.SingleCellExperiment <- function(x, name = "TSNE", annotate = TRUE, cols = NULL) {
   d <- reducedDim(x, name) %>% fix_coords()
 
   if (annotate) {
@@ -119,7 +119,7 @@ reduce_dim <- function(x, method = "PCA", dims = 2, ...) {
 #' @rdname reduce_dim
 #' @export
 reduce_dim.SingleCellExperiment <- function(x, method = "PCA", dims = 2, assay.name = "logcounts", coord.name = method, perplexity = NULL, initial_dims = 50, ...) {
-  method <- match.arg(method, c("PCA", "tSNE"))
+  method <- match.arg(method, c("PCA", "TSNE"))
 
   y <- assay(x, assay.name)
   z <- reduce_dim(y, method = method, dims = dims, perplexity = perplexity, initial_dims = initial_dims, ...)
@@ -131,14 +131,14 @@ reduce_dim.SingleCellExperiment <- function(x, method = "PCA", dims = 2, assay.n
 #' @rdname reduce_dim
 #' @export
 reduce_dim.matrix <- function(x, method = "PCA", dims = 2, perplexity = NULL, initial_dims = 50, ...) {
-  method <- match.arg(method, c("PCA", "tSNE"))
+  method <- match.arg(method, c("PCA", "TSNE"))
 
   if (method == "PCA") {
     dims <- seq_len(dims)
     z <- prcomp(t(x))[["x"]][, dims, drop = FALSE]
   }
 
-  if (method == "tSNE") {
+  if (method == "TSNE") {
     if (is.null(perplexity)) {
       perplexity <- sqrt(ncol(x))
     }
