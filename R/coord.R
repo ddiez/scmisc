@@ -6,17 +6,18 @@
 #' @param x object to obtain coordinates.
 #' @param name name of the holder for coordinates.
 #' @param add.cols logical; whether to annotate each coordinate with column data (i.e. colData).
+#' @param add.exprs if not NULL a list of genes to add counts obtained with get_expression().
 #'
 #' @return A data.frame object.
 #'
 #' @export
-get_coord <- function(x, name = "TSNE", add.cols = TRUE) {
+get_coord <- function(x, name = "TSNE", add.cols = TRUE, add.exprs = NULL) {
   UseMethod("get_coord")
 }
 
 #' @rdname get_coord
 #' @export
-get_coord.SingleCellExperiment <- function(x, name = "TSNE", add.cols = TRUE) {
+get_coord.SingleCellExperiment <- function(x, name = "TSNE", add.cols = TRUE, add.exprs = FALSE) {
   d <- reducedDim(x, name)[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
@@ -25,12 +26,20 @@ get_coord.SingleCellExperiment <- function(x, name = "TSNE", add.cols = TRUE) {
       cdata <- cdata[, colnames(cdata) %in% add.cols, drop = FALSE]
     d <- cbind(d, cdata %>% as.data.frame())
   }
+
+  if (! isFALSE(add.exprs)) {
+    if (isTRUE(add.exprs)) {
+      add.exprs <- rowData(x)["symbol"]
+    }
+    d <- cbind(d, sapply(add.exprs, get_expression, x = x))
+  }
+
   d
 }
 
 #' @rdname get_coord
 #' @export
-get_coord.CellDataSet <- function(x, name = "A", add.cols = TRUE) {
+get_coord.CellDataSet <- function(x, name = "A", add.cols = TRUE, add.exprs = NULL) {
   coord <- do.call(paste0("reducedDim", name), list(cds = x))
   d <- t(coord)[, 1:2] %>% fix_coords()
 
@@ -45,7 +54,7 @@ get_coord.CellDataSet <- function(x, name = "A", add.cols = TRUE) {
 
 #' @rdname get_coord
 #' @export
-get_coord.seurat <- function(x, name = "tsne", add.cols = TRUE) {
+get_coord.seurat <- function(x, name = "tsne", add.cols = TRUE, add.exprs = NULL) {
   d <- x@dr[[name]]@cell.embeddings[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {

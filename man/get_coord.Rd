@@ -7,14 +7,16 @@
 \alias{get_coord.seurat}
 \title{get_coord}
 \usage{
-get_coord(x, name = "TSNE", add.cols = TRUE)
+get_coord(x, name = "TSNE", add.cols = TRUE, add.exprs = NULL)
 
 \method{get_coord}{SingleCellExperiment}(x, name = "TSNE",
-  add.cols = TRUE)
+  add.cols = TRUE, add.exprs = FALSE)
 
-\method{get_coord}{CellDataSet}(x, name = "A", add.cols = TRUE)
+\method{get_coord}{CellDataSet}(x, name = "A", add.cols = TRUE,
+  add.exprs = NULL)
 
-\method{get_coord}{seurat}(x, name = "tsne", add.cols = TRUE)
+\method{get_coord}{seurat}(x, name = "tsne", add.cols = TRUE,
+  add.exprs = NULL)
 }
 \arguments{
 \item{x}{object to obtain coordinates.}
@@ -22,6 +24,8 @@ get_coord(x, name = "TSNE", add.cols = TRUE)
 \item{name}{name of the holder for coordinates.}
 
 \item{add.cols}{logical; whether to annotate each coordinate with column data (i.e. colData).}
+
+\item{add.exprs}{if not NULL a list of genes to add counts obtained with get_expression().}
 }
 \value{
 A data.frame object.
