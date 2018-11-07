@@ -18,7 +18,7 @@ get_coord <- function(x, name = "TSNE", annotate = TRUE, cols = NULL) {
 #' @rdname get_coord
 #' @export
 get_coord.SingleCellExperiment <- function(x, name = "TSNE", annotate = TRUE, cols = NULL) {
-  d <- reducedDim(x, name) %>% fix_coords()
+  d <- reducedDim(x, name)[, 1:2] %>% fix_coords()
 
   if (annotate) {
     cdata <- colData(x)
@@ -33,7 +33,7 @@ get_coord.SingleCellExperiment <- function(x, name = "TSNE", annotate = TRUE, co
 #' @export
 get_coord.CellDataSet <- function(x, name = "A", annotate = TRUE, cols = NULL) {
   coord <- do.call(paste0("reducedDim", name), list(cds = x))
-  d <- t(coord) %>% fix_coords()
+  d <- t(coord)[, 1:2] %>% fix_coords()
 
   if (annotate) {
     pdata <- pData(x)
@@ -47,7 +47,7 @@ get_coord.CellDataSet <- function(x, name = "A", annotate = TRUE, cols = NULL) {
 #' @rdname get_coord
 #' @export
 get_coord.seurat <- function(x, name = "tsne", annotate = TRUE, cols = NULL) {
-  d <- x@dr[[name]]@cell.embeddings %>% fix_coords()
+  d <- x@dr[[name]]@cell.embeddings[, 1:2] %>% fix_coords()
 
   if (annotate) {
     d <- cbind(d, x@meta.data)
