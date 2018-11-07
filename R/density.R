@@ -25,14 +25,14 @@ compute_density.default <- function(x, y, n = 100, ...) {
 #' @rdname compute_density
 #' @export
 compute_density.SingleCellExperiment <- function(x, name = "tSNE", ...) {
-  y <- get_coord(x, name = name, annotate = FALSE)
+  y <- get_coord(x, name = name, add.cols = FALSE)
   compute_density(y[, 1], y[, 2])
 }
 
 #' @rdname compute_density
 #' @export
 compute_density.CellDataSet <- function(x, name = "A", ...) {
-  y <- get_coord(x, name = name, annotate = FALSE)
+  y <- get_coord(x, name = name, add.cols = FALSE)
   compute_density(y[, 1], y[, 2])
 }
 

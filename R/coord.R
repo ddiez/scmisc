@@ -5,25 +5,24 @@
 #'
 #' @param x object to obtain coordinates.
 #' @param name name of the holder for coordinates.
-#' @param annotate logical; whether to annotate each coordinate.
-#' @param cols if not NULL the name of columns to include in annotation.
+#' @param add.cols logical; whether to annotate each coordinate with column data (i.e. colData).
 #'
 #' @return A data.frame object.
 #'
 #' @export
-get_coord <- function(x, name = "TSNE", annotate = TRUE, cols = NULL) {
+get_coord <- function(x, name = "TSNE", add.cols = TRUE) {
   UseMethod("get_coord")
 }
 
 #' @rdname get_coord
 #' @export
-get_coord.SingleCellExperiment <- function(x, name = "TSNE", annotate = TRUE, cols = NULL) {
+get_coord.SingleCellExperiment <- function(x, name = "TSNE", add.cols = TRUE) {
   d <- reducedDim(x, name)[, 1:2] %>% fix_coords()
 
-  if (annotate) {
+  if (! isFALSE(add.cols)) {
     cdata <- colData(x)
-    if (! is.null(cols))
-      cdata <- cdata[, colnames(cdata) %in% cols, drop = FALSE]
+    if (! isTRUE(add.cols))
+      cdata <- cdata[, colnames(cdata) %in% add.cols, drop = FALSE]
     d <- cbind(d, cdata %>% as.data.frame())
   }
   d
@@ -31,14 +30,14 @@ get_coord.SingleCellExperiment <- function(x, name = "TSNE", annotate = TRUE, co
 
 #' @rdname get_coord
 #' @export
-get_coord.CellDataSet <- function(x, name = "A", annotate = TRUE, cols = NULL) {
+get_coord.CellDataSet <- function(x, name = "A", add.cols = TRUE) {
   coord <- do.call(paste0("reducedDim", name), list(cds = x))
   d <- t(coord)[, 1:2] %>% fix_coords()
 
-  if (annotate) {
+  if (! isFALSE(add.cols)) {
     pdata <- pData(x)
-    if (! is.null(cols))
-      pdata <- pdata[, colnames(pdata) %in% cols, drop = FALSE]
+    if (! isTRUE(add.cols))
+      pdata <- pdata[, colnames(pdata) %in% add.cols, drop = FALSE]
     d <- cbind(d, pdata %>% as.data.frame())
   }
   d
@@ -46,11 +45,14 @@ get_coord.CellDataSet <- function(x, name = "A", annotate = TRUE, cols = NULL) {
 
 #' @rdname get_coord
 #' @export
-get_coord.seurat <- function(x, name = "tsne", annotate = TRUE, cols = NULL) {
+get_coord.seurat <- function(x, name = "tsne", add.cols = TRUE) {
   d <- x@dr[[name]]@cell.embeddings[, 1:2] %>% fix_coords()
 
-  if (annotate) {
-    d <- cbind(d, x@meta.data)
+  if (! isFALSE(add.cols)) {
+    cdata <- x@meta.data
+    if (! isTRUE(add.cols))
+      cdata <- cdata[, colnames(cdata) %in% add.cols, drop = FALSE]
+    d <- cbind(d, cdata)
   }
   d
 }
