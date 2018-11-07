@@ -7,7 +7,7 @@ test_that("filter_cells works", {
   expect_equal(dim(x), c(461, 493))
 })
 
-x <- filter_cells(x, min.gene = 100)
+x <- filter_cells(x, min.genes = 100)
 
 test_that("filter_cells works", {
   expect_equal(dim(x), c(461, 430))

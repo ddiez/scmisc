@@ -8,17 +8,17 @@
 \usage{
 filter_cells(x, ...)
 
-\method{filter_cells}{SingleCellExperiment}(x, min.gene = 10,
+\method{filter_cells}{SingleCellExperiment}(x, min.genes = 10,
   min.count = 0, assay.name = "counts", ...)
 
-\method{filter_cells}{matrix}(x, min.gene = 10, min.count = 0, ...)
+\method{filter_cells}{matrix}(x, min.genes = 10, min.count = 0, ...)
 }
 \arguments{
 \item{x}{object to filter.}
 
 \item{...}{arguments passed down to methods.}
 
-\item{min.gene}{minimum number of genes with min.count for cell to be preserved.}
+\item{min.genes}{minimum number of genes with min.count for cell to be preserved.}
 
 \item{min.count}{minimum number of counts to be considered expressed.}
 
