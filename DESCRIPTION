@@ -13,6 +13,7 @@ Imports:
     SummarizedExperiment,
     SingleCellExperiment,
     monocle,
+    Seurat,
     stats,
     Rtsne,
     VGAM,

@@ -8,6 +8,8 @@
 #' @param column.name name of column to store cluster class.
 #' @param hclust.method method for hierarchical clustering (default: ward.D).
 #' @param dist.method method for distance calculation (default: euclidean).
+#' @param resolution parameter for seurat method (see ?Seurat::FindClusters).
+#' @param algorithm parameter for seurat method (see ?Seurat::FindClusters).
 #' @param ... arguments passed down to methods.
 #'
 #' @export
@@ -18,8 +20,8 @@ cluster_cells <- function(x, method = "kmeans", ...) {
 
 #' @rdname cluster_cells
 #' @export
-cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = NULL, assay.name = "logcounts", coord.name = "PCA", column.name = "cluster", hclust.method = "ward.D", dist.method = "euclidean", ...) {
-  method <- match.arg(method, c("kmeans", "hclust", "louvain", "density"))
+cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = NULL, assay.name = "logcounts", coord.name = "PCA", column.name = "cluster", hclust.method = "ward.D", dist.method = "euclidean", resolution = 1, algorithm = 3, ...) {
+  method <- match.arg(method, c("kmeans", "hclust", "louvain", "density", "seurat"))
 
   y <- assay(x, assay.name)
 
@@ -45,6 +47,13 @@ cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = 
 
     cds <- clusterCells(cds, num_clusters = ncluster, ...)
     colData(x)[[column.name]] <- factor(cds[["Cluster"]])
+  }
+
+  if (method == "seurat") {
+    z <- CreateSeuratObject(y)
+    z <- NormalizeData(z, display.progress = FALSE)
+    z <- FindClusters(z, resolution = resolution, algorithm = algorithm, print.output = FALSE)
+    colData(x)[[column.name]] <- factor(z@ident)
   }
 
   x

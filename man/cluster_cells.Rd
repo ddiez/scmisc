@@ -10,7 +10,7 @@ cluster_cells(x, method = "kmeans", ...)
 \method{cluster_cells}{SingleCellExperiment}(x, method = "kmeans",
   ncluster = NULL, assay.name = "logcounts", coord.name = "PCA",
   column.name = "cluster", hclust.method = "ward.D",
-  dist.method = "euclidean", ...)
+  dist.method = "euclidean", resolution = 1, algorithm = 3, ...)
 }
 \arguments{
 \item{x}{object with data matrix.}
@@ -30,6 +30,10 @@ cluster_cells(x, method = "kmeans", ...)
 \item{hclust.method}{method for hierarchical clustering (default: ward.D).}
 
 \item{dist.method}{method for distance calculation (default: euclidean).}
+
+\item{resolution}{parameter for seurat method (see ?Seurat::FindClusters).}
+
+\item{algorithm}{parameter for seurat method (see ?Seurat::FindClusters).}
 }
 \description{
 cluster_cells
