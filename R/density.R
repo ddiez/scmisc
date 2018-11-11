@@ -3,7 +3,7 @@
 #' @param x x coordinate of data
 #' @param y y coordinate of data
 #' @param n Number of grid points in each direction. Can be scalar or a length-2 integer vector.
-#' @param name name of coordinates for some methods.
+#' @param coord.name name of coordinates for some methods.
 #' @param ... additional arguments passed down to methods.
 #'
 #' @note I took this implementation from http://slowkow.com/notes/ggplot2-color-by-density/
@@ -24,15 +24,15 @@ compute_density.default <- function(x, y, n = 100, ...) {
 
 #' @rdname compute_density
 #' @export
-compute_density.SingleCellExperiment <- function(x, name = "TSNE", ...) {
-  y <- get_coord(x, name = name, add.cols = FALSE)
+compute_density.SingleCellExperiment <- function(x, coord.name = "TSNE", ...) {
+  y <- get_coord(x, coord.name = coord.name, add.cols = FALSE)
   compute_density(y[, 1], y[, 2])
 }
 
 #' @rdname compute_density
 #' @export
-compute_density.CellDataSet <- function(x, name = "A", ...) {
-  y <- get_coord(x, name = name, add.cols = FALSE)
+compute_density.CellDataSet <- function(x, coord.name = "A", ...) {
+  y <- get_coord(x, coord.name = coord.name, add.cols = FALSE)
   compute_density(y[, 1], y[, 2])
 }
 

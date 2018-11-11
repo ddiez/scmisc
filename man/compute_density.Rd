@@ -12,9 +12,10 @@ compute_density(x, ...)
 
 \method{compute_density}{default}(x, y, n = 100, ...)
 
-\method{compute_density}{SingleCellExperiment}(x, name = "TSNE", ...)
+\method{compute_density}{SingleCellExperiment}(x, coord.name = "TSNE",
+  ...)
 
-\method{compute_density}{CellDataSet}(x, name = "A", ...)
+\method{compute_density}{CellDataSet}(x, coord.name = "A", ...)
 
 cell_density(x, ...)
 }
@@ -27,7 +28,7 @@ cell_density(x, ...)
 
 \item{n}{Number of grid points in each direction. Can be scalar or a length-2 integer vector.}
 
-\item{name}{name of coordinates for some methods.}
+\item{coord.name}{name of coordinates for some methods.}
 }
 \description{
 compute_density

@@ -4,21 +4,21 @@
 #' optionally with annotations to help plotting them with ggplot2 package.
 #'
 #' @param x object to obtain coordinates.
-#' @param name name of the holder for coordinates.
+#' @param coord.name name of the holder for coordinates.
 #' @param add.cols logical; whether to annotate each coordinate with column data (i.e. colData).
 #' @param add.exprs if not NULL a list of genes to add counts obtained with get_expression().
 #'
 #' @return A data.frame object.
 #'
 #' @export
-get_coord <- function(x, name = "TSNE", add.cols = TRUE, add.exprs = NULL) {
+get_coord <- function(x, coord.name = "TSNE", add.cols = TRUE, add.exprs = NULL) {
   UseMethod("get_coord")
 }
 
 #' @rdname get_coord
 #' @export
-get_coord.SingleCellExperiment <- function(x, name = "TSNE", add.cols = TRUE, add.exprs = FALSE) {
-  d <- reducedDim(x, name)[, 1:2] %>% fix_coords()
+get_coord.SingleCellExperiment <- function(x, coord.name = "TSNE", add.cols = TRUE, add.exprs = FALSE) {
+  d <- reducedDim(x, coord.name)[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
     cdata <- colData(x)
@@ -39,8 +39,8 @@ get_coord.SingleCellExperiment <- function(x, name = "TSNE", add.cols = TRUE, ad
 
 #' @rdname get_coord
 #' @export
-get_coord.CellDataSet <- function(x, name = "A", add.cols = TRUE, add.exprs = NULL) {
-  coord <- do.call(paste0("reducedDim", name), list(cds = x))
+get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.exprs = NULL) {
+  coord <- do.call(paste0("reducedDim", coord.name), list(cds = x))
   d <- t(coord)[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
@@ -54,8 +54,8 @@ get_coord.CellDataSet <- function(x, name = "A", add.cols = TRUE, add.exprs = NU
 
 #' @rdname get_coord
 #' @export
-get_coord.seurat <- function(x, name = "tsne", add.cols = TRUE, add.exprs = NULL) {
-  d <- x@dr[[name]]@cell.embeddings[, 1:2] %>% fix_coords()
+get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = NULL) {
+  d <- x@dr[[coord.name]]@cell.embeddings[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
     cdata <- x@meta.data

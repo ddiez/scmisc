@@ -7,21 +7,21 @@
 \alias{get_coord.seurat}
 \title{get_coord}
 \usage{
-get_coord(x, name = "TSNE", add.cols = TRUE, add.exprs = NULL)
+get_coord(x, coord.name = "TSNE", add.cols = TRUE, add.exprs = NULL)
 
-\method{get_coord}{SingleCellExperiment}(x, name = "TSNE",
+\method{get_coord}{SingleCellExperiment}(x, coord.name = "TSNE",
   add.cols = TRUE, add.exprs = FALSE)
 
-\method{get_coord}{CellDataSet}(x, name = "A", add.cols = TRUE,
+\method{get_coord}{CellDataSet}(x, coord.name = "A", add.cols = TRUE,
   add.exprs = NULL)
 
-\method{get_coord}{seurat}(x, name = "tsne", add.cols = TRUE,
+\method{get_coord}{seurat}(x, coord.name = "tsne", add.cols = TRUE,
   add.exprs = NULL)
 }
 \arguments{
 \item{x}{object to obtain coordinates.}
 
-\item{name}{name of the holder for coordinates.}
+\item{coord.name}{name of the holder for coordinates.}
 
 \item{add.cols}{logical; whether to annotate each coordinate with column data (i.e. colData).}
 
