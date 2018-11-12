@@ -24,7 +24,9 @@ plot_coord.SingleCellExperiment <- function(x, size = .1, color = NULL, label = 
 plot_coord.data.frame <- function(x, size = .1, color = NULL, label = NULL, expand = NULL, ...) {
   d <- x
   if (!is.null(expand)) {
-    d <- d %>% expand_column(expand)
+    d <- d %>%
+      expand_column(expand) %>%
+      arrange_("value")
     p <- ggplot(d, aes_string("dim1", "dim2", color = "value")) +
       geom_point(size = size) +
       scale_color_manual(values = c("grey", "red")) +
