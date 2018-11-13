@@ -81,9 +81,9 @@ plot_purity.data.frame <- function(x, col.x = "celltype", col.y = "cluster", ...
     group_by_(col.y) %>%
     mutate(total = n()) %>%
     group_by_(col.x, col.y) %>%
-    summarize(count = n(), percentage = count / first(.data$total))
+    summarize(count = n(), purity = count / first(.data$total))
 
-  ggplot(d, aes_string(col.x, col.y, fill = "percentage")) +
+  ggplot(d, aes_string(col.x, col.y, fill = "purity")) +
     geom_tile() +
     scale_fill_gradient(low = "white", high = "red", limits = c(0, 1))
 }
