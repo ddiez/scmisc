@@ -50,7 +50,7 @@ cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = 
   }
 
   if (method == "seurat") {
-    z <- CreateSeuratObject(y)
+    z <- CreateSeuratObject(assay(x, "counts"))
     z <- NormalizeData(z, display.progress = FALSE)
     z <- FindClusters(z, resolution = resolution, algorithm = algorithm, print.output = FALSE)
     colData(x)[[column.name]] <- factor(z@ident)
