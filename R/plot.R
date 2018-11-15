@@ -68,22 +68,34 @@ plot_purity <- function(x, ...) {
 
 #' @rdname plot_purity
 #' @export
-plot_purity.SingleCellExperiment <- function(x, col.x = "celltype", col.y = "cluster", ...) {
-  d <- colData(x) %>% as.data.frame()
-
-  plot_purity(d, col.x = col.x, col.y = col.y, ...)
+plot_purity.SingleCellExperiment <- function(x, ...) {
+  plot_purity(colData(x), ...)
 }
 
 #' @rdname plot_purity
 #' @export
-plot_purity.data.frame <- function(x, col.x = "celltype", col.y = "cluster", ...) {
+plot_purity.DataFrame <- function(x, ...) {
+  plot_purity(as.data.frame(x), ...)
+}
+
+#' @rdname plot_purity
+#' @export
+plot_purity.data.frame <- function(x, col.x = "celltype", col.y = "cluster", label = FALSE, ...) {
   d <- select(x, .data[[col.x]], .data[[col.y]]) %>%
     group_by_(col.y) %>%
     mutate(total = n()) %>%
     group_by_(col.x, col.y) %>%
     summarize(count = n(), purity = count / first(.data$total))
 
-  ggplot(d, aes_string(col.x, col.y, fill = "purity")) +
+  p <- ggplot(d, aes_string(col.x, col.y, fill = "purity")) +
     geom_tile() +
     scale_fill_gradient(low = "white", high = "red", limits = c(0, 1))
+
+  if (label) {
+    fill.label <- d %>% pull("purity")
+    fill.label <- round(fill.label, 2) %>% format(zero.print = TRUE)
+    p <- p + geom_text(label = fill.label)
+  }
+
+  p
 }
