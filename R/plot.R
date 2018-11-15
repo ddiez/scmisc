@@ -56,9 +56,12 @@ plot_coord.data.frame <- function(x, size = .1, color = NULL, label = NULL, expa
 
 #' plot_purity
 #'
+#' Plot heatmap of purity index of specified columns.
+#'
 #' @param x a suitable object.
 #' @param col.x name of column to be use in x-axis.
 #' @param col.y name of column to be use in y-axis.
+#' @param label logical; whether to add rounded values of purity to tiles.
 #' @param ... parameters passed down to methods.
 #'
 #' @export
@@ -100,9 +103,12 @@ plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
 
 #' plot_jaccard
 #'
+#' Plot heatmap of jaccard index of specified columns.
+#'
 #' @param x a suitable object.
 #' @param col.x name of column to be use in x-axis.
 #' @param col.y name of column to be use in y-axis.
+#' @param label logical; whether to add rounded values of jaccard index to tiles.
 #' @param ... parameters passed down to methods.
 #'
 #' @export

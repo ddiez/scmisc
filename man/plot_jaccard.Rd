@@ -23,7 +23,9 @@ plot_jaccard(x, ...)
 \item{col.x}{name of column to be use in x-axis.}
 
 \item{col.y}{name of column to be use in y-axis.}
+
+\item{label}{logical; whether to add rounded values of jaccard index to tiles.}
 }
 \description{
-plot_jaccard
+Plot heatmap of jaccard index of specified columns.
 }
