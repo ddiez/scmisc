@@ -13,7 +13,8 @@ plot_purity(x, ...)
 
 \method{plot_purity}{DataFrame}(x, ...)
 
-\method{plot_purity}{data.frame}(x, col.x, col.y, label = FALSE, ...)
+\method{plot_purity}{data.frame}(x, col.x, col.y, label = FALSE,
+  label.size = 5, ...)
 }
 \arguments{
 \item{x}{a suitable object.}
@@ -25,6 +26,8 @@ plot_purity(x, ...)
 \item{col.y}{name of column to be use in y-axis.}
 
 \item{label}{logical; whether to add rounded values of purity to tiles.}
+
+\item{label.size}{size of labels text.}
 }
 \description{
 Plot heatmap of purity index of specified columns.

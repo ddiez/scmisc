@@ -13,7 +13,8 @@ plot_jaccard(x, ...)
 
 \method{plot_jaccard}{DataFrame}(x, ...)
 
-\method{plot_jaccard}{data.frame}(x, col.x, col.y, label = FALSE, ...)
+\method{plot_jaccard}{data.frame}(x, col.x, col.y, label = FALSE,
+  label.size = 5, ...)
 }
 \arguments{
 \item{x}{a suitable object.}
@@ -25,6 +26,8 @@ plot_jaccard(x, ...)
 \item{col.y}{name of column to be use in y-axis.}
 
 \item{label}{logical; whether to add rounded values of jaccard index to tiles.}
+
+\item{label.size}{size of labels text.}
 }
 \description{
 Plot heatmap of jaccard index of specified columns.

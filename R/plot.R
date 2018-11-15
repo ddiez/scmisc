@@ -62,6 +62,7 @@ plot_coord.data.frame <- function(x, size = .1, color = NULL, label = NULL, expa
 #' @param col.x name of column to be use in x-axis.
 #' @param col.y name of column to be use in y-axis.
 #' @param label logical; whether to add rounded values of purity to tiles.
+#' @param label.size size of labels text.
 #' @param ... parameters passed down to methods.
 #'
 #' @export
@@ -83,7 +84,7 @@ plot_purity.DataFrame <- function(x, ...) {
 
 #' @rdname plot_purity
 #' @export
-plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
+plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, label.size = 5, ...) {
   if (missing(col.x)) stop("specify name of column for x-axis.")
   if (missing(col.y)) stop("specify name of column for y-axis.")
 
@@ -94,8 +95,8 @@ plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
     scale_fill_gradient(low = "white", high = "red", limits = c(0, 1))
 
   if (label) {
-    d <- d %>% mutate(purity = format(round(purity, 2), zero.print = TRUE))
-    p <- p + geom_text(aes_string(col.x, col.y, label = "purity"), data = d, inherit.aes = FALSE)
+    d <- d %>% mutate(purity = format(round(.data$purity, 2), zero.print = TRUE))
+    p <- p + geom_text(aes_string(col.x, col.y, label = "purity"), data = d, size = label.size, inherit.aes = FALSE)
   }
 
   p
@@ -109,6 +110,7 @@ plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
 #' @param col.x name of column to be use in x-axis.
 #' @param col.y name of column to be use in y-axis.
 #' @param label logical; whether to add rounded values of jaccard index to tiles.
+#' @param label.size size of labels text.
 #' @param ... parameters passed down to methods.
 #'
 #' @export
@@ -130,7 +132,7 @@ plot_jaccard.DataFrame <- function(x, ...) {
 
 #' @rdname plot_jaccard
 #' @export
-plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
+plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, label.size = 5, ...) {
   if (missing(col.x)) stop("specify name of column for x-axis.")
   if (missing(col.y)) stop("specify name of column for y-axis.")
 
@@ -141,8 +143,8 @@ plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
     scale_fill_gradient(low = "white", high = "red", limit = c(0, 1))
 
   if (label) {
-    d <- d %>% mutate(jaccard = format(round(jaccard, 2), zero.print = TRUE))
-    p <- p + geom_text(aes_string(col.x, col.y, label = "jaccard"), data = d, inherit.aes = FALSE)
+    d <- d %>% mutate(jaccard = format(round(.data$jaccard, 2), zero.print = TRUE))
+    p <- p + geom_text(aes_string(col.x, col.y, label = "jaccard"), data = d, size = label.size, inherit.aes = FALSE)
   }
 
   p
