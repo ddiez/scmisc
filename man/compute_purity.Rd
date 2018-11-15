@@ -18,7 +18,7 @@ compute_purity(x, ...)
 \arguments{
 \item{x}{object to compute purity on.}
 
-\item{...}{}
+\item{...}{arguments passed down to methods.}
 
 \item{col.x}{name of column.}
 

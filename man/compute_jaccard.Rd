@@ -18,7 +18,7 @@ compute_jaccard(x, ...)
 \arguments{
 \item{x}{object to compute jaccard index on.}
 
-\item{...}{}
+\item{...}{arguments passed down to methods.}
 
 \item{col.x}{name of column.}
 

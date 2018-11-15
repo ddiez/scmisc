@@ -3,7 +3,7 @@
 #' @param x object to compute jaccard index on.
 #' @param col.x name of column.
 #' @param col.y name of column.
-#' @param ...
+#' @param ... arguments passed down to methods.
 #'
 #' @export
 compute_jaccard <- function(x, ...) {
