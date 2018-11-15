@@ -95,7 +95,7 @@ plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, label.size = 
     scale_fill_gradient(low = "white", high = "red", limits = c(0, 1))
 
   if (label) {
-    d <- d %>% mutate(purity = format(round(.data$purity, 2), zero.print = TRUE))
+    d <- d %>% mutate(purity = format(round(.data$purity, 2)))
     p <- p + geom_text(aes_string(col.x, col.y, label = "purity"), data = d, size = label.size, inherit.aes = FALSE)
   }
 
@@ -143,7 +143,7 @@ plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, label.size =
     scale_fill_gradient(low = "white", high = "red", limit = c(0, 1))
 
   if (label) {
-    d <- d %>% mutate(jaccard = format(round(.data$jaccard, 2), zero.print = TRUE))
+    d <- d %>% mutate(jaccard = format(round(.data$jaccard, 2)))
     p <- p + geom_text(aes_string(col.x, col.y, label = "jaccard"), data = d, size = label.size, inherit.aes = FALSE)
   }
 
