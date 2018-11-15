@@ -13,8 +13,7 @@ plot_purity(x, ...)
 
 \method{plot_purity}{DataFrame}(x, ...)
 
-\method{plot_purity}{data.frame}(x, col.x = "celltype",
-  col.y = "cluster", label = FALSE, ...)
+\method{plot_purity}{data.frame}(x, col.x, col.y, label = FALSE, ...)
 }
 \arguments{
 \item{x}{a suitable object.}

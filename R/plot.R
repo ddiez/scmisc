@@ -80,21 +80,23 @@ plot_purity.DataFrame <- function(x, ...) {
 
 #' @rdname plot_purity
 #' @export
-plot_purity.data.frame <- function(x, col.x = "celltype", col.y = "cluster", label = FALSE, ...) {
-  d <- select(x, .data[[col.x]], .data[[col.y]]) %>%
-    group_by_(col.y) %>%
-    mutate(total = n()) %>%
-    group_by_(col.x, col.y) %>%
-    summarize(count = n(), purity = count / first(.data$total))
+plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
+  if (missing(col.x)) stop("specify name of column for x-axis.")
+  if (missing(col.y)) stop("specify name of column for y-axis.")
+
+  d <- compute_purity(x, col.x, col.y)
 
   p <- ggplot(d, aes_string(col.x, col.y, fill = "purity")) +
     geom_tile() +
     scale_fill_gradient(low = "white", high = "red", limits = c(0, 1))
 
   if (label) {
-    fill.label <- d %>% pull("purity")
-    fill.label <- round(fill.label, 2) %>% format(zero.print = TRUE)
-    p <- p + geom_text(label = fill.label)
+    d <- d %>% mutate(purity = format(round(purity, 2), zero.print = TRUE))
+    p <- p + geom_text(aes_string(col.x, col.y, label = "purity"), data = d, inherit.aes = FALSE)
+  }
+
+  p
+}
   }
 
   p
