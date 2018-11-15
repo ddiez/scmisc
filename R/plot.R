@@ -97,6 +97,46 @@ plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
 
   p
 }
+
+#' plot_jaccard
+#'
+#' @param x a suitable object.
+#' @param col.x name of column to be use in x-axis.
+#' @param col.y name of column to be use in y-axis.
+#' @param ... parameters passed down to methods.
+#'
+#' @export
+plot_jaccard <- function(x, ...) {
+  UseMethod("plot_jaccard")
+}
+
+#' @rdname plot_jaccard
+#' @export
+plot_jaccard.SingleCellExperiment <- function(x, ...) {
+  plot_jaccard(colData(x), ...)
+}
+
+#' @rdname plot_jaccard
+#' @export
+plot_jaccard.DataFrame <- function(x, ...) {
+  plot_jaccard(as.data.frame(x), ...)
+}
+
+#' @rdname plot_jaccard
+#' @export
+plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, ...) {
+  if (missing(col.x)) stop("specify name of column for x-axis.")
+  if (missing(col.y)) stop("specify name of column for y-axis.")
+
+  d <- compute_jaccard(x, col.x, col.y)
+
+  p <- ggplot(d, aes_string(col.x, col.y, fill = "jaccard")) +
+    geom_tile() +
+    scale_fill_gradient(low = "white", high = "red", limit = c(0, 1))
+
+  if (label) {
+    d <- d %>% mutate(jaccard = format(round(jaccard, 2), zero.print = TRUE))
+    p <- p + geom_text(aes_string(col.x, col.y, label = "jaccard"), data = d, inherit.aes = FALSE)
   }
 
   p
