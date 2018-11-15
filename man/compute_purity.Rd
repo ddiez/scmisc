@@ -2,11 +2,14 @@
 % Please edit documentation in R/purity.R
 \name{compute_purity}
 \alias{compute_purity}
+\alias{compute_purity.SingleCellExperiment}
 \alias{compute_purity.DataFrame}
 \alias{compute_purity.data.frame}
 \title{compute_purity}
 \usage{
 compute_purity(x, ...)
+
+\method{compute_purity}{SingleCellExperiment}(x, ...)
 
 \method{compute_purity}{DataFrame}(x, ...)
 

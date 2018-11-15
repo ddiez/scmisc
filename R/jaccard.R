@@ -12,8 +12,14 @@ compute_jaccard <- function(x, ...) {
 
 #' @rdname compute_jaccard
 #' @export
-compute_jaccard.DataFrame <- function(x, col.x, col.y, ...) {
-  compute_jaccard(as.data.frame(x), col.x, col.y, ...)
+compute_jaccard.SingleCellExperiment <- function(x, ...) {
+  compute_jaccard(colData(x), ...)
+}
+
+#' @rdname compute_jaccard
+#' @export
+compute_jaccard.DataFrame <- function(x, ...) {
+  compute_jaccard(as.data.frame(x), ...)
 }
 
 #' @rdname compute_jaccard

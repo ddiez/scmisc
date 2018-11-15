@@ -12,6 +12,12 @@ compute_purity <- function(x, ...) {
 
 #' @rdname compute_purity
 #' @export
+compute_purity.SingleCellExperiment <- function(x, ...) {
+  compute_purity(colData(x), ...)
+}
+
+#' @rdname compute_purity
+#' @export
 compute_purity.DataFrame <- function(x, ...) {
   compute_purity(as.data.frame(x), ...)
 }

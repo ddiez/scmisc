@@ -2,13 +2,16 @@
 % Please edit documentation in R/jaccard.R
 \name{compute_jaccard}
 \alias{compute_jaccard}
+\alias{compute_jaccard.SingleCellExperiment}
 \alias{compute_jaccard.DataFrame}
 \alias{compute_jaccard.data.frame}
 \title{compute_jaccard}
 \usage{
 compute_jaccard(x, ...)
 
-\method{compute_jaccard}{DataFrame}(x, col.x, col.y, ...)
+\method{compute_jaccard}{SingleCellExperiment}(x, ...)
+
+\method{compute_jaccard}{DataFrame}(x, ...)
 
 \method{compute_jaccard}{data.frame}(x, col.x, col.y, ...)
 }
