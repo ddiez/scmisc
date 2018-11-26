@@ -6,7 +6,6 @@
 #' @param x an object to sample from.
 #' @param group optional grouping variable.
 #' @param n number of cells to sample (per group).
-#' @param seed seed for the random number generation.
 #' @param ... parameters passed down to methods.
 #'
 #' @export
@@ -16,13 +15,10 @@ sample_cells <- function(x, ...) {
 
 #' @rdname sample_cells
 #' @export
-sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, seed = NULL, ...) {
+sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, ...) {
   cdata <- colData(x) %>%
     as.data.frame() %>%
     as.tibble(rownames = ".id")
-
-  if (!is.null(seed))
-    set.seed(seed)
 
   if (!is.null(group))
     cdata <- cdata %>% group_by_(group)

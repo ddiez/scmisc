@@ -8,7 +8,7 @@
 sample_cells(x, ...)
 
 \method{sample_cells}{SingleCellExperiment}(x, group = NULL, n = 20,
-  seed = NULL, ...)
+  ...)
 }
 \arguments{
 \item{x}{an object to sample from.}
@@ -18,8 +18,6 @@ sample_cells(x, ...)
 \item{group}{optional grouping variable.}
 
 \item{n}{number of cells to sample (per group).}
-
-\item{seed}{seed for the random number generation.}
 }
 \description{
 Subset a single cell experiment object by sampling the number of specified cells,
