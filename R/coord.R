@@ -161,3 +161,25 @@ reduce_dim.matrix <- function(x, method = "PCA", dims = 2, perplexity = NULL, in
 
   z
 }
+
+#' get_coord_names
+#'
+#' @param x object with coordinates
+#'
+#' @export
+get_coord_names <- function(x) {
+  UseMethod("get_coord_names")
+}
+
+
+#' @rdname get_coord_names
+#' @export
+get_coord_names.SingleCellExperiment <- function(x) {
+  reducedDimNames(x)
+}
+
+#' @rdname get_coord_names
+#' @export
+get_coord_names.seurat <- function(x) {
+  names(x$dr)
+}
