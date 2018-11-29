@@ -2,11 +2,15 @@
 % Please edit documentation in R/plot.R
 \name{plot_coord}
 \alias{plot_coord}
+\alias{plot_coord.seurat}
 \alias{plot_coord.SingleCellExperiment}
 \alias{plot_coord.data.frame}
 \title{plot_coord}
 \usage{
 plot_coord(x, ...)
+
+\method{plot_coord}{seurat}(x, size = 0.1, color = NULL,
+  label = NULL, expand = NULL, ...)
 
 \method{plot_coord}{SingleCellExperiment}(x, size = 0.1, color = NULL,
   label = NULL, expand = NULL, ...)
