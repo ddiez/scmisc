@@ -141,7 +141,7 @@ reduce_dim.SingleCellExperiment <- function(x, method = "PCA", dims = 2, assay.n
 
 #' @rdname reduce_dim
 #' @export
-reduce_dim.matrix <- function(x, method = "PCA", dims = 2, perplexity = NULL, initial_dims = 50, ...) {
+reduce_dim.matrix <- function(x, method = "PCA", dims = 2, perplexity = 30, initial_dims = 50, ...) {
   method <- match.arg(method, c("PCA", "TSNE"))
 
   if (method == "PCA") {
@@ -150,9 +150,6 @@ reduce_dim.matrix <- function(x, method = "PCA", dims = 2, perplexity = NULL, in
   }
 
   if (method == "TSNE") {
-    if (is.null(perplexity)) {
-      perplexity <- sqrt(ncol(x))
-    }
     z <- Rtsne(t(x), dims = dims, perplexity = perplexity, initial_dims = initial_dims, ...)[["Y"]]
   }
 
