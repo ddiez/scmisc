@@ -1,0 +1,25 @@
+---
+title: "Introduction to scmisc"
+author: "Diego Diez"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to scmisc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Installation
+
+You can install the release version of scmisc from [Github](https://github.com/ddiez/scmisc) with:
+
+``` r
+remotes::install_github("ddiez/scmisc")
+```
