@@ -13,7 +13,7 @@ reduce_dim(x, method = "PCA", dims = 2, ...)
   initial_dims = 50, ...)
 
 \method{reduce_dim}{matrix}(x, method = "PCA", dims = 2,
-  perplexity = NULL, initial_dims = 50, ...)
+  perplexity = 30, initial_dims = 50, ...)
 }
 \arguments{
 \item{x}{matrix object.}
