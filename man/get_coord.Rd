@@ -5,6 +5,7 @@
 \alias{get_coord.SingleCellExperiment}
 \alias{get_coord.CellDataSet}
 \alias{get_coord.seurat}
+\alias{get_coord.Seurat}
 \title{get_coord}
 \usage{
 get_coord(x, coord.name = "TSNE", add.cols = TRUE, add.exprs = NULL)
@@ -16,6 +17,9 @@ get_coord(x, coord.name = "TSNE", add.cols = TRUE, add.exprs = NULL)
   add.exprs = NULL)
 
 \method{get_coord}{seurat}(x, coord.name = "tsne", add.cols = TRUE,
+  add.exprs = NULL)
+
+\method{get_coord}{Seurat}(x, coord.name = "tsne", add.cols = TRUE,
   add.exprs = NULL)
 }
 \arguments{

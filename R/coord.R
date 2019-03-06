@@ -66,6 +66,20 @@ get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
   d
 }
 
+#' @rdname get_coord
+#' @export
+get_coord.Seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = NULL) {
+  d <- Embeddings(x, coord.name)[, 1:2] %>% fix_coords()
+
+  if (! isFALSE(add.cols)) {
+    cdata <- x@meta.data
+    if (! isTRUE(add.cols))
+      cdata <- cdata[, colnames(cdata) %in% add.cols, drop = FALSE]
+    d <- cbind(d, cdata)
+  }
+  d
+}
+
 fix_coords <- function(x) {
   as.data.frame(x) %>% dplyr::rename(dim1 = 1, dim2 = 2)
 }
