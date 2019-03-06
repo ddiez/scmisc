@@ -68,5 +68,12 @@ create_training_sets.SingleCellExperiment <- function(x, frac = .1) {
   id.train <- cdata %>% filter(! .data[[".id"]] %in% id.test) %>% pull("cell_index")
   list(train = x[, id.train], test = x[, id.test])
 }
+
+#' @rdname create_training_sets
+#' @export
+create_training_sets.Seurat <- function(x, frac = .1) {
+  cdata <- x@meta.data %>% as_tibble(rownames = ".id")
+  id.test <- cdata %>% sample_frac(frac) %>% pull(".id")
+  id.train <- cdata %>% filter(! .data[[".id"]] %in% id.test) %>% pull(".id")
   list(train = x[, id.train], test = x[, id.test])
 }
