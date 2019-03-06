@@ -21,6 +21,13 @@ plot_coord.seurat <- function(x, size = .1, color = NULL, label = NULL, expand =
 
 #' @rdname plot_coord
 #' @export
+plot_coord.Seurat <- function(x, size = .1, color = NULL, label = NULL, expand = NULL, ...) {
+  d <- get_coord(x, ...)
+  plot_coord(d, size = size, color = color, label = label, expand = expand, ...)
+}
+
+#' @rdname plot_coord
+#' @export
 plot_coord.SingleCellExperiment <- function(x, size = .1, color = NULL, label = NULL, expand = NULL, ...) {
   d <- get_coord(x, ...)
   plot_coord(d, size = size, color = color, label = label, expand = expand, ...)
