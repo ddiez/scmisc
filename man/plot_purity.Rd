@@ -2,12 +2,15 @@
 % Please edit documentation in R/plot.R
 \name{plot_purity}
 \alias{plot_purity}
+\alias{plot_purity.Seurat}
 \alias{plot_purity.SingleCellExperiment}
 \alias{plot_purity.DataFrame}
 \alias{plot_purity.data.frame}
 \title{plot_purity}
 \usage{
 plot_purity(x, ...)
+
+\method{plot_purity}{Seurat}(x, col.x, col.y, ...)
 
 \method{plot_purity}{SingleCellExperiment}(x, ...)
 

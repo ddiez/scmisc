@@ -79,6 +79,12 @@ plot_purity <- function(x, ...) {
 
 #' @rdname plot_purity
 #' @export
+plot_purity.Seurat <- function(x, col.x, col.y, ...) {
+  plot_purity(FetchData(x, vars = c(col.x, col.y)), col.x = col.x, col.y = col.y, ...)
+}
+
+#' @rdname plot_purity
+#' @export
 plot_purity.SingleCellExperiment <- function(x, ...) {
   plot_purity(colData(x), ...)
 }
