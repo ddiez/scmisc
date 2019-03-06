@@ -2,12 +2,15 @@
 % Please edit documentation in R/plot.R
 \name{plot_jaccard}
 \alias{plot_jaccard}
+\alias{plot_jaccard.Seurat}
 \alias{plot_jaccard.SingleCellExperiment}
 \alias{plot_jaccard.DataFrame}
 \alias{plot_jaccard.data.frame}
 \title{plot_jaccard}
 \usage{
 plot_jaccard(x, ...)
+
+\method{plot_jaccard}{Seurat}(x, col.x, col.y, ...)
 
 \method{plot_jaccard}{SingleCellExperiment}(x, ...)
 

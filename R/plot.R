@@ -133,6 +133,12 @@ plot_jaccard <- function(x, ...) {
 
 #' @rdname plot_jaccard
 #' @export
+plot_jaccard.Seurat <- function(x, col.x, col.y, ...) {
+  plot_jaccard(FetchData(x, vars = c(col.x, col.y)), col.x = col.x, col.y = col.y, ...)
+}
+
+#' @rdname plot_jaccard
+#' @export
 plot_jaccard.SingleCellExperiment <- function(x, ...) {
   plot_jaccard(colData(x), ...)
 }
