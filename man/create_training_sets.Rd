@@ -2,9 +2,12 @@
 % Please edit documentation in R/sample.R
 \name{create_training_sets}
 \alias{create_training_sets}
+\alias{create_training_sets.SingleCellExperiment}
 \title{create_training_sets}
 \usage{
-create_training_sets(x, frac = 0.1)
+create_training_sets(x, ...)
+
+\method{create_training_sets}{SingleCellExperiment}(x, frac = 0.1)
 }
 \arguments{
 \item{x}{SingleCellExperiment object.}

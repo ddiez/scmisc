@@ -56,7 +56,13 @@ sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, ...) {
 #'
 #' @return list with two SingleCellExperiment, one with train and other with test data.
 #' @export
-create_training_sets <- function(x, frac = .1) {
+create_training_sets <- function(x, ...) {
+  UseMethod("create_training_sets")
+}
+
+#' @rdname create_training_sets
+#' @export
+create_training_sets.SingleCellExperiment <- function(x, frac = .1) {
   cdata <- colData(x) %>% as.data.frame()
   id.test <- cdata %>% sample_frac(frac) %>% pull("cell_index")
   id.train <- cdata %>% filter(! .data$cell_index %in% id.test) %>% pull("cell_index")
