@@ -15,6 +15,22 @@ sample_cells <- function(x, ...) {
 
 #' @rdname sample_cells
 #' @export
+sample_cells.Seurat <- function(x, group = NULL, n = 20, ...) {
+  cdata <- x@meta.data %>%
+    as_tibble(rownames = ".id")
+
+  if (!is.null(group))
+    cdata <- cdata %>% group_by_(group)
+
+  sel.cells <- cdata %>%
+    sample_n(n) %>%
+    pull(.data$.id)
+
+  x[, sel.cells]
+}
+
+#' @rdname sample_cells
+#' @export
 sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, ...) {
   cdata <- colData(x) %>%
     as.data.frame() %>%

@@ -2,10 +2,13 @@
 % Please edit documentation in R/sample.R
 \name{sample_cells}
 \alias{sample_cells}
+\alias{sample_cells.Seurat}
 \alias{sample_cells.SingleCellExperiment}
 \title{sample_cells}
 \usage{
 sample_cells(x, ...)
+
+\method{sample_cells}{Seurat}(x, group = NULL, n = 20, ...)
 
 \method{sample_cells}{SingleCellExperiment}(x, group = NULL, n = 20,
   ...)
