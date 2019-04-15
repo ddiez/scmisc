@@ -4,6 +4,7 @@
 \alias{get_rowdata}
 \alias{get_rowdata.SingleCellExperiment}
 \alias{get_rowdata.seurat}
+\alias{get_rowdata.Seurat}
 \title{get_rowdata}
 \usage{
 get_rowdata(x)
@@ -11,6 +12,8 @@ get_rowdata(x)
 \method{get_rowdata}{SingleCellExperiment}(x)
 
 \method{get_rowdata}{seurat}(x)
+
+\method{get_rowdata}{Seurat}(x)
 }
 \arguments{
 \item{x}{object.}

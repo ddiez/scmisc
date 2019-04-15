@@ -4,6 +4,7 @@
 \alias{get_coldata}
 \alias{get_coldata.SingleCellExperiment}
 \alias{get_coldata.seurat}
+\alias{get_coldata.Seurat}
 \title{get_coldata}
 \usage{
 get_coldata(x)
@@ -11,6 +12,8 @@ get_coldata(x)
 \method{get_coldata}{SingleCellExperiment}(x)
 
 \method{get_coldata}{seurat}(x)
+
+\method{get_coldata}{Seurat}(x)
 }
 \arguments{
 \item{x}{object.}
