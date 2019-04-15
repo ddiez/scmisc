@@ -13,7 +13,7 @@ get_assay_summary(x, ...)
   assay.name = "logcounts", column = "symbol", sum.fun = mean, ...)
 
 \method{get_assay_summary}{Seurat}(x, name, assay.name = "RNA",
-  slot = "counts", column = "symbol", sum.fun = mean, ...)
+  slot = "data", column = "symbol", sum.fun = mean, ...)
 
 get_expression(...)
 }
