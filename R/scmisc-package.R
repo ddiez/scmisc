@@ -6,7 +6,7 @@
 #' @import tibble dplyr ggplot2 SummarizedExperiment SingleCellExperiment
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom monocle newCellDataSet clusterCells reducedDimA<-
-#' @importFrom Seurat CreateSeuratObject NormalizeData FindClusters
+#' @importFrom Seurat CreateSeuratObject NormalizeData FindClusters GetAssayData Embeddings FetchData
 #' @importFrom VGAM negbinomial.size
 #' @importFrom MASS kde2d
 #' @importFrom tidyr gather
