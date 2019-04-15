@@ -27,7 +27,7 @@ get_coord.SingleCellExperiment <- function(x, coord.name = "TSNE", add.cols = TR
     d <- cbind(d, cdata %>% as.data.frame())
   }
 
-  if (! isFALSE(add.exprs)) {
+  if (! is.null(add.exprs)) {
     if (isTRUE(add.exprs)) {
       add.exprs <- rowData(x)["symbol"]
     }
@@ -78,7 +78,7 @@ get_coord.Seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
     d <- cbind(d, cdata)
   }
 
-  if (! isFALSE(add.exprs)) {
+  if (! is.null(add.exprs)) {
     if (isTRUE(add.exprs)) {
       add.exprs <- rownames(x)
     }
