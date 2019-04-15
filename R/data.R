@@ -44,7 +44,7 @@ get_rowdata.SingleCellExperiment <- function(x) {
 #' @rdname get_rowdata
 #' @export
 get_rowdata.seurat <- function(x) {
-  data.frame(symbol = rownames(x@data))
+  data.frame(symbol = rownames(x))
 }
 
 #' @rdname get_rowdata
