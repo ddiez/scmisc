@@ -53,6 +53,7 @@ sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, ...) {
 #'
 #' @param x SingleCellExperiment object.
 #' @param frac fraction of dataset for testing.
+#' @param ... arguments passed down to methods (currently unused).
 #'
 #' @return list with two SingleCellExperiment, one with train and other with test data.
 #' @export
@@ -62,7 +63,7 @@ create_training_sets <- function(x, ...) {
 
 #' @rdname create_training_sets
 #' @export
-create_training_sets.SingleCellExperiment <- function(x, frac = .1) {
+create_training_sets.SingleCellExperiment <- function(x, frac = .1, ...) {
   cdata <- colData(x) %>% as_tibble(rownames = ".id")
   id.test <- cdata %>% sample_frac(frac) %>% pull(".id")
   id.train <- cdata %>% filter(! .data[[".id"]] %in% id.test) %>% pull("cell_index")
@@ -71,7 +72,7 @@ create_training_sets.SingleCellExperiment <- function(x, frac = .1) {
 
 #' @rdname create_training_sets
 #' @export
-create_training_sets.Seurat <- function(x, frac = .1) {
+create_training_sets.Seurat <- function(x, frac = .1, ...) {
   cdata <- x@meta.data %>% as_tibble(rownames = ".id")
   id.test <- cdata %>% sample_frac(frac) %>% pull(".id")
   id.train <- cdata %>% filter(! .data[[".id"]] %in% id.test) %>% pull(".id")

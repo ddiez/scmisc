@@ -8,12 +8,14 @@
 \usage{
 create_training_sets(x, ...)
 
-\method{create_training_sets}{SingleCellExperiment}(x, frac = 0.1)
+\method{create_training_sets}{SingleCellExperiment}(x, frac = 0.1, ...)
 
-\method{create_training_sets}{Seurat}(x, frac = 0.1)
+\method{create_training_sets}{Seurat}(x, frac = 0.1, ...)
 }
 \arguments{
 \item{x}{SingleCellExperiment object.}
+
+\item{...}{arguments passed down to methods (currently unused).}
 
 \item{frac}{fraction of dataset for testing.}
 }
