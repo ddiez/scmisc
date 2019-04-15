@@ -4,7 +4,8 @@
 #' @param sum.fun summary function (by default mean).
 #' @param name name of the feature value for which to compute the summary.
 #' @param column name of the column where to find 'name' (default: 'symbol').
-#' @param assay.name name of the assay slot (defualt: 'logcounts').
+#' @param assay.name name of the assay slot.
+#' @param slot name of the Seurat data slot.
 #' @param ... arguments passed down to specific methods.
 #'
 #' @export

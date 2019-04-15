@@ -24,11 +24,13 @@ get_expression(...)
 
 \item{name}{name of the feature value for which to compute the summary.}
 
-\item{assay.name}{name of the assay slot (defualt: 'logcounts').}
+\item{assay.name}{name of the assay slot.}
 
 \item{column}{name of the column where to find 'name' (default: 'symbol').}
 
 \item{sum.fun}{summary function (by default mean).}
+
+\item{slot}{name of the Seurat data slot.}
 }
 \description{
 Compute summary from assay matrix
