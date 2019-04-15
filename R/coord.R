@@ -27,7 +27,7 @@ get_coord.SingleCellExperiment <- function(x, coord.name = "TSNE", add.cols = TR
     d <- cbind(d, cdata %>% as.data.frame())
   }
 
-  if (! is.null(add.exprs)) {
+  if (! isFALSE(add.exprs)) {
     if (isTRUE(add.exprs)) {
       add.exprs <- rowData(x)["symbol"]
     }
@@ -39,7 +39,7 @@ get_coord.SingleCellExperiment <- function(x, coord.name = "TSNE", add.cols = TR
 
 #' @rdname get_coord
 #' @export
-get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.exprs = NULL) {
+get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.exprs = FALSE) {
   coord <- do.call(paste0("reducedDim", coord.name), list(cds = x))
   d <- t(coord)[, 1:2] %>% fix_coords()
 
@@ -54,7 +54,7 @@ get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.expr
 
 #' @rdname get_coord
 #' @export
-get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = NULL) {
+get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = FALSE) {
   d <- x@dr[[coord.name]]@cell.embeddings[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
@@ -68,7 +68,7 @@ get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
 
 #' @rdname get_coord
 #' @export
-get_coord.Seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = NULL) {
+get_coord.Seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = FALSE) {
   d <- Embeddings(x, coord.name)[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
@@ -78,7 +78,7 @@ get_coord.Seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
     d <- cbind(d, cdata)
   }
 
-  if (! is.null(add.exprs)) {
+  if (! isFALSE(add.exprs)) {
     if (isTRUE(add.exprs)) {
       add.exprs <- rownames(x)
     }

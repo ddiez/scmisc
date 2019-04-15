@@ -14,13 +14,13 @@ get_coord(x, coord.name = "TSNE", add.cols = TRUE, add.exprs = NULL)
   add.cols = TRUE, add.exprs = FALSE)
 
 \method{get_coord}{CellDataSet}(x, coord.name = "A", add.cols = TRUE,
-  add.exprs = NULL)
+  add.exprs = FALSE)
 
 \method{get_coord}{seurat}(x, coord.name = "tsne", add.cols = TRUE,
-  add.exprs = NULL)
+  add.exprs = FALSE)
 
 \method{get_coord}{Seurat}(x, coord.name = "tsne", add.cols = TRUE,
-  add.exprs = NULL)
+  add.exprs = FALSE)
 }
 \arguments{
 \item{x}{object to obtain coordinates.}
