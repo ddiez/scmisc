@@ -34,7 +34,7 @@ sample_cells.Seurat <- function(x, group = NULL, n = 20, ...) {
 sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, ...) {
   cdata <- colData(x) %>%
     as.data.frame() %>%
-    as.tibble(rownames = ".id")
+    as_tibble(rownames = ".id")
 
   if (!is.null(group))
     cdata <- cdata %>% group_by_(group)
