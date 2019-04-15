@@ -3,6 +3,7 @@
 \name{get_assay_summary}
 \alias{get_assay_summary}
 \alias{get_assay_summary.SingleCellExperiment}
+\alias{get_assay_summary.Seurat}
 \alias{get_expression}
 \title{Compute summary from assay matrix}
 \usage{
@@ -10,6 +11,9 @@ get_assay_summary(x, ...)
 
 \method{get_assay_summary}{SingleCellExperiment}(x, name,
   assay.name = "logcounts", column = "symbol", sum.fun = mean, ...)
+
+\method{get_assay_summary}{Seurat}(x, name, assay.name = "RNA",
+  slot = "counts", column = "symbol", sum.fun = mean, ...)
 
 get_expression(...)
 }
