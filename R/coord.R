@@ -77,6 +77,14 @@ get_coord.Seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
       cdata <- cdata[, colnames(cdata) %in% add.cols, drop = FALSE]
     d <- cbind(d, cdata)
   }
+
+  if (! isFALSE(add.exprs)) {
+    if (isTRUE(add.exprs)) {
+      add.exprs <- rownames(x)
+    }
+    d <- cbind(d, sapply(add.exprs, get_expression, x = x))
+  }
+
   d
 }
 
