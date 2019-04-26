@@ -8,8 +8,14 @@ test_that("sample_cells works", {
 })
 
 x <- cluster_cells(scmisc::sce, method = "kmeans", ncluster = 3)
-x <- sample_cells(x, n = 20, group = "cluster")
+y <- sample_cells(x, n = 20, group = "cluster")
 
 test_that("sample_cells works", {
-  expect_equal(ncol(x), 60)
+  expect_equal(ncol(y), 60)
+})
+
+y <- sample_cells(x, frac = .1, group = "cluster")
+
+test_that("sample_cells works", {
+  expect_equal(ncol(y), 49)
 })

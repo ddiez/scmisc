@@ -6,6 +6,7 @@
 #' @param x an object to sample from.
 #' @param group optional grouping variable.
 #' @param n number of cells to sample (per group).
+#' @param frac fraction of cells to sample (per group).
 #' @param ... parameters passed down to methods.
 #'
 #' @export
@@ -15,23 +16,31 @@ sample_cells <- function(x, ...) {
 
 #' @rdname sample_cells
 #' @export
-sample_cells.Seurat <- function(x, group = NULL, n = 20, ...) {
+sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
   cdata <- x@meta.data %>%
     as_tibble(rownames = ".id")
 
   if (!is.null(group))
     cdata <- cdata %>% group_by_(group)
 
-  sel.cells <- cdata %>%
-    sample_n(n) %>%
-    pull(.data$.id)
+  if (!is.null(n)) {
+    sel.cells <- cdata %>%
+      sample_n(n) %>%
+      pull(.data$.id)
+  }
+
+  if (!is.null(frac)) {
+    sel.cells <- cdata %>%
+      sample_frac(frac) %>%
+      pull(.data$.id)
+  }
 
   x[, sel.cells]
 }
 
 #' @rdname sample_cells
 #' @export
-sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, ...) {
+sample_cells.SingleCellExperiment <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
   cdata <- colData(x) %>%
     as.data.frame() %>%
     as_tibble(rownames = ".id")
@@ -39,9 +48,17 @@ sample_cells.SingleCellExperiment <- function(x, group = NULL, n = 20, ...) {
   if (!is.null(group))
     cdata <- cdata %>% group_by_(group)
 
-  sel.cells <- cdata %>%
-    sample_n(n) %>%
-    pull(.data$.id)
+  if (!is.null(n)) {
+    sel.cells <- cdata %>%
+      sample_n(n) %>%
+      pull(.data$.id)
+  }
+
+  if (!is.null(frac)) {
+    sel.cells <- cdata %>%
+      sample_frac(frac) %>%
+      pull(.data$.id)
+  }
 
   x[, sel.cells]
 }

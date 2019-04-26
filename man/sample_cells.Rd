@@ -8,10 +8,11 @@
 \usage{
 sample_cells(x, ...)
 
-\method{sample_cells}{Seurat}(x, group = NULL, n = 20, ...)
-
-\method{sample_cells}{SingleCellExperiment}(x, group = NULL, n = 20,
+\method{sample_cells}{Seurat}(x, group = NULL, n = NULL, frac = NULL,
   ...)
+
+\method{sample_cells}{SingleCellExperiment}(x, group = NULL, n = NULL,
+  frac = NULL, ...)
 }
 \arguments{
 \item{x}{an object to sample from.}
@@ -21,6 +22,8 @@ sample_cells(x, ...)
 \item{group}{optional grouping variable.}
 
 \item{n}{number of cells to sample (per group).}
+
+\item{frac}{fraction of cells to sample (per group).}
 }
 \description{
 Subset a single cell experiment object by sampling the number of specified cells,
