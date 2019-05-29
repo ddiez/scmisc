@@ -1,0 +1,118 @@
+
+#' plot_trajectory_graph
+#'
+#' Plot the MST graph used to estimate trajectories.
+#'
+#' @param x and object with trajectory information.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+plot_trajectory_graph <- function(x, ...) {
+  UseMethod("plot_trajectory_graph")
+}
+
+#' @rdname plot_trajectory_graph
+#' @export
+plot_trajectory_graph.SingleCellExperiment <- function(x, ...) {
+  plot_trajectory_graph(SlingshotDataSet(x), ...)
+}
+
+#' @rdname plot_trajectory_graph
+#' @export
+plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
+  g <- graph_from_adjacency_matrix(slingAdjacency(x), mode = "undirected")
+  g <- as_tbl_graph(g)
+  g <- g %>% activate(nodes) %>%
+    mutate(cluster = "middle")
+
+  sc <- slingParams(x)[["start.clus"]]
+  if (!is.null(sc)) {
+    g <- g %>% activate(nodes) %>%
+      mutate(cluster = case_when(
+        name %in% sc ~ "start",
+        TRUE ~ cluster
+      ))
+  }
+
+  ec <- slingParams(x)[["end.clus"]]
+  if (!is.null(ec)) {
+    g <- g %>% activate(nodes) %>%
+      mutate(cluster = case_when(
+        name %in% ec ~ "end",
+        TRUE ~ cluster
+      ))
+  }
+
+  plot_trajectory_graph(g, ...)
+}
+
+#' @rdname plot_trajectory_graph
+#' @export
+plot_trajectory_graph.tbl_graph <- function(x, layout = "nicely", ...) {
+  l <- create_layout(x, layout = layout)
+  plot_trajectory_graph(l)
+}
+
+#' @rdname plot_trajectory_graph
+#' @export
+plot_trajectory_graph.layout_ggraph <- function(x, ...) {
+  ggraph(x) +
+    geom_node_text(aes(label = name, color = cluster)) +
+    geom_edge_fan(
+      end_cap = circle(10, "points"),
+      start_cap = circle(10, "points"),
+    ) +
+    theme_graph()
+}
+
+
+# get_curves_coord <- function(x) {
+#   y <- lapply(slingCurves(x), function(x) {
+#     as.data.frame(x[["s"]][, 1:2])
+#   })
+#   bind_rows(y, .id = "curve") %>%
+#     select(dim1 = 2, dim2 = 3, curve)
+#}
+
+
+#' plot_trajectory
+#'
+#' Plot the cell embedings with colors indicating the increasing trajectory pseudotime.
+#'
+#' @param x  and object with trajectory information.
+#'
+#' @export
+plot_trajectory <- function(x) {
+  UseMethod("plot_trajectory")
+}
+
+#' @rdname plot_trajectory
+#' @export
+plot_trajectory.SingleCellExperiment <- function(x, ...) {
+  plot_trajectory(SlingshotDataSet(x))
+}
+
+#' @rdname plot_trajectory
+#' @export
+plot_trajectory.SlingshotDataSet <- function(x) {
+  d <- reducedDim(x) %>% as_tibble() %>%
+    rename(dim1 = 1, dim2 = 2)
+
+  d <- cbind(d, slingPseudotime(x)) %>%
+    gather("curve", "pseudotime", starts_with("curve"))
+
+  ggplot(d, aes(dim1, dim2, color = pseudotime)) +
+    geom_point(size = .5) +
+    scale_color_distiller(palette = "Spectral") +
+    facet_wrap(~curve)
+
+  # p <- ggplot(d, aes(dim1, dim2)) +
+  #   geom_point(size = .5)
+  #
+  # dd <- get_curves_coord(x) %>%
+  #   expand_column("curve")
+  #
+  # p + geom_point(aes(x = dim1, y = dim2, color = value), data = dd, size = .1, alpha = .5, inherit.aes = FALSE) +
+  #   scale_color_manual(values = c("grey", "violetred")) +
+  #   facet_wrap(~curve)
+}
