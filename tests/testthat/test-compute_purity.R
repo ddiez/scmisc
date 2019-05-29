@@ -7,7 +7,7 @@ d <- compute_purity(x, "kmeans", "hclust")
 
 test_that("compute_purity works", {
   expect_is(d, "data.frame")
-  expect_equal(dim(d), c(13, 4))
+  expect_equal(dim(d), c(11, 4))
   expect_equal(colnames(d), c("kmeans", "hclust", "count", "purity"))
   expect_equal(d[["purity"]][1], 0.0175, tolerance = 0.0001)
 })

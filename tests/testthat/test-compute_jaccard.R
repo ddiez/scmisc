@@ -7,7 +7,7 @@ d <- compute_jaccard(x, "kmeans", "hclust")
 
 test_that("compute_jaccard works", {
   expect_is(d, "data.frame")
-  expect_equal(dim(d), c(13, 4))
+  expect_equal(dim(d), c(11, 4))
   expect_equal(colnames(d), c("kmeans", "hclust", "count", "jaccard"))
-  expect_equal(d[["jaccard"]][1], 0.0286, tolerance = 0.0001)
+  expect_equal(d[["jaccard"]][1], 0.0211, tolerance = 0.0001)
 })
