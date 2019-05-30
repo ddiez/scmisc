@@ -12,21 +12,23 @@ Imports:
     Biobase,
     SummarizedExperiment,
     SingleCellExperiment,
+    slingshot,
     monocle,
     Seurat,
-    slingshot,
     stats,
     Rtsne,
     VGAM,
     MASS,
     scran,
-    igraph
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 6.1.1
+    igraph,
+    ggraph,
+    tidygraph
 Suggests: 
     testthat,
     knitr,
     rmarkdown
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr

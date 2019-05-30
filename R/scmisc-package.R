@@ -3,7 +3,7 @@
 #' @name scmisc
 #' @docType package
 #'
-#' @import tibble dplyr ggplot2 SummarizedExperiment SingleCellExperiment
+#' @import tibble dplyr ggplot2 ggraph tidygraph SummarizedExperiment SingleCellExperiment
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom monocle newCellDataSet clusterCells reducedDimA<-
 #' @importFrom Seurat CreateSeuratObject NormalizeData FindClusters GetAssayData Embeddings FetchData

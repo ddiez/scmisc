@@ -22,6 +22,8 @@ plot_trajectory_graph(x, ...)
 \item{x}{and object with trajectory information.}
 
 \item{...}{arguments passed down to methods.}
+
+\item{layout}{layout for the graph.}
 }
 \description{
 Plot the MST graph used to estimate trajectories.

@@ -8,7 +8,7 @@
 \usage{
 plot_trajectory(x)
 
-\method{plot_trajectory}{SingleCellExperiment}(x, ...)
+\method{plot_trajectory}{SingleCellExperiment}(x)
 
 \method{plot_trajectory}{SlingshotDataSet}(x)
 }

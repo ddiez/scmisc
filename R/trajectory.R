@@ -4,6 +4,7 @@
 #' Plot the MST graph used to estimate trajectories.
 #'
 #' @param x and object with trajectory information.
+#' @param layout layout for the graph.
 #' @param ... arguments passed down to methods.
 #'
 #' @export
@@ -14,18 +15,18 @@ plot_trajectory_graph <- function(x, ...) {
 #' @rdname plot_trajectory_graph
 #' @export
 plot_trajectory_graph.SingleCellExperiment <- function(x, ...) {
-  plot_trajectory_graph(SlingshotDataSet(x), ...)
+  plot_trajectory_graph(slingshot::SlingshotDataSet(x), ...)
 }
 
 #' @rdname plot_trajectory_graph
 #' @export
 plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
-  g <- graph_from_adjacency_matrix(slingAdjacency(x), mode = "undirected")
+  g <- graph_from_adjacency_matrix(slingshot::slingAdjacency(x), mode = "undirected")
   g <- as_tbl_graph(g)
   g <- g %>% activate(nodes) %>%
     mutate(cluster = "middle")
 
-  sc <- slingParams(x)[["start.clus"]]
+  sc <- slingshot::slingParams(x)[["start.clus"]]
   if (!is.null(sc)) {
     g <- g %>% activate(nodes) %>%
       mutate(cluster = case_when(
@@ -34,7 +35,7 @@ plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
       ))
   }
 
-  ec <- slingParams(x)[["end.clus"]]
+  ec <- slingshot::slingParams(x)[["end.clus"]]
   if (!is.null(ec)) {
     g <- g %>% activate(nodes) %>%
       mutate(cluster = case_when(
@@ -67,7 +68,7 @@ plot_trajectory_graph.layout_ggraph <- function(x, ...) {
 
 
 # get_curves_coord <- function(x) {
-#   y <- lapply(slingCurves(x), function(x) {
+#   y <- lapply(slingshot::slingCurves(x), function(x) {
 #     as.data.frame(x[["s"]][, 1:2])
 #   })
 #   bind_rows(y, .id = "curve") %>%
@@ -88,8 +89,8 @@ plot_trajectory <- function(x) {
 
 #' @rdname plot_trajectory
 #' @export
-plot_trajectory.SingleCellExperiment <- function(x, ...) {
-  plot_trajectory(SlingshotDataSet(x))
+plot_trajectory.SingleCellExperiment <- function(x) {
+  plot_trajectory(slingshot::SlingshotDataSet(x))
 }
 
 #' @rdname plot_trajectory
@@ -98,7 +99,7 @@ plot_trajectory.SlingshotDataSet <- function(x) {
   d <- reducedDim(x) %>% as_tibble() %>%
     rename(dim1 = 1, dim2 = 2)
 
-  d <- cbind(d, slingPseudotime(x)) %>%
+  d <- cbind(d, slingshot::slingPseudotime(x)) %>%
     gather("curve", "pseudotime", starts_with("curve"))
 
   ggplot(d, aes(dim1, dim2, color = pseudotime)) +
