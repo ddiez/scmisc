@@ -23,24 +23,24 @@ plot_trajectory_graph.SingleCellExperiment <- function(x, ...) {
 plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
   g <- graph_from_adjacency_matrix(slingshot::slingAdjacency(x), mode = "undirected")
   g <- as_tbl_graph(g)
-  g <- g %>% activate(nodes) %>%
+  g <- g %>% activate("nodes") %>%
     mutate(cluster = "middle")
 
   sc <- slingshot::slingParams(x)[["start.clus"]]
   if (!is.null(sc)) {
-    g <- g %>% activate(nodes) %>%
+    g <- g %>% activate("nodes") %>%
       mutate(cluster = case_when(
-        name %in% sc ~ "start",
-        TRUE ~ cluster
+        .data$name %in% sc ~ "start",
+        TRUE ~ .data$cluster
       ))
   }
 
   ec <- slingshot::slingParams(x)[["end.clus"]]
   if (!is.null(ec)) {
-    g <- g %>% activate(nodes) %>%
+    g <- g %>% activate("nodes") %>%
       mutate(cluster = case_when(
         name %in% ec ~ "end",
-        TRUE ~ cluster
+        TRUE ~ .data$cluster
       ))
   }
 
@@ -58,23 +58,13 @@ plot_trajectory_graph.tbl_graph <- function(x, layout = "nicely", ...) {
 #' @export
 plot_trajectory_graph.layout_ggraph <- function(x, ...) {
   ggraph(x) +
-    geom_node_text(aes(label = name, color = cluster)) +
+    geom_node_text(aes_string(label = "name", color = "cluster")) +
     geom_edge_fan(
       end_cap = circle(10, "points"),
       start_cap = circle(10, "points"),
     ) +
     theme_graph()
 }
-
-
-# get_curves_coord <- function(x) {
-#   y <- lapply(slingshot::slingCurves(x), function(x) {
-#     as.data.frame(x[["s"]][, 1:2])
-#   })
-#   bind_rows(y, .id = "curve") %>%
-#     select(dim1 = 2, dim2 = 3, curve)
-#}
-
 
 #' plot_trajectory
 #'
@@ -102,18 +92,8 @@ plot_trajectory.SlingshotDataSet <- function(x) {
   d <- cbind(d, slingshot::slingPseudotime(x)) %>%
     gather("curve", "pseudotime", starts_with("curve"))
 
-  ggplot(d, aes(dim1, dim2, color = pseudotime)) +
+  ggplot(d, aes_string("dim1", "dim2", color = "pseudotime")) +
     geom_point(size = .5) +
     scale_color_distiller(palette = "Spectral") +
     facet_wrap(~curve)
-
-  # p <- ggplot(d, aes(dim1, dim2)) +
-  #   geom_point(size = .5)
-  #
-  # dd <- get_curves_coord(x) %>%
-  #   expand_column("curve")
-  #
-  # p + geom_point(aes(x = dim1, y = dim2, color = value), data = dd, size = .1, alpha = .5, inherit.aes = FALSE) +
-  #   scale_color_manual(values = c("grey", "violetred")) +
-  #   facet_wrap(~curve)
 }
