@@ -17,7 +17,7 @@ plot_jaccard(x, ...)
 \method{plot_jaccard}{DataFrame}(x, ...)
 
 \method{plot_jaccard}{data.frame}(x, col.x, col.y, label = FALSE,
-  label.size = 5, ...)
+  label.size = 5, drop = FALSE, ...)
 }
 \arguments{
 \item{x}{a suitable object.}
@@ -31,6 +31,8 @@ plot_jaccard(x, ...)
 \item{label}{logical; whether to add rounded values of jaccard index to tiles.}
 
 \item{label.size}{size of labels text.}
+
+\item{drop}{whether to drop unused axis levels.}
 }
 \description{
 Plot heatmap of jaccard index of specified columns.
