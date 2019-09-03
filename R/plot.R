@@ -2,7 +2,8 @@
 #'
 #' @param x object from which to plot coordinates.
 #' @param size size of points in geom_point()
-#' @param color color or column to color by.
+#' @param color color or column to map to color..
+#' @param shape shape or column to map to shape.
 #' @param label name of column used to label plot (e.g. clusters).
 #' @param expand logical; whether to expand one column to show presence/absence.
 #' @param ... further arguments passed down to get_coord().
@@ -14,28 +15,28 @@ plot_coord <- function(x, ...) {
 
 #' @rdname plot_coord
 #' @export
-plot_coord.seurat <- function(x, size = .1, color = NULL, label = NULL, expand = NULL, ...) {
+plot_coord.seurat <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ...) {
   d <- get_coord(x, ...)
-  plot_coord(d, size = size, color = color, label = label, expand = expand, ...)
+  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.Seurat <- function(x, size = .1, color = NULL, label = NULL, expand = NULL, ...) {
+plot_coord.Seurat <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ...) {
   d <- get_coord(x, ...)
-  plot_coord(d, size = size, color = color, label = label, expand = expand, ...)
+  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.SingleCellExperiment <- function(x, size = .1, color = NULL, label = NULL, expand = NULL, ...) {
+plot_coord.SingleCellExperiment <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ...) {
   d <- get_coord(x, ...)
-  plot_coord(d, size = size, color = color, label = label, expand = expand, ...)
+  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.data.frame <- function(x, size = .1, color = NULL, label = NULL, expand = NULL, ...) {
+plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ...) {
   d <- x
   if (!is.null(expand)) {
     d <- d %>%
@@ -56,6 +57,10 @@ plot_coord.data.frame <- function(x, size = .1, color = NULL, label = NULL, expa
       p <- p + aes_string(color = color)
       if (is.numeric(d[[color]]))
         p <- p + scale_color_gradient(low = "grey", high = "red")
+    }
+
+    if (!is.null(shape)) {
+      p <- p + aes_string(shape = shape)
     }
 
     if (!is.null(label)) {

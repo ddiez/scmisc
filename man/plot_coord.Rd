@@ -11,16 +11,16 @@
 plot_coord(x, ...)
 
 \method{plot_coord}{seurat}(x, size = 0.1, color = NULL,
-  label = NULL, expand = NULL, ...)
+  shape = NULL, label = NULL, expand = NULL, ...)
 
 \method{plot_coord}{Seurat}(x, size = 0.1, color = NULL,
-  label = NULL, expand = NULL, ...)
+  shape = NULL, label = NULL, expand = NULL, ...)
 
 \method{plot_coord}{SingleCellExperiment}(x, size = 0.1, color = NULL,
-  label = NULL, expand = NULL, ...)
+  shape = NULL, label = NULL, expand = NULL, ...)
 
 \method{plot_coord}{data.frame}(x, size = 0.1, color = NULL,
-  label = NULL, expand = NULL, ...)
+  shape = NULL, label = NULL, expand = NULL, ...)
 }
 \arguments{
 \item{x}{object from which to plot coordinates.}
@@ -29,7 +29,9 @@ plot_coord(x, ...)
 
 \item{size}{size of points in geom_point()}
 
-\item{color}{color or column to color by.}
+\item{color}{color or column to map to color..}
+
+\item{shape}{shape or column to map to shape.}
 
 \item{label}{name of column used to label plot (e.g. clusters).}
 
