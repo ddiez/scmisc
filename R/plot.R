@@ -173,7 +173,7 @@ plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, label.size =
 
   p <- ggplot(d, aes_string(col.x, col.y, fill = "jaccard")) +
     geom_tile() +
-    scale_fill_gradient(low = "white", high = "red", limit = c(0, 1)) +
+    scale_fill_gradient(low = "white", high = "red", limit = c(0, 1))
 
   if (!drop) {
     p <- p + scale_x_discrete(drop = FALSE) +
