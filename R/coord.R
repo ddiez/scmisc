@@ -11,13 +11,21 @@
 #' @return A data.frame object.
 #'
 #' @export
-get_coord <- function(x, coord.name = "TSNE", add.cols = TRUE, add.exprs = NULL) {
+get_coord <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL) {
   UseMethod("get_coord")
 }
 
 #' @rdname get_coord
 #' @export
-get_coord.SingleCellExperiment <- function(x, coord.name = "TSNE", add.cols = TRUE, add.exprs = FALSE) {
+get_coord.SingleCellExperiment <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE) {
+  if (is.null(coord.name)) {
+    coord.name <- tail(names(reducedDims(x)), 1)
+  }
+
+  if (is.null(coord.name)) {
+    stop("No coordinates found in object. Run reduce_dim() to generate some.")
+  }
+
   d <- reducedDim(x, coord.name)[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
@@ -68,7 +76,15 @@ get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
 
 #' @rdname get_coord
 #' @export
-get_coord.Seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = FALSE) {
+get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE) {
+  if (is.null(coord.name)) {
+    coord.name <- tail(Reductions(x), 1)
+  }
+
+  if (length(coord.name) == 0) {
+    stop("No coordinates found in object. Run reduce_dim() to generate some.")
+  }
+
   d <- Embeddings(x, coord.name)[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
