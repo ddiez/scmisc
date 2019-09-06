@@ -120,10 +120,8 @@ plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, label.size = 
     geom_tile() +
     scale_fill_gradient(low = "white", high = "red", limits = c(0, 1))
 
-  if (!drop) {
-    p <- p + scale_x_discrete(drop = FALSE) +
-      scale_y_discrete(drop = FALSE)
-  }
+  p <- p + scale_x_discrete(drop = FALSE, expand = c(0, 0)) +
+    scale_y_discrete(drop = FALSE, expand = c(0, 0))
 
   if (label) {
     d <- d %>% mutate(purity = format(round(.data$purity, 2)))
@@ -180,10 +178,8 @@ plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, label.size =
     geom_tile() +
     scale_fill_gradient(low = "white", high = "red", limit = c(0, 1))
 
-  if (!drop) {
-    p <- p + scale_x_discrete(drop = FALSE) +
-      scale_y_discrete(drop = FALSE)
-  }
+  p <- p + scale_x_discrete(drop = FALSE, expand = c(0, 0)) +
+      scale_y_discrete(drop = FALSE, expand = c(0, 0))
 
   if (label) {
     d <- d %>% mutate(jaccard = format(round(.data$jaccard, 2)))
