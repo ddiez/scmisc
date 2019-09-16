@@ -191,6 +191,10 @@ reduce_dim.matrix <- function(x, method = "pca", dims = 2, perplexity = 30, init
     z <- Rtsne(t(x), dims = dims, perplexity = perplexity, initial_dims = initial_dims, ...)[["Y"]]
   }
 
+  if (method == "umap") {
+    z <- umap(t(x), ret_model = FALSE, ...)
+  }
+
   colnames(z) <- paste0("dim", seq_len(ncol(z)))
   rownames(z) <- colnames(x)
 
