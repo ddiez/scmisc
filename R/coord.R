@@ -151,7 +151,7 @@ expand_column.data.frame <- function(x, col.name = NULL, out.name = col.name, va
 #' reduce_dim
 #'
 #' @param x matrix object.
-#' @param method tyoe of dimensionality reduction.
+#' @param method tyoe of dimensionality reduction: pca, tsne, umap.
 #' @param dims number of dimensions to keep in final result.
 #' @param assay.name name of assay slot.
 #' @param coord.name name of reducedDim slot.
@@ -161,14 +161,14 @@ expand_column.data.frame <- function(x, col.name = NULL, out.name = col.name, va
 #'
 #' @export
 #'
-reduce_dim <- function(x, method = "PCA", dims = 2, ...) {
+reduce_dim <- function(x, method = "pca", dims = 2, ...) {
   UseMethod("reduce_dim")
 }
 
 #' @rdname reduce_dim
 #' @export
-reduce_dim.SingleCellExperiment <- function(x, method = "PCA", dims = 2, assay.name = "logcounts", coord.name = method, perplexity = NULL, initial_dims = 50, ...) {
-  method <- match.arg(method, c("PCA", "TSNE"))
+reduce_dim.SingleCellExperiment <- function(x, method = "pca", dims = 2, assay.name = "logcounts", coord.name = method, perplexity = NULL, initial_dims = 50, ...) {
+  method <- match.arg(method, c("pca", "tsne", "umap"))
 
   y <- assay(x, assay.name)
   z <- reduce_dim(y, method = method, dims = dims, perplexity = perplexity, initial_dims = initial_dims, ...)
@@ -179,15 +179,15 @@ reduce_dim.SingleCellExperiment <- function(x, method = "PCA", dims = 2, assay.n
 
 #' @rdname reduce_dim
 #' @export
-reduce_dim.matrix <- function(x, method = "PCA", dims = 2, perplexity = 30, initial_dims = 50, ...) {
-  method <- match.arg(method, c("PCA", "TSNE"))
+reduce_dim.matrix <- function(x, method = "pca", dims = 2, perplexity = 30, initial_dims = 50, ...) {
+  method <- match.arg(method, c("pca", "tsne", "umap"))
 
-  if (method == "PCA") {
+  if (method == "pca") {
     dims <- seq_len(dims)
     z <- prcomp(t(x))[["x"]][, dims, drop = FALSE]
   }
 
-  if (method == "TSNE") {
+  if (method == "tsne") {
     z <- Rtsne(t(x), dims = dims, perplexity = perplexity, initial_dims = initial_dims, ...)[["Y"]]
   }
 

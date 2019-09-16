@@ -17,7 +17,7 @@ test_that("reduce_dim works", {
   expect_equal(rownames(y), colnames(x))
 })
 
-y <- reduce_dim(x, "TSNE", perplexity = 3)
+y <- reduce_dim(x, "tsne", perplexity = 3)
 
 test_that("reduce_dim works", {
   expect_equal(dim(y), c(11, 2))
