@@ -21,7 +21,7 @@ cluster_cells <- function(x, method = "kmeans", ...) {
 #' @rdname cluster_cells
 #' @export
 cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = NULL, assay.name = "logcounts", coord.name = "PCA", column.name = "cluster", hclust.method = "ward.D", dist.method = "euclidean", resolution = 1, algorithm = 3, ...) {
-  method <- match.arg(method, c("kmeans", "hclust", "louvain", "density", "seurat"))
+  method <- match.arg(method, c("kmeans", "hclust", "louvain", "density", "leiden"))
 
   y <- assay(x, assay.name)
 
@@ -49,11 +49,10 @@ cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = 
     colData(x)[[column.name]] <- factor(cds[["Cluster"]])
   }
 
-  if (method == "seurat") {
-    z <- CreateSeuratObject(assay(x, "counts"))
-    z <- NormalizeData(z, display.progress = FALSE)
-    z <- FindClusters(z, resolution = resolution, algorithm = algorithm, print.output = FALSE)
-    colData(x)[[column.name]] <- factor(z@ident)
+  if (method == "leiden") {
+    g <- buildSNNGraph(y)
+    cl <- leiden(g, resolution_parameter = resolution)
+    colData(x)[[column.name]] <- factor(cl)
   }
 
   x

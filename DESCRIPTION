@@ -18,6 +18,7 @@ Imports:
     stats,
     Rtsne,
     uwot,
+    leiden,
     VGAM,
     MASS,
     scran,
