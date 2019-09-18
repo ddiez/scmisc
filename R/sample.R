@@ -23,6 +23,11 @@ sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
   if (!is.null(group))
     cdata <- cdata %>% group_by_(group)
 
+  if (is.null(n) && is.null(frac)) {
+    n <- cdata %>% count() %>% pull(n) %>% min()
+    message("Neither 'n' or 'frac' specified. Sampling ", n, " cells per group.")
+  }
+
   if (!is.null(n)) {
     sel.cells <- cdata %>%
       sample_n(n) %>%
@@ -47,6 +52,11 @@ sample_cells.SingleCellExperiment <- function(x, group = NULL, n = NULL, frac = 
 
   if (!is.null(group))
     cdata <- cdata %>% group_by_(group)
+
+  if (is.null(n) && is.null(frac)) {
+    n <- cdata %>% count() %>% pull(n) %>% min()
+    message("Neither 'n' or 'frac' specified. Sampling ", n, " cells per group.")
+  }
 
   if (!is.null(n)) {
     sel.cells <- cdata %>%
