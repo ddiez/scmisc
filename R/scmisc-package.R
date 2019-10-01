@@ -6,7 +6,7 @@
 #' @import tibble dplyr ggplot2 ggraph tidygraph SummarizedExperiment SingleCellExperiment
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom monocle newCellDataSet clusterCells reducedDimA<-
-#' @importFrom Seurat GetAssayData Embeddings FetchData Reductions
+#' @importFrom Seurat DefaultAssay GetAssayData Embeddings FetchData Reductions
 #' @importFrom slingshot SlingshotDataSet slingPseudotime slingParams slingAdjacency
 #' @importFrom VGAM negbinomial.size
 #' @importFrom MASS kde2d
