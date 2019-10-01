@@ -188,3 +188,38 @@ plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, label.size =
 
   p
 }
+
+#' plot_violin
+#'
+#' Makes violin plot, by default using ggbeeswarm package.
+#'
+#' @param x object to plot data from.
+#' @param feature name of the feature to plot.
+#' @param group grouping variable.
+#' @param ... further arguments passed down to get_expression().
+#'
+#' @export
+plot_violin <- function(x, feature, group, ...) {
+  UseMethod("plot_violin")
+}
+
+#' @rdname plot_violin
+#' @export
+plot_violin.Seurat <- function(x, feature, group, ...) {
+  d <- cbind(x@meta.data, expression = get_expression(x, feature, ...))
+  plot_violin(d, feature = feature, group = group)
+}
+
+#' @rdname plot_violin
+#' @export
+plot_violin.SingleCellExperiment <- function(x, feature, group, ...) {
+  d <- cbind(as.data.frame(SummarizedExperiment::colData(x)), expression = get_expression(x, feature, ...))
+  plot_violin(d, feature = feature, group = group)
+}
+
+#' @rdname plot_violin
+#' @export
+plot_violin.data.frame <- function(x, feature, group, ...) {
+  ggplot(x, aes_string(group, "expression")) + geom_quasirandom() +
+    labs(title = feature)
+}

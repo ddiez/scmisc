@@ -17,4 +17,5 @@
 #' @importFrom leiden leiden
 #' @importFrom scran buildSNNGraph
 #' @importFrom igraph cluster_louvain graph_from_adjacency_matrix
+#' @importFrom ggbeeswarm geom_quasirandom
 NULL
