@@ -9,11 +9,12 @@
 \usage{
 plot_violin(x, feature, group, ...)
 
-\method{plot_violin}{Seurat}(x, feature, group, ...)
+\method{plot_violin}{Seurat}(x, feature, group, size = 0.1, ...)
 
-\method{plot_violin}{SingleCellExperiment}(x, feature, group, ...)
+\method{plot_violin}{SingleCellExperiment}(x, feature, group, size = 0.1,
+  ...)
 
-\method{plot_violin}{data.frame}(x, feature, group, ...)
+\method{plot_violin}{data.frame}(x, feature, group, size = 0.1, ...)
 }
 \arguments{
 \item{x}{object to plot data from.}
@@ -23,6 +24,8 @@ plot_violin(x, feature, group, ...)
 \item{group}{grouping variable.}
 
 \item{...}{further arguments passed down to get_expression().}
+
+\item{size}{size of the points.}
 }
 \description{
 Makes violin plot, by default using ggbeeswarm package.
