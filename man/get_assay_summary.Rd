@@ -12,7 +12,7 @@ get_assay_summary(x, ...)
 \method{get_assay_summary}{SingleCellExperiment}(x, name,
   assay.name = "logcounts", column = "symbol", sum.fun = mean, ...)
 
-\method{get_assay_summary}{Seurat}(x, name, assay.name = "RNA",
+\method{get_assay_summary}{Seurat}(x, name, assay.name = NULL,
   slot = "data", column = "symbol", sum.fun = mean, ...)
 
 get_expression(...)

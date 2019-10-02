@@ -23,7 +23,8 @@ get_assay_summary.SingleCellExperiment <- function(x, name, assay.name = "logcou
 
 #' @rdname get_assay_summary
 #' @export
-get_assay_summary.Seurat <- function(x, name, assay.name = "RNA", slot = "data", column = "symbol", sum.fun = mean, ...) {
+get_assay_summary.Seurat <- function(x, name, assay.name = NULL, slot = "data", column = "symbol", sum.fun = mean, ...) {
+  if (is.null(assay.name)) assay.name <- DefaultAssay(x)
   y <- GetAssayData(x, slot, assay.name)
   z <- y[get_rowdata(x)[[column]] == name, , drop = FALSE]
   apply(z, 2, sum.fun)
