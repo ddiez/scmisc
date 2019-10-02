@@ -45,7 +45,8 @@ plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, labe
     p <- ggplot(d, aes_string("dim1", "dim2", color = "value")) +
       geom_point(size = size) +
       scale_color_manual(values = c("grey", "red")) +
-      facet_wrap(~.data[[expand]])
+      facet_wrap(~.data[[expand]]) +
+      guides(color = FALSE)
   } else {
     if (!is.null(color))
       d <- d %>% arrange_(color)
