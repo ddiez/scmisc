@@ -11,7 +11,8 @@
 #' @importFrom VGAM negbinomial.size
 #' @importFrom MASS kde2d
 #' @importFrom tidyr gather
-#' @importFrom stats prcomp kmeans dist hclust cutree
+#' @importFrom stats prcomp kmeans dist hclust cutree as.dist cor
+#' @importFrom utils tail
 #' @importFrom Rtsne Rtsne
 #' @importFrom uwot umap
 #' @importFrom leiden leiden
