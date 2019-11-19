@@ -171,7 +171,7 @@ expand_column2d <- function(x, col.names) {
     d <- expand_column1d(d, col, value.name = val.cols[col])
   }
   d %>% mutate(value = .data[[val.cols[1]]] & .data[[val.cols[2]]]) %>%
-    arrange(value)
+    arrange(.data[["value"]])
 }
 
 #' reduce_dim
