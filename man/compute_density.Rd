@@ -12,8 +12,7 @@ compute_density(x, ...)
 
 \method{compute_density}{default}(x, y, n = 100, ...)
 
-\method{compute_density}{SingleCellExperiment}(x, coord.name = "TSNE",
-  ...)
+\method{compute_density}{SingleCellExperiment}(x, coord.name = "TSNE", ...)
 
 \method{compute_density}{CellDataSet}(x, coord.name = "A", ...)
 

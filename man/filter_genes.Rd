@@ -8,8 +8,7 @@
 \usage{
 filter_genes(x, ...)
 
-\method{filter_genes}{SingleCellExperiment}(x, min.cells = 10,
-  min.count = 0, assay.name = "counts", ...)
+\method{filter_genes}{SingleCellExperiment}(x, min.cells = 10, min.count = 0, assay.name = "counts", ...)
 
 \method{filter_genes}{matrix}(x, min.cells = 10, min.count = 0, ...)
 }

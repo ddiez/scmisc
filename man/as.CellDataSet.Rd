@@ -7,8 +7,7 @@
 \usage{
 as.CellDataSet(x, expressionFamily = NULL, gene_short_name = "symbol")
 
-\method{as.CellDataSet}{SingleCellExperiment}(x, expressionFamily = NULL,
-  gene_short_name = "symbol")
+\method{as.CellDataSet}{SingleCellExperiment}(x, expressionFamily = NULL, gene_short_name = "symbol")
 }
 \arguments{
 \item{x}{object to convert.}

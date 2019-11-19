@@ -7,10 +7,19 @@
 \usage{
 cluster_cells(x, method = "kmeans", ...)
 
-\method{cluster_cells}{SingleCellExperiment}(x, method = "kmeans",
-  ncluster = NULL, assay.name = "logcounts", coord.name = "PCA",
-  column.name = "cluster", hclust.method = "ward.D",
-  dist.method = "euclidean", resolution = 1, algorithm = 3, ...)
+\method{cluster_cells}{SingleCellExperiment}(
+  x,
+  method = "kmeans",
+  ncluster = NULL,
+  assay.name = "logcounts",
+  coord.name = "PCA",
+  column.name = "cluster",
+  hclust.method = "ward.D",
+  dist.method = "euclidean",
+  resolution = 1,
+  algorithm = 3,
+  ...
+)
 }
 \arguments{
 \item{x}{object with data matrix.}

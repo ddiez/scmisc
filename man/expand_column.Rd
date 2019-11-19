@@ -7,8 +7,13 @@
 \usage{
 expand_column(x, ...)
 
-\method{expand_column}{data.frame}(x, col.name = NULL,
-  out.name = col.name, value.name = "value", ...)
+\method{expand_column}{data.frame}(
+  x,
+  col.name = NULL,
+  out.name = col.name,
+  value.name = "value",
+  ...
+)
 }
 \arguments{
 \item{x}{a data.frame or similar object.}

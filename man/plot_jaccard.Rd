@@ -16,8 +16,7 @@ plot_jaccard(x, ...)
 
 \method{plot_jaccard}{DataFrame}(x, ...)
 
-\method{plot_jaccard}{data.frame}(x, col.x, col.y, label = FALSE,
-  label.size = 5, drop = FALSE, ...)
+\method{plot_jaccard}{data.frame}(x, col.x, col.y, label = FALSE, label.size = 5, drop = FALSE, ...)
 }
 \arguments{
 \item{x}{a suitable object.}

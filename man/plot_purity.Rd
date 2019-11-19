@@ -16,8 +16,7 @@ plot_purity(x, ...)
 
 \method{plot_purity}{DataFrame}(x, ...)
 
-\method{plot_purity}{data.frame}(x, col.x, col.y, label = FALSE,
-  label.size = 5, drop = FALSE, ...)
+\method{plot_purity}{data.frame}(x, col.x, col.y, label = FALSE, label.size = 5, drop = FALSE, ...)
 }
 \arguments{
 \item{x}{a suitable object.}

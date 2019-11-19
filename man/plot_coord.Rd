@@ -10,17 +10,45 @@
 \usage{
 plot_coord(x, ...)
 
-\method{plot_coord}{seurat}(x, size = 0.1, color = NULL,
-  shape = NULL, label = NULL, expand = NULL, ...)
+\method{plot_coord}{seurat}(
+  x,
+  size = 0.1,
+  color = NULL,
+  shape = NULL,
+  label = NULL,
+  expand = NULL,
+  ...
+)
 
-\method{plot_coord}{Seurat}(x, size = 0.1, color = NULL,
-  shape = NULL, label = NULL, expand = NULL, ...)
+\method{plot_coord}{Seurat}(
+  x,
+  size = 0.1,
+  color = NULL,
+  shape = NULL,
+  label = NULL,
+  expand = NULL,
+  ...
+)
 
-\method{plot_coord}{SingleCellExperiment}(x, size = 0.1, color = NULL,
-  shape = NULL, label = NULL, expand = NULL, ...)
+\method{plot_coord}{SingleCellExperiment}(
+  x,
+  size = 0.1,
+  color = NULL,
+  shape = NULL,
+  label = NULL,
+  expand = NULL,
+  ...
+)
 
-\method{plot_coord}{data.frame}(x, size = 0.1, color = NULL,
-  shape = NULL, label = NULL, expand = NULL, ...)
+\method{plot_coord}{data.frame}(
+  x,
+  size = 0.1,
+  color = NULL,
+  shape = NULL,
+  label = NULL,
+  expand = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{object from which to plot coordinates.}

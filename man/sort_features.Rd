@@ -9,11 +9,9 @@
 \usage{
 sort_features(x, ...)
 
-\method{sort_features}{Seurat}(x, features = NULL, slot = "scale.data",
-  assay = NULL, ...)
+\method{sort_features}{Seurat}(x, features = NULL, slot = "scale.data", assay = NULL, ...)
 
-\method{sort_features}{SingleCellExperiment}(x, features = NULL,
-  assay = NULL, ...)
+\method{sort_features}{SingleCellExperiment}(x, features = NULL, assay = NULL, ...)
 
 \method{sort_features}{matrix}(x, ...)
 }

@@ -8,12 +8,25 @@
 \usage{
 reduce_dim(x, method = "pca", dims = 2, ...)
 
-\method{reduce_dim}{SingleCellExperiment}(x, method = "pca", dims = 2,
-  assay.name = "logcounts", coord.name = method, perplexity = NULL,
-  initial_dims = 50, ...)
+\method{reduce_dim}{SingleCellExperiment}(
+  x,
+  method = "pca",
+  dims = 2,
+  assay.name = "logcounts",
+  coord.name = method,
+  perplexity = NULL,
+  initial_dims = 50,
+  ...
+)
 
-\method{reduce_dim}{matrix}(x, method = "pca", dims = 2,
-  perplexity = 30, initial_dims = 50, ...)
+\method{reduce_dim}{matrix}(
+  x,
+  method = "pca",
+  dims = 2,
+  perplexity = 30,
+  initial_dims = 50,
+  ...
+)
 }
 \arguments{
 \item{x}{matrix object.}

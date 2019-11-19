@@ -8,11 +8,9 @@
 \usage{
 sample_cells(x, ...)
 
-\method{sample_cells}{Seurat}(x, group = NULL, n = NULL, frac = NULL,
-  ...)
+\method{sample_cells}{Seurat}(x, group = NULL, n = NULL, frac = NULL, ...)
 
-\method{sample_cells}{SingleCellExperiment}(x, group = NULL, n = NULL,
-  frac = NULL, ...)
+\method{sample_cells}{SingleCellExperiment}(x, group = NULL, n = NULL, frac = NULL, ...)
 }
 \arguments{
 \item{x}{an object to sample from.}

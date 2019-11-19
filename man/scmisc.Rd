@@ -3,7 +3,6 @@
 \docType{package}
 \name{scmisc}
 \alias{scmisc}
-\alias{scmisc-package}
 \title{scmisc.}
 \description{
 scmisc.
