@@ -42,11 +42,22 @@ plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, labe
     d <- d %>%
       expand_column(expand) %>%
       arrange_("value")
-    p <- ggplot(d, aes_string("dim1", "dim2", color = "value")) +
-      geom_point(size = size) +
-      scale_color_manual(values = c("grey", "red")) +
-      facet_wrap(~.data[[expand]]) +
-      guides(color = FALSE)
+
+    if (length(expand) == 1) {
+      p <- ggplot(d, aes_string("dim1", "dim2", color = "value")) +
+        geom_point(size = size) +
+        scale_color_manual(values = c("grey", "red")) +
+        facet_wrap(~.data[[expand]]) +
+        guides(color = FALSE)
+    }
+
+    if (length(expand) == 2) {
+      p <- ggplot(d, aes_string("dim1", "dim2", color = "value")) +
+        geom_point(size = size) +
+        scale_color_manual(values = c("grey", "red")) +
+        facet_grid(rows = vars(.data[[expand[2]]]), cols = vars(.data[[expand[1]]])) +
+        guides(color = FALSE)
+    }
   } else {
     if (!is.null(color))
       d <- d %>% arrange_(color)

@@ -125,7 +125,21 @@ expand_column <- function(x, ...) {
 #' @export
 expand_column.data.frame <- function(x, col.name = NULL, out.name = col.name, value.name = "value", ...) {
   if (is.null(col.name)) stop("col.name is required.")
-  if (! col.name %in% colnames(x)) stop("col.name not a colname of x.")
+  if (! all(col.name %in% colnames(x))) stop("col.name not a colname of x.")
+
+  if (length(col.name) > 2) stop("1 or 2 column names are required.")
+
+  if (length(col.name) == 1)
+    d <- expand_column1d(x, col.name, out.name = col.name, value.name = value.name)
+  if (length(col.name) == 2)
+    d <- expand_column2d(x, col.name)
+
+  d
+}
+
+
+expand_column1d <- function(x, col.name = NULL, out.name = col.name, value.name = "value") {
+  if (length(col.name) != 1) stop("col.names must be a character vector of length 2.")
 
   ll <- unique(x[[col.name]])
   tmp <- sapply(ll, function(l) {
@@ -146,6 +160,18 @@ expand_column.data.frame <- function(x, col.name = NULL, out.name = col.name, va
     y[[out.name]] <- as.integer(y[[out.name]])
 
   y
+}
+
+expand_column2d <- function(x, col.names) {
+  if (length(col.names) != 2) stop("col.names must be a character vector of length 2.")
+  val.cols <- paste0("val.", col.names)
+  names(val.cols) <- col.names
+  d <- x
+  for (col in col.names) {
+    d <- expand_column1d(d, col, value.name = val.cols[col])
+  }
+  d %>% mutate(value = .data[[val.cols[1]]] & .data[[val.cols[2]]]) %>%
+    arrange(value)
 }
 
 #' reduce_dim
