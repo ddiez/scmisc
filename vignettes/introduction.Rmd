@@ -14,6 +14,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+library(dplyr)
+library(scmisc)
 ```
 
 ## Installation
@@ -23,3 +26,23 @@ You can install the release version of scmisc from [Github](https://github.com/d
 ``` r
 remotes::install_github("ddiez/scmisc")
 ```
+
+
+# Plots
+
+## Expand columns
+
+```{r}
+d <- iris %>% mutate(dim1 = Petal.Length, dim2 = Petal.Width)
+plot_coord(d, size = 1)
+```
+
+```{r}
+plot_coord(d, size = 1, expand = "Species")
+```
+
+```{r}
+d <- d %>% mutate(class = sample(c("A", "B"), n(), replace = TRUE))
+plot_coord(d, expand = c("Species", "class"), size = 1)
+```
+
