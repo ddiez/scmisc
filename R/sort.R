@@ -4,6 +4,7 @@
 #'
 #' @param x an object with features to sort.
 #' @param features a character vector of features to sort.
+#' @param method method to be used for sortening.
 #' @param slot the slot to obtain the data from.
 #' @param assay the assay to obtain the data from.
 #' @param ... rguments passed down to methods.
@@ -15,7 +16,7 @@ sort_features <- function(x, ...) {
 
 #' @rdname sort_features
 #' @export
-sort_features.Seurat <- function(x, features = NULL, slot = "scale.data", assay = NULL, ...) {
+sort_features.Seurat <- function(x, features = NULL, method = "pearson", slot = "scale.data", assay = NULL, ...) {
   if (is.null(assay)) assay <- DefaultAssay(x)
 
   m <- GetAssayData(x, slot = slot, assay = assay)
@@ -24,12 +25,12 @@ sort_features.Seurat <- function(x, features = NULL, slot = "scale.data", assay 
     features <- features[features %in% rownames(m)]
     m <- m[features, ]
   }
-  sort_features(m)
+  sort_features(as.matrix(m), method = method)
 }
 
 #' @rdname sort_features
 #' @export
-sort_features.SingleCellExperiment <- function(x, features = NULL, assay = NULL, ...) {
+sort_features.SingleCellExperiment <- function(x, features = NULL, method = "pearson", assay = NULL, ...) {
   if (is.null(assay)) assay <- names(assays(x))[1]
 
   m <- assay(x, assay)
@@ -38,12 +39,21 @@ sort_features.SingleCellExperiment <- function(x, features = NULL, assay = NULL,
     features <- features[features %in% rownames(m)]
     m <- m[features, ]
   }
-  sort_features(m)
+  sort_features(m, method = method)
 }
 
 #' @rdname sort_features
 #' @export
-sort_features.matrix <- function(x, ...) {
-  ord <- hclust(as.dist(t(1 - cor(t(x)))))$order
-  rownames(x)[ord]
+sort_features.matrix <- function(x, method = "pearson", ...) {
+  method <- match.arg(method, c("pearson", "sum"))
+  switch(method,
+         "pearson" = {
+           ord <- hclust(as.dist(t(1 - cor(t(x)))))$order
+           features <- rownames(x)[ord]
+         },
+         "sum" = {
+           features <- names(sort(rowSums(x)))
+         }
+  )
+  features
 }

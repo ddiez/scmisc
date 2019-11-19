@@ -9,11 +9,18 @@
 \usage{
 sort_features(x, ...)
 
-\method{sort_features}{Seurat}(x, features = NULL, slot = "scale.data", assay = NULL, ...)
+\method{sort_features}{Seurat}(
+  x,
+  features = NULL,
+  method = "pearson",
+  slot = "scale.data",
+  assay = NULL,
+  ...
+)
 
-\method{sort_features}{SingleCellExperiment}(x, features = NULL, assay = NULL, ...)
+\method{sort_features}{SingleCellExperiment}(x, features = NULL, method = "pearson", assay = NULL, ...)
 
-\method{sort_features}{matrix}(x, ...)
+\method{sort_features}{matrix}(x, method = "pearson", ...)
 }
 \arguments{
 \item{x}{an object with features to sort.}
@@ -21,6 +28,8 @@ sort_features(x, ...)
 \item{...}{rguments passed down to methods.}
 
 \item{features}{a character vector of features to sort.}
+
+\item{method}{method to be used for sortening.}
 
 \item{slot}{the slot to obtain the data from.}
 
