@@ -21,7 +21,7 @@ sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
     as_tibble(rownames = ".id")
 
   if (!is.null(group))
-    cdata <- cdata %>% group_by_(group)
+    cdata <- cdata %>% group_by_at(.vars = group)
 
   if (is.null(n) && is.null(frac)) {
     n <- cdata %>% count() %>% pull(n) %>% min()
@@ -51,7 +51,7 @@ sample_cells.SingleCellExperiment <- function(x, group = NULL, n = NULL, frac = 
     as_tibble(rownames = ".id")
 
   if (!is.null(group))
-    cdata <- cdata %>% group_by_(group)
+    cdata <- cdata %>% group_by_at(.vars = group)
 
   if (is.null(n) && is.null(frac)) {
     n <- cdata %>% count() %>% pull(n) %>% min()
