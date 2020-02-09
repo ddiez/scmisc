@@ -6,14 +6,18 @@
 \alias{plot_trajectory.SlingshotDataSet}
 \title{plot_trajectory}
 \usage{
-plot_trajectory(x)
+plot_trajectory(x, ...)
 
-\method{plot_trajectory}{SingleCellExperiment}(x)
+\method{plot_trajectory}{SingleCellExperiment}(x, coord.name = NULL, ...)
 
-\method{plot_trajectory}{SlingshotDataSet}(x)
+\method{plot_trajectory}{SlingshotDataSet}(x, ...)
 }
 \arguments{
 \item{x}{and object with trajectory information.}
+
+\item{...}{arguments passed down to methods.}
+
+\item{coord.name}{name of the reduced dimension to use.}
 }
 \description{
 Plot the cell embedings with colors indicating the increasing trajectory pseudotime.

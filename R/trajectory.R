@@ -71,21 +71,32 @@ plot_trajectory_graph.layout_ggraph <- function(x, ...) {
 #' Plot the cell embedings with colors indicating the increasing trajectory pseudotime.
 #'
 #' @param x  and object with trajectory information.
+#' @param coord.name name of the reduced dimension to use.
+#' @param ... arguments passed down to methods.
 #'
 #' @export
-plot_trajectory <- function(x) {
+plot_trajectory <- function(x, ...) {
   UseMethod("plot_trajectory")
 }
 
 #' @rdname plot_trajectory
 #' @export
-plot_trajectory.SingleCellExperiment <- function(x) {
-  plot_trajectory(slingshot::SlingshotDataSet(x))
+plot_trajectory.SingleCellExperiment <- function(x, coord.name = NULL, ...) {
+  if (is.null(coord.name))
+    coord.name = reducedDimNames(x)[1]
+
+  d <- get_coord(x, coord.name) %>%
+    gather("curve", "pseudotime", starts_with("slingPseudotime"))
+
+  ggplot(d, aes_string("dim1", "dim2", color = "pseudotime")) +
+    geom_point(size = .5) +
+    scale_color_distiller(palette = "Spectral") +
+    facet_wrap(~curve)
 }
 
 #' @rdname plot_trajectory
 #' @export
-plot_trajectory.SlingshotDataSet <- function(x) {
+plot_trajectory.SlingshotDataSet <- function(x, ...) {
   d <- reducedDim(x) %>% as_tibble() %>%
     rename(dim1 = 1, dim2 = 2)
 
