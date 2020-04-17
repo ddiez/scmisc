@@ -3,6 +3,12 @@
 
 # scmisc
 
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/ddiez/scmisc/workflows/R-CMD-check/badge.svg)](https://github.com/ddiez/scmisc/actions)
+<!-- badges: end -->
+
 The goal of scmisc is to provide a common interface for several single
 cell packages.
 
