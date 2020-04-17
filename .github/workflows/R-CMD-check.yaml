@@ -67,7 +67,8 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
-          remotes::install_bioc("release", dependencies = TRUE)
+          remotes::install_cran("BiocManager")
+          BiocManager::install(remotes::dev_package_deps()[["package"]]
         shell: Rscript {0}
 
       - name: Check
