@@ -5,6 +5,8 @@
 
 [![R build
 status](https://github.com/ddiez/scmisc/workflows/R-CMD-check/badge.svg)](https://github.com/ddiez/scmisc/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/ddiez/scmisc/branch/master/graph/badge.svg)](https://codecov.io/gh/ddiez/scmisc?branch=master)
 
 The goal of scmisc is to provide a common interface for several single
 cell packages.
