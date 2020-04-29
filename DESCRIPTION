@@ -1,7 +1,12 @@
 Package: scmisc
 Title: Miscellaneus tools for the analysis of single cell data
 Version: 0.0.19.9000
-Authors@R: 'Diego Diez <diego10ruiz@gmail.com> [aut, cre]'
+Authors@R: 
+    person(given = "Diego",
+           family = "Diez",
+           role = c("aut", "cre"),
+           email = "diego10ruiz@gmail.com",
+           comment = c(ORCID = "0000-0002-2325-4893"))
 Description: Miscellaneus tools for the analysis of single cell data.
 Depends: R (>= 3.5.0)
 Imports:
