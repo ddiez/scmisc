@@ -1,7 +1,7 @@
+scmisc
+================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# scmisc
 
 [![R build
 status](https://github.com/ddiez/scmisc/workflows/R-CMD-check/badge.svg)](https://github.com/ddiez/scmisc/actions)
