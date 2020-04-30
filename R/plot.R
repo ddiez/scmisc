@@ -6,6 +6,7 @@
 #' @param shape shape or column to map to shape.
 #' @param label name of column used to label plot (e.g. clusters).
 #' @param expand logical; whether to expand one column to show presence/absence.
+#' @param ncol number of columns used in facet_wrap.
 #' @param ... further arguments passed down to get_coord().
 #'
 #' @export
@@ -15,39 +16,39 @@ plot_coord <- function(x, ...) {
 
 #' @rdname plot_coord
 #' @export
-plot_coord.seurat <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ...) {
+plot_coord.seurat <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- get_coord(x, ...)
-  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ...)
+  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ncol = ncol, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.Seurat <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ...) {
+plot_coord.Seurat <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- get_coord(x, ...)
-  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ...)
+  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ncol = ncol, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.SingleCellExperiment <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ...) {
+plot_coord.SingleCellExperiment <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- get_coord(x, ...)
-  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ...)
+  plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ncol = ncol, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ...) {
+plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- x
   if (!is.null(expand)) {
     d <- d %>%
       expand_column(expand) %>%
-      arrange_("value")
+      arrange(.data[["value"]])
 
     if (length(expand) == 1) {
       p <- ggplot(d, aes_string("dim1", "dim2", color = "value")) +
         geom_point(size = size) +
         scale_color_manual(values = c("grey", "red")) +
-        facet_wrap(~.data[[expand]]) +
+        facet_wrap(~.data[[expand]], ncol = ncol) +
         guides(color = FALSE)
     }
 
@@ -60,7 +61,7 @@ plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, labe
     }
   } else {
     if (!is.null(color))
-      d <- d %>% arrange_(color)
+      d <- d %>% arrange(.data[[color]])
 
     p <- ggplot(d, aes_string("dim1", "dim2")) +
       geom_point(size = size)

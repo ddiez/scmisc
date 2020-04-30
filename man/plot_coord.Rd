@@ -17,6 +17,7 @@ plot_coord(x, ...)
   shape = NULL,
   label = NULL,
   expand = NULL,
+  ncol = NULL,
   ...
 )
 
@@ -27,6 +28,7 @@ plot_coord(x, ...)
   shape = NULL,
   label = NULL,
   expand = NULL,
+  ncol = NULL,
   ...
 )
 
@@ -37,6 +39,7 @@ plot_coord(x, ...)
   shape = NULL,
   label = NULL,
   expand = NULL,
+  ncol = NULL,
   ...
 )
 
@@ -47,6 +50,7 @@ plot_coord(x, ...)
   shape = NULL,
   label = NULL,
   expand = NULL,
+  ncol = NULL,
   ...
 )
 }
@@ -64,6 +68,8 @@ plot_coord(x, ...)
 \item{label}{name of column used to label plot (e.g. clusters).}
 
 \item{expand}{logical; whether to expand one column to show presence/absence.}
+
+\item{ncol}{number of columns used in facet_wrap.}
 }
 \description{
 plot_coord
