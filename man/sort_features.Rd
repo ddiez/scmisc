@@ -13,7 +13,7 @@ sort_features(x, ...)
   x,
   features = NULL,
   method = "pearson",
-  slot = "scale.data",
+  slot = "data",
   assay = NULL,
   ...
 )

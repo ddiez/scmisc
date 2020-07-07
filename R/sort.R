@@ -16,7 +16,7 @@ sort_features <- function(x, ...) {
 
 #' @rdname sort_features
 #' @export
-sort_features.Seurat <- function(x, features = NULL, method = "pearson", slot = "scale.data", assay = NULL, ...) {
+sort_features.Seurat <- function(x, features = NULL, method = "pearson", slot = "data", assay = NULL, ...) {
   if (is.null(assay)) assay <- DefaultAssay(x)
 
   m <- GetAssayData(x, slot = slot, assay = assay)
