@@ -7,17 +7,19 @@
 #' @param coord.name name of the holder for coordinates.
 #' @param add.cols logical; whether to annotate each coordinate with column data (i.e. colData).
 #' @param add.exprs if not NULL a list of genes to add counts obtained with get_expression().
+#' @param assay name of assay for Seurat objects.
+#' @param ... arguments passed down to methods.
 #'
 #' @return A data.frame object.
 #'
 #' @export
-get_coord <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL) {
+get_coord <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL, ...) {
   UseMethod("get_coord")
 }
 
 #' @rdname get_coord
 #' @export
-get_coord.SingleCellExperiment <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE) {
+get_coord.SingleCellExperiment <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE, ...) {
   if (is.null(coord.name)) {
     coord.name <- tail(names(reducedDims(x)), 1)
   }
@@ -47,7 +49,7 @@ get_coord.SingleCellExperiment <- function(x, coord.name = NULL, add.cols = TRUE
 
 #' @rdname get_coord
 #' @export
-get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.exprs = FALSE) {
+get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.exprs = FALSE, ...) {
   coord <- do.call(paste0("reducedDim", coord.name), list(cds = x))
   d <- t(coord)[, 1:2] %>% fix_coords()
 
@@ -62,7 +64,7 @@ get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.expr
 
 #' @rdname get_coord
 #' @export
-get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = FALSE) {
+get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = FALSE, ...) {
   d <- x@dr[[coord.name]]@cell.embeddings[, 1:2] %>% fix_coords()
 
   if (! isFALSE(add.cols)) {
@@ -76,7 +78,7 @@ get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
 
 #' @rdname get_coord
 #' @export
-get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE) {
+get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE, assay = NULL, ...) {
   if (is.null(coord.name)) {
     coord.name <- tail(Reductions(x), 1)
   }
@@ -98,7 +100,7 @@ get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = 
     if (isTRUE(add.exprs)) {
       add.exprs <- rownames(x)
     }
-    d <- cbind(d, sapply(add.exprs, get_expression, x = x))
+    d <- cbind(d, sapply(add.exprs, get_expression, x = x, assay = assay))
   }
 
   d

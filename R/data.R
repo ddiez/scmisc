@@ -29,26 +29,29 @@ get_coldata.Seurat <- function(x) {
 #' get_rowdata
 #'
 #' @param x object.
+#' @param assay name of assay.
+#' @param ... arguments passed down to methods.
 #'
 #' @export
-get_rowdata <- function(x) {
+get_rowdata <- function(x, ...) {
   UseMethod("get_rowdata")
 }
 
 #' @rdname get_rowdata
 #' @export
-get_rowdata.SingleCellExperiment <- function(x) {
+get_rowdata.SingleCellExperiment <- function(x, ...) {
   rowData(x) %>% as.data.frame()
 }
 
 #' @rdname get_rowdata
 #' @export
-get_rowdata.seurat <- function(x) {
+get_rowdata.seurat <- function(x, ...) {
   data.frame(symbol = rownames(x))
 }
 
 #' @rdname get_rowdata
 #' @export
-get_rowdata.Seurat <- function(x) {
-  data.frame(symbol = rownames(x))
+get_rowdata.Seurat <- function(x, assay = NULL, ...) {
+  if (is.null(assay)) assay <- DefaultAssay(x)
+  data.frame(symbol = rownames(GetAssayData(x, assay = assay)))
 }

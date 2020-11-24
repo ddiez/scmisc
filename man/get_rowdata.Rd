@@ -7,16 +7,20 @@
 \alias{get_rowdata.Seurat}
 \title{get_rowdata}
 \usage{
-get_rowdata(x)
+get_rowdata(x, ...)
 
-\method{get_rowdata}{SingleCellExperiment}(x)
+\method{get_rowdata}{SingleCellExperiment}(x, ...)
 
-\method{get_rowdata}{seurat}(x)
+\method{get_rowdata}{seurat}(x, ...)
 
-\method{get_rowdata}{Seurat}(x)
+\method{get_rowdata}{Seurat}(x, assay = NULL, ...)
 }
 \arguments{
 \item{x}{object.}
+
+\item{...}{arguments passed down to methods.}
+
+\item{assay}{name of assay.}
 }
 \description{
 get_rowdata

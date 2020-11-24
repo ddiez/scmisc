@@ -8,15 +8,22 @@
 \alias{get_coord.Seurat}
 \title{get_coord}
 \usage{
-get_coord(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL)
+get_coord(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL, ...)
 
-\method{get_coord}{SingleCellExperiment}(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE)
+\method{get_coord}{SingleCellExperiment}(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE, ...)
 
-\method{get_coord}{CellDataSet}(x, coord.name = "A", add.cols = TRUE, add.exprs = FALSE)
+\method{get_coord}{CellDataSet}(x, coord.name = "A", add.cols = TRUE, add.exprs = FALSE, ...)
 
-\method{get_coord}{seurat}(x, coord.name = "tsne", add.cols = TRUE, add.exprs = FALSE)
+\method{get_coord}{seurat}(x, coord.name = "tsne", add.cols = TRUE, add.exprs = FALSE, ...)
 
-\method{get_coord}{Seurat}(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE)
+\method{get_coord}{Seurat}(
+  x,
+  coord.name = NULL,
+  add.cols = TRUE,
+  add.exprs = FALSE,
+  assay = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{object to obtain coordinates.}
@@ -26,6 +33,10 @@ get_coord(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL)
 \item{add.cols}{logical; whether to annotate each coordinate with column data (i.e. colData).}
 
 \item{add.exprs}{if not NULL a list of genes to add counts obtained with get_expression().}
+
+\item{...}{arguments passed down to methods.}
+
+\item{assay}{name of assay for Seurat objects.}
 }
 \value{
 A data.frame object.
