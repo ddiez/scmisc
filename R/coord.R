@@ -98,7 +98,7 @@ get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = 
 
   if (! isFALSE(add.exprs)) {
     if (isTRUE(add.exprs)) {
-      add.exprs <- rownames(x)
+      add.exprs <- rownames(GetAssay(x, assay = assay))
     }
     d <- cbind(d, sapply(add.exprs, get_expression, x = x, assay = assay))
   }
