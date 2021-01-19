@@ -1,6 +1,6 @@
 Package: scmisc
 Title: Miscellaneus tools for the analysis of single cell data
-Version: 0.0.21
+Version: 0.0.22
 Authors@R: 
     person(given = "Diego",
            family = "Diez",
