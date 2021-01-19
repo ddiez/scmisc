@@ -3,8 +3,7 @@ scmisc
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![R build
-status](https://github.com/ddiez/scmisc/workflows/R-CMD-check/badge.svg)](https://github.com/ddiez/scmisc/actions)
+[![R-CMD-check](https://github.com/ddiez/scmisc/workflows/R-CMD-check/badge.svg)](https://github.com/ddiez/scmisc/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/ddiez/scmisc/branch/master/graph/badge.svg)](https://codecov.io/gh/ddiez/scmisc?branch=master)
 [![Lifecycle:
