@@ -8,6 +8,7 @@
 #' @param add.cols logical; whether to annotate each coordinate with column data (i.e. colData).
 #' @param add.exprs if not NULL a list of genes to add counts obtained with get_expression().
 #' @param assay name of assay for Seurat objects.
+#' @param slot name of slot for Seurat objects.
 #' @param ... arguments passed down to methods.
 #'
 #' @return A data.frame object.
@@ -78,7 +79,7 @@ get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
 
 #' @rdname get_coord
 #' @export
-get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE, assay = NULL, ...) {
+get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE, assay = NULL, slot = "data", ...) {
   if (is.null(coord.name)) {
     coord.name <- tail(Reductions(x), 1)
   }
@@ -98,9 +99,9 @@ get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = 
 
   if (! isFALSE(add.exprs)) {
     if (isTRUE(add.exprs)) {
-      add.exprs <- rownames(GetAssay(x, assay = assay))
+      add.exprs <- rownames(GetAssayData(x, assay = assay, slot = slot))
     }
-    d <- cbind(d, sapply(add.exprs, get_expression, x = x, assay = assay))
+    d <- cbind(d, sapply(add.exprs, get_expression, x = x, assay = assay, slot = slot))
   }
 
   d

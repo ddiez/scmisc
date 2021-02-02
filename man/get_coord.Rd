@@ -22,6 +22,7 @@ get_coord(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL, ...)
   add.cols = TRUE,
   add.exprs = FALSE,
   assay = NULL,
+  slot = "data",
   ...
 )
 }
@@ -37,6 +38,8 @@ get_coord(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL, ...)
 \item{...}{arguments passed down to methods.}
 
 \item{assay}{name of assay for Seurat objects.}
+
+\item{slot}{name of slot for Seurat objects.}
 }
 \value{
 A data.frame object.
