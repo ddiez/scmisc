@@ -21,7 +21,7 @@ plot_trajectory_graph.SingleCellExperiment <- function(x, ...) {
 #' @rdname plot_trajectory_graph
 #' @export
 plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
-  g <- graph_from_adjacency_matrix(slingshot::slingAdjacency(x), mode = "undirected")
+  g <- slingshot::slingMST(x)
   g <- as_tbl_graph(g)
   g <- g %>% activate("nodes") %>%
     mutate(cluster = "middle")

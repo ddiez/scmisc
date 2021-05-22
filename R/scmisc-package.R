@@ -8,7 +8,7 @@
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom monocle newCellDataSet clusterCells reducedDimA<-
 #' @importFrom Seurat DefaultAssay GetAssayData Embeddings FetchData Reductions Stdev
-#' @importFrom slingshot SlingshotDataSet slingPseudotime slingParams slingAdjacency
+#' @importFrom slingshot SlingshotDataSet slingPseudotime slingParams slingMST
 #' @importFrom VGAM negbinomial.size
 #' @importFrom MASS kde2d
 #' @importFrom tidyr gather

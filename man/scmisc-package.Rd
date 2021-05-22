@@ -4,7 +4,7 @@
 \name{scmisc-package}
 \alias{scmisc}
 \alias{scmisc-package}
-\title{scmisc: Miscellaneus tools for the analysis of single cell data}
+\title{scmisc: Miscellaneus Tools for the Analysis of Single Cell Data}
 \description{
 Miscellaneus tools for the analysis of single cell data.
 }
