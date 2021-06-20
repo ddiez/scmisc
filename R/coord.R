@@ -22,7 +22,7 @@ get_coord <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = NULL, .
 #' @export
 get_coord.SingleCellExperiment <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE, ...) {
   if (is.null(coord.name)) {
-    coord.name <- tail(names(reducedDims(x)), 1)
+    coord.name <- names(reducedDims(x))[1]
   }
 
   if (is.null(coord.name)) {
@@ -81,7 +81,7 @@ get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs 
 #' @export
 get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = FALSE, assay = NULL, slot = "data", ...) {
   if (is.null(coord.name)) {
-    coord.name <- tail(Reductions(x), 1)
+    coord.name <- Reductions(x)[1]
   }
 
   if (length(coord.name) == 0) {
