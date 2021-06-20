@@ -17,26 +17,26 @@ sample_cells <- function(x, ...) {
 #' @rdname sample_cells
 #' @export
 sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
-  cdata <- x@meta.data %>%
+  cdata <- x@meta.data |>
     as_tibble(rownames = ".id")
 
   if (!is.null(group))
-    cdata <- cdata %>% group_by_at(.vars = group)
+    cdata <- cdata |> group_by_at(.vars = group)
 
   if (is.null(n) && is.null(frac)) {
-    n <- cdata %>% count() %>% pull(n) %>% min()
+    n <- cdata |> count() |> pull(n) |> min()
     message("Neither 'n' or 'frac' specified. Sampling ", n, " cells per group.")
   }
 
   if (!is.null(n)) {
-    sel.cells <- cdata %>%
-      sample_n(n) %>%
+    sel.cells <- cdata |>
+      sample_n(n) |>
       pull(.data$.id)
   }
 
   if (!is.null(frac)) {
-    sel.cells <- cdata %>%
-      sample_frac(frac) %>%
+    sel.cells <- cdata |>
+      sample_frac(frac) |>
       pull(.data$.id)
   }
 
@@ -46,27 +46,27 @@ sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
 #' @rdname sample_cells
 #' @export
 sample_cells.SingleCellExperiment <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
-  cdata <- colData(x) %>%
-    as.data.frame() %>%
+  cdata <- colData(x) |>
+    as.data.frame() |>
     as_tibble(rownames = ".id")
 
   if (!is.null(group))
-    cdata <- cdata %>% group_by_at(.vars = group)
+    cdata <- cdata |> group_by_at(.vars = group)
 
   if (is.null(n) && is.null(frac)) {
-    n <- cdata %>% count() %>% pull(n) %>% min()
+    n <- cdata |> count() |> pull(n) |> min()
     message("Neither 'n' or 'frac' specified. Sampling ", n, " cells per group.")
   }
 
   if (!is.null(n)) {
-    sel.cells <- cdata %>%
-      sample_n(n) %>%
+    sel.cells <- cdata |>
+      sample_n(n) |>
       pull(.data$.id)
   }
 
   if (!is.null(frac)) {
-    sel.cells <- cdata %>%
-      sample_frac(frac) %>%
+    sel.cells <- cdata |>
+      sample_frac(frac) |>
       pull(.data$.id)
   }
 
@@ -91,17 +91,17 @@ create_training_sets <- function(x, ...) {
 #' @rdname create_training_sets
 #' @export
 create_training_sets.SingleCellExperiment <- function(x, frac = .1, ...) {
-  cdata <- colData(x) %>% as_tibble(rownames = ".id")
-  id.test <- cdata %>% sample_frac(frac) %>% pull(".id")
-  id.train <- cdata %>% filter(! .data[[".id"]] %in% id.test) %>% pull("cell_index")
+  cdata <- colData(x) |> as_tibble(rownames = ".id")
+  id.test <- cdata |> sample_frac(frac) |> pull(".id")
+  id.train <- cdata |> filter(! .data[[".id"]] %in% id.test) |> pull("cell_index")
   list(train = x[, id.train], test = x[, id.test])
 }
 
 #' @rdname create_training_sets
 #' @export
 create_training_sets.Seurat <- function(x, frac = .1, ...) {
-  cdata <- x@meta.data %>% as_tibble(rownames = ".id")
-  id.test <- cdata %>% sample_frac(frac) %>% pull(".id")
-  id.train <- cdata %>% filter(! .data[[".id"]] %in% id.test) %>% pull(".id")
+  cdata <- x@meta.data |> as_tibble(rownames = ".id")
+  id.test <- cdata |> sample_frac(frac) |> pull(".id")
+  id.train <- cdata |> filter(! .data[[".id"]] %in% id.test) |> pull(".id")
   list(train = x[, id.train], test = x[, id.test])
 }

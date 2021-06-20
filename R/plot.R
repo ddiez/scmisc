@@ -40,8 +40,8 @@ plot_coord.SingleCellExperiment <- function(x, size = 1, color = NULL, shape = N
 plot_coord.data.frame <- function(x, size = 1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- x
   if (!is.null(expand)) {
-    d <- d %>%
-      expand_column(expand) %>%
+    d <- d |>
+      expand_column(expand) |>
       arrange(.data[["value"]])
 
     if (length(expand) == 1) {
@@ -61,7 +61,7 @@ plot_coord.data.frame <- function(x, size = 1, color = NULL, shape = NULL, label
     }
   } else {
     if (!is.null(color))
-      d <- d %>% arrange(.data[[color]])
+      d <- d |> arrange(.data[[color]])
 
     p <- ggplot(d, aes_string("dim1", "dim2")) +
       geom_point(size = size)
@@ -77,7 +77,7 @@ plot_coord.data.frame <- function(x, size = 1, color = NULL, shape = NULL, label
     }
 
     if (!is.null(label)) {
-      dd <- d %>% group_by_(label) %>%
+      dd <- d |> group_by_(label) |>
         summarize(dim1 = mean(.data$dim1), dim2 = mean(.data$dim2))
       p <- p + geom_text(aes_string(label = label), data = dd, color = "black")
     }
@@ -137,7 +137,7 @@ plot_purity.data.frame <- function(x, col.x, col.y, label = FALSE, label.size = 
     scale_y_discrete(drop = FALSE, expand = c(0, 0))
 
   if (label) {
-    d <- d %>% mutate(purity = format(round(.data$purity, 2)))
+    d <- d |> mutate(purity = format(round(.data$purity, 2)))
     p <- p + geom_text(aes_string(col.x, col.y, label = "purity"), data = d, size = label.size, inherit.aes = FALSE)
   }
 
@@ -195,7 +195,7 @@ plot_jaccard.data.frame <- function(x, col.x, col.y, label = FALSE, label.size =
       scale_y_discrete(drop = FALSE, expand = c(0, 0))
 
   if (label) {
-    d <- d %>% mutate(jaccard = format(round(.data$jaccard, 2)))
+    d <- d |> mutate(jaccard = format(round(.data$jaccard, 2)))
     p <- p + geom_text(aes_string(col.x, col.y, label = "jaccard"), data = d, size = label.size, inherit.aes = FALSE)
   }
 

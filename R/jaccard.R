@@ -28,13 +28,13 @@ compute_jaccard.data.frame <- function(x, col.x, col.y, ...) {
   if (missing(col.x)) stop("col.x is missing.")
   if (missing(col.y)) stop("col.y is missing.")
 
-  d <- x %>% select_at(.vars = c(col.x, col.y))
-  d <- d %>% group_by_at(.vars = c(col.x, col.y)) %>% dplyr::count() %>% ungroup()
-  d <- d %>% group_by_at(.vars = col.y) %>%
-    mutate(total_y = sum(.data$n)) %>%
-    group_by_at(.vars = col.x) %>%
+  d <- x |> select_at(.vars = c(col.x, col.y))
+  d <- d |> group_by_at(.vars = c(col.x, col.y)) |> dplyr::count() |> ungroup()
+  d <- d |> group_by_at(.vars = col.y) |>
+    mutate(total_y = sum(.data$n)) |>
+    group_by_at(.vars = col.x) |>
     mutate(total_x = sum(.data$n))
-  d %>%
-    mutate(jaccard = 2 * .data$n / (.data$total_x + .data$total_y)) %>%
+  d |>
+    mutate(jaccard = 2 * .data$n / (.data$total_x + .data$total_y)) |>
     select_at(.vars = c(col.x, col.y, count =  "n", "jaccard"))
 }

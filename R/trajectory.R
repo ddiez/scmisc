@@ -23,12 +23,12 @@ plot_trajectory_graph.SingleCellExperiment <- function(x, ...) {
 plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
   g <- slingshot::slingMST(x)
   g <- as_tbl_graph(g)
-  g <- g %>% activate("nodes") %>%
+  g <- g |> activate("nodes") |>
     mutate(cluster = "middle")
 
   sc <- slingshot::slingParams(x)[["start.clus"]]
   if (!is.null(sc)) {
-    g <- g %>% activate("nodes") %>%
+    g <- g |> activate("nodes") |>
       mutate(cluster = case_when(
         .data$name %in% sc ~ "start",
         TRUE ~ .data$cluster
@@ -37,7 +37,7 @@ plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
 
   ec <- slingshot::slingParams(x)[["end.clus"]]
   if (!is.null(ec)) {
-    g <- g %>% activate("nodes") %>%
+    g <- g |> activate("nodes") |>
       mutate(cluster = case_when(
         name %in% ec ~ "end",
         TRUE ~ .data$cluster
@@ -85,7 +85,7 @@ plot_trajectory.SingleCellExperiment <- function(x, coord.name = NULL, ...) {
   if (is.null(coord.name))
     coord.name = reducedDimNames(x)[1]
 
-  d <- get_coord(x, coord.name) %>%
+  d <- get_coord(x, coord.name) |>
     gather("curve", "pseudotime", starts_with("slingPseudotime"))
 
   ggplot(d, aes_string("dim1", "dim2", color = "pseudotime")) +
@@ -97,10 +97,10 @@ plot_trajectory.SingleCellExperiment <- function(x, coord.name = NULL, ...) {
 #' @rdname plot_trajectory
 #' @export
 plot_trajectory.SlingshotDataSet <- function(x, ...) {
-  d <- reducedDim(x) %>% as_tibble() %>%
+  d <- reducedDim(x) |> as_tibble() |>
     rename(dim1 = 1, dim2 = 2)
 
-  d <- cbind(d, slingshot::slingPseudotime(x)) %>%
+  d <- cbind(d, slingshot::slingPseudotime(x)) |>
     gather("curve", "pseudotime", starts_with("curve"))
 
   ggplot(d, aes_string("dim1", "dim2", color = "pseudotime")) +

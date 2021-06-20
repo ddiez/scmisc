@@ -28,10 +28,10 @@ compute_purity.data.frame <- function(x, col.x, col.y, ...) {
   if (missing(col.x)) stop("col.x is missing.")
   if (missing(col.y)) stop("col.y is missing.")
 
-  x %>% select_at(.vars = c(col.x, col.y)) %>%
-    group_by_at(.vars = col.y) %>%
-    mutate(total = n()) %>%
-    group_by_at(.vars = c(col.x, col.y)) %>%
+  x |> select_at(.vars = c(col.x, col.y)) |>
+    group_by_at(.vars = col.y) |>
+    mutate(total = n()) |>
+    group_by_at(.vars = c(col.x, col.y)) |>
     summarize(count = n(), purity = count / first(.data$total))
 }
 

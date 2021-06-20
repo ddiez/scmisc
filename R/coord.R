@@ -29,13 +29,13 @@ get_coord.SingleCellExperiment <- function(x, coord.name = NULL, add.cols = TRUE
     stop("No coordinates found in object. Run reduce_dim() to generate some.")
   }
 
-  d <- reducedDim(x, coord.name)[, 1:2] %>% fix_coords()
+  d <- reducedDim(x, coord.name)[, 1:2] |> fix_coords()
 
   if (! isFALSE(add.cols)) {
     cdata <- colData(x)
     if (! isTRUE(add.cols))
       cdata <- cdata[, colnames(cdata) %in% add.cols, drop = FALSE]
-    d <- cbind(d, cdata %>% as.data.frame())
+    d <- cbind(d, cdata |> as.data.frame())
   }
 
   if (! isFALSE(add.exprs)) {
@@ -52,13 +52,13 @@ get_coord.SingleCellExperiment <- function(x, coord.name = NULL, add.cols = TRUE
 #' @export
 get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.exprs = FALSE, ...) {
   coord <- do.call(paste0("reducedDim", coord.name), list(cds = x))
-  d <- t(coord)[, 1:2] %>% fix_coords()
+  d <- t(coord)[, 1:2] |> fix_coords()
 
   if (! isFALSE(add.cols)) {
     pdata <- pData(x)
     if (! isTRUE(add.cols))
       pdata <- pdata[, colnames(pdata) %in% add.cols, drop = FALSE]
-    d <- cbind(d, pdata %>% as.data.frame())
+    d <- cbind(d, pdata |> as.data.frame())
   }
   d
 }
@@ -66,7 +66,7 @@ get_coord.CellDataSet <- function(x, coord.name = "A", add.cols = TRUE, add.expr
 #' @rdname get_coord
 #' @export
 get_coord.seurat <- function(x, coord.name = "tsne", add.cols = TRUE, add.exprs = FALSE, ...) {
-  d <- x@dr[[coord.name]]@cell.embeddings[, 1:2] %>% fix_coords()
+  d <- x@dr[[coord.name]]@cell.embeddings[, 1:2] |> fix_coords()
 
   if (! isFALSE(add.cols)) {
     cdata <- x@meta.data
@@ -88,7 +88,7 @@ get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = 
     stop("No coordinates found in object. Run reduce_dim() to generate some.")
   }
 
-  d <- Embeddings(x, coord.name)[, 1:2] %>% fix_coords()
+  d <- Embeddings(x, coord.name)[, 1:2] |> fix_coords()
 
   if (! isFALSE(add.cols)) {
     cdata <- x@meta.data
@@ -108,7 +108,7 @@ get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = 
 }
 
 fix_coords <- function(x) {
-  as.data.frame(x) %>% dplyr::rename(dim1 = 1, dim2 = 2)
+  as.data.frame(x) |> dplyr::rename(dim1 = 1, dim2 = 2)
 }
 
 #' expand_column
@@ -147,11 +147,11 @@ expand_column1d <- function(x, col.name = NULL, out.name = col.name, value.name 
   ll <- unique(x[[col.name]])
   tmp <- sapply(ll, function(l) {
     x[[col.name]] == l
-  }) %>% as.data.frame()
+  }) |> as.data.frame()
   colnames(tmp) <- ll
   y <- bind_cols(tmp, x)
 
-  y <- y %>% gather(!!out.name, !!value.name, seq_len(length(ll)))
+  y <- y |> gather(!!out.name, !!value.name, seq_len(length(ll)))
 
   if (is.factor(x[[col.name]]))
     y[[out.name]] <- factor(y[[out.name]], levels = levels(x[[col.name]]))
@@ -173,7 +173,7 @@ expand_column2d <- function(x, col.names) {
   for (col in col.names) {
     d <- expand_column1d(d, col, value.name = val.cols[col])
   }
-  d %>% mutate(value = .data[[val.cols[1]]] & .data[[val.cols[2]]]) %>%
+  d |> mutate(value = .data[[val.cols[1]]] & .data[[val.cols[2]]]) |>
     arrange(.data[["value"]])
 }
 

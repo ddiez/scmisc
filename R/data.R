@@ -10,19 +10,19 @@ get_coldata <- function(x) {
 #' @rdname get_coldata
 #' @export
 get_coldata.SingleCellExperiment <- function(x) {
-  colData(x) %>% as.data.frame()
+  colData(x) |> as.data.frame()
 }
 
 #' @rdname get_coldata
 #' @export
 get_coldata.seurat <- function(x) {
-  x@meta.data %>% as.data.frame()
+  x@meta.data |> as.data.frame()
 }
 
 #' @rdname get_coldata
 #' @export
 get_coldata.Seurat <- function(x) {
-  x@meta.data %>% as.data.frame()
+  x@meta.data |> as.data.frame()
 }
 
 
@@ -40,7 +40,7 @@ get_rowdata <- function(x, ...) {
 #' @rdname get_rowdata
 #' @export
 get_rowdata.SingleCellExperiment <- function(x, ...) {
-  rowData(x) %>% as.data.frame()
+  rowData(x) |> as.data.frame()
 }
 
 #' @rdname get_rowdata

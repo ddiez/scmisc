@@ -17,8 +17,8 @@ compute_percentage_variance.Seurat <- function(x, reduction = "pca") {
   stdev <- Stdev(x, reduction = reduction)
 
 
-  d <- tibble(dims = seq_len(ncol(emb)), stdev = stdev, variance = stdev ^ 2) %>%
-    add_tally(.data$variance, name = "total") %>%
+  d <- tibble(dims = seq_len(ncol(emb)), stdev = stdev, variance = stdev ^ 2) |>
+    add_tally(.data$variance, name = "total") |>
     mutate(percentage = 100 * .data$variance / .data$total)
 }
 
