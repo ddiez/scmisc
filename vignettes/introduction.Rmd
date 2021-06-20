@@ -17,9 +17,12 @@ knitr::opts_chunk$set(
 
 library(dplyr)
 library(scmisc)
+
+set.seed(1)
 ```
 
-## Installation
+
+# Installation
 
 You can install the release version of scmisc from [Github](https://github.com/ddiez/scmisc) with:
 
@@ -27,22 +30,69 @@ You can install the release version of scmisc from [Github](https://github.com/d
 remotes::install_github("ddiez/scmisc")
 ```
 
+# Toy dataset
+
+This toy dataset contains 493 cells from mice in a SingleCellExperiment object.
+
+```{r}
+sce
+```
+
+
+We can create some grouping variables.
+
+```{r}
+sce$group1 <- sample(c("A", "B"), ncol(sce), replace = TRUE)
+sce$group2 <- sample(c("C", "D"), ncol(sce), replace = TRUE)
+```
+
+
+# Preprocess
+
+Calculate PCA:
+
+```{r}
+sce <- reduce_dim(sce, method = "pca")
+```
 
 # Plots
 
-## Expand columns
+## Scatter plot
 
-```{r}
-d <- iris %>% mutate(dim1 = Petal.Length, dim2 = Petal.Width)
-plot_coord(d, size = 1)
+```{r fig.width=6}
+plot_coord(sce)
+plot_coord(sce, color = "group1")
+plot_coord(sce, color = "group2")
 ```
 
-```{r}
-plot_coord(d, size = 1, expand = "Species")
+Expand by grouping variable.
+
+```{r fig.width=6}
+plot_coord(sce, expand = "group1")
+
+plot_coord(sce, expand = c("group1", "group2"))
 ```
 
-```{r}
-d <- d %>% mutate(class = sample(c("A", "B"), n(), replace = TRUE))
-plot_coord(d, expand = c("Species", "class"), size = 1)
+
+## Heatmap
+
+The function `plot_heatmap` is a wrapper around `ComplexHeatmap::Heatmap` that simplifies plotting SingleCellExperiment and Seurat objects.
+
+```{r fig.width=6, fig.height=4, message=FALSE}
+plot_heatmap(sce[1:20, ])
+```
+
+We can use _ComplexHeatmap_ advance annotation features with the heatmap by passing them directly. 
+
+```{r fig.width=6, fig.height=4, message=FALSE}
+plot_heatmap(sce[1:20, ], column_split = sce$group1)
+```
+
+For column annotations we can directly pass the variable names to use with the color specification using _top_ann_ and _top_ann_col_.
+
+```{r fig.width=6, fig.height=5, message=FALSE}
+col <- list(group1 = c(A = "lightgrey", B = "black"),
+            group2 = c("C" = "limegreen", "D" = "violetred"))
+plot_heatmap(sce[1:20, ], column_split = sce$group1, top_ann = c("group1", "group2"), top_ann_col = col)
 ```
 
