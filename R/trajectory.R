@@ -22,13 +22,13 @@ plot_trajectory_graph.SingleCellExperiment <- function(x, ...) {
 #' @export
 plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
   g <- slingshot::slingMST(x)
-  g <- as_tbl_graph(g)
-  g <- g |> activate("nodes") |>
+  g <- tidygraph::as_tbl_graph(g)
+  g <- g |> tidygraph::activate("nodes") |>
     mutate(cluster = "middle")
 
   sc <- slingshot::slingParams(x)[["start.clus"]]
   if (!is.null(sc)) {
-    g <- g |> activate("nodes") |>
+    g <- g |> tidygraph::activate("nodes") |>
       mutate(cluster = case_when(
         .data$name %in% sc ~ "start",
         TRUE ~ .data$cluster
@@ -37,7 +37,7 @@ plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
 
   ec <- slingshot::slingParams(x)[["end.clus"]]
   if (!is.null(ec)) {
-    g <- g |> activate("nodes") |>
+    g <- g |> tidygraph::activate("nodes") |>
       mutate(cluster = case_when(
         name %in% ec ~ "end",
         TRUE ~ .data$cluster
@@ -50,20 +50,20 @@ plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
 #' @rdname plot_trajectory_graph
 #' @export
 plot_trajectory_graph.tbl_graph <- function(x, layout = "nicely", ...) {
-  l <- create_layout(x, layout = layout)
+  l <- ggraph::create_layout(x, layout = layout)
   plot_trajectory_graph(l)
 }
 
 #' @rdname plot_trajectory_graph
 #' @export
 plot_trajectory_graph.layout_ggraph <- function(x, ...) {
-  ggraph(x) +
-    geom_node_text(aes_string(label = "name", color = "cluster")) +
-    geom_edge_fan(
-      end_cap = circle(10, "points"),
-      start_cap = circle(10, "points"),
+  ggraph::ggraph(x) +
+    ggraph::geom_node_text(aes_string(label = "name", color = "cluster")) +
+    ggraph::geom_edge_fan(
+      end_cap = ggraph::circle(10, "points"),
+      start_cap = ggraph::circle(10, "points"),
     ) +
-    theme_graph()
+    ggraph::theme_graph()
 }
 
 #' plot_trajectory

@@ -36,22 +36,22 @@ cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = 
   }
 
   if (method == "louvain") {
-    g <- buildSNNGraph(y)
-    cl <- cluster_louvain(g)
+    g <- scran::buildSNNGraph(y)
+    cl <- igraph::cluster_louvain(g)
     colData(x)[[column.name]] <- factor(cl$membership)
   }
 
   if (method == "density") {
     cds <- as.CellDataSet(x)
-    reducedDimA(cds) <- t(reducedDim(x, coord.name))
+    monocle::reducedDimA(cds) <- t(reducedDim(x, coord.name))
 
-    cds <- clusterCells(cds, num_clusters = ncluster, ...)
+    cds <- scran::clusterCells(cds, num_clusters = ncluster, ...)
     colData(x)[[column.name]] <- factor(cds[["Cluster"]])
   }
 
   if (method == "leiden") {
-    g <- buildSNNGraph(y)
-    cl <- leiden(g, resolution_parameter = resolution)
+    g <- scran::buildSNNGraph(y)
+    cl <- leiden::leiden(g, resolution_parameter = resolution)
     colData(x)[[column.name]] <- factor(cl)
   }
 

@@ -23,7 +23,7 @@ as.CellDataSet.SingleCellExperiment <- function(x, expressionFamily = NULL, gene
   fdata[["gene_short_name"]] <- fdata[[gene_short_name]]
 
   if (is.null(expressionFamily))
-    expressionFamily <- negbinomial.size()
+    expressionFamily <- VGAM::negbinomial.size()
 
-  newCellDataSet(exprs, phenoData = pdata, featureData = fdata, expressionFamily = expressionFamily)
+  monocle::newCellDataSet(exprs, phenoData = pdata, featureData = fdata, expressionFamily = expressionFamily)
 }

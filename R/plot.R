@@ -234,6 +234,6 @@ plot_violin.SingleCellExperiment <- function(x, feature, group, size = .1, ...) 
 #' @rdname plot_violin
 #' @export
 plot_violin.data.frame <- function(x, feature, group, size = .1, ...) {
-  ggplot(x, aes_string(group, "expression")) + geom_quasirandom(groupOnX = TRUE, size = size) +
+  ggplot(x, aes_string(group, "expression")) + ggbeeswarm::geom_quasirandom(groupOnX = TRUE, size = size) +
     labs(title = feature)
 }
