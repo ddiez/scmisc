@@ -237,3 +237,58 @@ plot_violin.data.frame <- function(x, feature, group, size = .1, ...) {
   ggplot(x, aes_string(group, "expression")) + ggbeeswarm::geom_quasirandom(groupOnX = TRUE, size = size) +
     labs(title = feature)
 }
+
+
+#' plot_heatmap
+#'
+#' @param x object to plot.
+#' @param assay assay name for Seurat and SingleCellExperiment objects.
+#' @param slot slot name for Seurat objects.
+#' @param scale whether to scale data data.
+#' @param top_ann names of columns to be used as top annotations.
+#' @param top_ann_col color definition for the categories in the top annotations.
+#' @param show_column_names whether to show column names (default: FALSE).
+#' @param ... arguments passed down to ComplexHeatmap::Heatmap.
+#'
+#' @export
+plot_heatmap <- function(x, ...) {
+  UseMethod("plot_heatmap")
+}
+
+#' @rdname plot_heatmap
+#' @export
+plot_heatmap.Seurat <- function(x, assay = NULL, slot = "data", scale = TRUE, top_ann = NULL, top_ann_col = NULL, ...) {
+  if (!is.null(top_ann)) {
+    df <- x[[]][, top_ann]
+    top_ann <- ComplexHeatmap::columnAnnotation(df = df, col = top_ann_col)
+  }
+
+  if (slot == "scale.data")
+    scale = FALSE
+
+  x <- GetAssayData(x, assay = assay, slot = slot)
+  plot_heatmap(as.matrix(x), scale = scale, ...)
+}
+
+
+#' @rdname plot_heatmap
+#' @export
+plot_heatmap.SingleCellExperiment <- function(x, assay = "logcounts", top_ann = NULL, top_ann_col = NULL, ...) {
+  if (!is.null(top_ann)) {
+    df <- SummarizedExperiment::colData(x)[, top_ann]
+    top_ann <- ComplexHeatmap::columnAnnotation(df = df, col = top_ann_col)
+  }
+
+  x <- SummarizedExperiment::assay(x, assay)
+  plot_heatmap(as.matrix(x), top_ann = top_ann, ...)
+}
+
+
+#' @rdname plot_heatmap
+#' @export
+plot_heatmap.matrix <- function(x, scale = TRUE, show_column_names = FALSE, ...) {
+  if (scale)
+    x <- t(scale(t(x)))
+
+  ComplexHeatmap::Heatmap(x, name = "expression", show_column_names = show_column_names, ...)
+}
