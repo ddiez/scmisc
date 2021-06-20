@@ -16,28 +16,28 @@ plot_coord <- function(x, ...) {
 
 #' @rdname plot_coord
 #' @export
-plot_coord.seurat <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
+plot_coord.seurat <- function(x, size = 1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- get_coord(x, ...)
   plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ncol = ncol, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.Seurat <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
+plot_coord.Seurat <- function(x, size = 1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- get_coord(x, ...)
   plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ncol = ncol, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.SingleCellExperiment <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
+plot_coord.SingleCellExperiment <- function(x, size = 1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- get_coord(x, ...)
   plot_coord(d, size = size, color = color, shape = shape, label = label, expand = expand, ncol = ncol, ...)
 }
 
 #' @rdname plot_coord
 #' @export
-plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
+plot_coord.data.frame <- function(x, size = 1, color = NULL, shape = NULL, label = NULL, expand = NULL, ncol = NULL, ...) {
   d <- x
   if (!is.null(expand)) {
     d <- d %>%

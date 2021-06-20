@@ -12,7 +12,7 @@ plot_coord(x, ...)
 
 \method{plot_coord}{seurat}(
   x,
-  size = 0.1,
+  size = 1,
   color = NULL,
   shape = NULL,
   label = NULL,
@@ -23,7 +23,7 @@ plot_coord(x, ...)
 
 \method{plot_coord}{Seurat}(
   x,
-  size = 0.1,
+  size = 1,
   color = NULL,
   shape = NULL,
   label = NULL,
@@ -34,7 +34,7 @@ plot_coord(x, ...)
 
 \method{plot_coord}{SingleCellExperiment}(
   x,
-  size = 0.1,
+  size = 1,
   color = NULL,
   shape = NULL,
   label = NULL,
@@ -45,7 +45,7 @@ plot_coord(x, ...)
 
 \method{plot_coord}{data.frame}(
   x,
-  size = 0.1,
+  size = 1,
   color = NULL,
   shape = NULL,
   label = NULL,
