@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>compute_density — compute_density • scmisc</title>
+<title>plot_heatmap — plot_heatmap • scmisc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="compute_density — compute_density" />
-<meta property="og:description" content="compute_density" />
+<meta property="og:title" content="plot_heatmap — plot_heatmap" />
+<meta property="og:description" content="plot_heatmap" />
 
 
 
@@ -120,56 +120,71 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>compute_density</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ddiez/scmisc/blob/master/R/density.R'><code>R/density.R</code></a></small>
-    <div class="hidden name"><code>compute_density.Rd</code></div>
+    <h1>plot_heatmap</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddiez/scmisc/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
+    <div class="hidden name"><code>plot_heatmap.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>compute_density</p>
+    <p>plot_heatmap</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compute_density</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>plot_heatmap</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for default</span>
-<span class='fu'>compute_density</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, n <span class='op'>=</span> <span class='fl'>100</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S3 method for Seurat</span>
+<span class='fu'>plot_heatmap</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  assay <span class='op'>=</span> <span class='cn'>NULL</span>,
+  slot <span class='op'>=</span> <span class='st'>"data"</span>,
+  scale <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  top_ann <span class='op'>=</span> <span class='cn'>NULL</span>,
+  top_ann_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for SingleCellExperiment</span>
-<span class='fu'>compute_density</span><span class='op'>(</span><span class='va'>x</span>, coord.name <span class='op'>=</span> <span class='st'>"TSNE"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>plot_heatmap</span><span class='op'>(</span><span class='va'>x</span>, assay <span class='op'>=</span> <span class='st'>"logcounts"</span>, top_ann <span class='op'>=</span> <span class='cn'>NULL</span>, top_ann_col <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for CellDataSet</span>
-<span class='fu'>compute_density</span><span class='op'>(</span><span class='va'>x</span>, coord.name <span class='op'>=</span> <span class='st'>"A"</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>cell_density</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='co'># S3 method for matrix</span>
+<span class='fu'>plot_heatmap</span><span class='op'>(</span><span class='va'>x</span>, scale <span class='op'>=</span> <span class='cn'>TRUE</span>, show_column_names <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>x coordinate of data</p></td>
+      <td><p>object to plot.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments passed down to methods.</p></td>
+      <td><p>arguments passed down to ComplexHeatmap::Heatmap.</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>y coordinate of data</p></td>
+      <th>assay</th>
+      <td><p>assay name for Seurat and SingleCellExperiment objects.</p></td>
     </tr>
     <tr>
-      <th>n</th>
-      <td><p>Number of grid points in each direction. Can be scalar or a length-2 integer vector.</p></td>
+      <th>slot</th>
+      <td><p>slot name for Seurat objects.</p></td>
     </tr>
     <tr>
-      <th>coord.name</th>
-      <td><p>name of coordinates for some methods.</p></td>
+      <th>scale</th>
+      <td><p>whether to scale data data.</p></td>
+    </tr>
+    <tr>
+      <th>top_ann</th>
+      <td><p>names of columns to be used as top annotations.</p></td>
+    </tr>
+    <tr>
+      <th>top_ann_col</th>
+      <td><p>color definition for the categories in the top annotations.</p></td>
+    </tr>
+    <tr>
+      <th>show_column_names</th>
+      <td><p>whether to show column names (default: FALSE).</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>I took this implementation from http://slowkow.com/notes/ggplot2-color-by-density/</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
