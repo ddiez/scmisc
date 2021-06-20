@@ -49,7 +49,7 @@ plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, labe
         geom_point(size = size) +
         scale_color_manual(values = c("grey", "red")) +
         facet_wrap(~.data[[expand]], ncol = ncol) +
-        guides(color = FALSE)
+        guides(color = "none")
     }
 
     if (length(expand) == 2) {
@@ -57,7 +57,7 @@ plot_coord.data.frame <- function(x, size = .1, color = NULL, shape = NULL, labe
         geom_point(size = size) +
         scale_color_manual(values = c("grey", "red")) +
         facet_grid(rows = vars(.data[[expand[2]]]), cols = vars(.data[[expand[1]]])) +
-        guides(color = FALSE)
+        guides(color = "none")
     }
   } else {
     if (!is.null(color))
