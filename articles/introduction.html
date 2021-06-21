@@ -101,7 +101,7 @@
 <div id="toy-dataset" class="section level1">
 <h1 class="hasAnchor">
 <a href="#toy-dataset" class="anchor"></a>Toy dataset</h1>
-<p>This toy dataset contains 493 cells from mice in a SingleCellExperiment object.</p>
+<p>This toy dataset contains 493 cells from mice in a <em>SingleCellExperiment</em> object.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sce</span>
 <span class="co">#&gt; class: SingleCellExperiment </span>
@@ -124,13 +124,14 @@
 <div id="preprocess" class="section level1">
 <h1 class="hasAnchor">
 <a href="#preprocess" class="anchor"></a>Preprocess</h1>
-<p>Calculate PCA:</p>
+<p>To calculate PCA we can use <code>reduce_dim</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reduce_dim.html">reduce_dim</a></span><span class="op">(</span><span class="va">sce</span>, method <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="plots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#plots" class="anchor"></a>Plots</h1>
+<p>There are several plotting functions that work with <em>Seurat</em> and <em>SingleCellExperiment</em> objects.</p>
 <div id="scatter-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scatter-plot" class="anchor"></a>Scatter plot</h2>
