@@ -32,7 +32,7 @@ remotes::install_github("ddiez/scmisc")
 
 # Toy dataset
 
-This toy dataset contains 493 cells from mice in a SingleCellExperiment object.
+This toy dataset contains 493 cells from mice in a _SingleCellExperiment_ object.
 
 ```{r}
 sce
@@ -49,13 +49,15 @@ sce$group2 <- sample(c("C", "D"), ncol(sce), replace = TRUE)
 
 # Preprocess
 
-Calculate PCA:
+To calculate PCA we can use `reduce_dim`.
 
 ```{r}
 sce <- reduce_dim(sce, method = "pca")
 ```
 
 # Plots
+
+There are several plotting functions that work with _Seurat_ and _SingleCellExperiment_ objects.
 
 ## Scatter plot
 
