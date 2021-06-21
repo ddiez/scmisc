@@ -35,7 +35,8 @@ Suggests:
     stats,
     Rtsne,
     uwot,
-    leiden
+    leiden,
+    circlize
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -84,7 +84,13 @@ The function `plot_heatmap` is a wrapper around `ComplexHeatmap::Heatmap` that s
 plot_heatmap(sce[1:20, ])
 ```
 
-We can use _ComplexHeatmap_ advance annotation features with the heatmap by passing them directly. 
+We can use _ComplexHeatmap_ advance annotation features with the heatmap by passing them directly.
+
+```{r fig.width=6, fig.height=4, message=FALSE}
+cols <- circlize::colorRamp2(c(-2, 0, 2), c("purple", "black", "yellow"))
+plot_heatmap(sce[1:20, ], col = cols)
+```
+
 
 ```{r fig.width=6, fig.height=4, message=FALSE}
 plot_heatmap(sce[1:20, ], column_split = sce$group1)
