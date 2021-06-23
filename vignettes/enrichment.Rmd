@@ -1,0 +1,73 @@
+---
+title: "Enrichment analysis"
+author: "Diego Diez"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Enrichment analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(dplyr)
+library(scmisc)
+library(Seurat)
+
+set.seed(1)
+```
+
+
+# Convert toy data to Seurat object
+
+This toy dataset contains 493 cells from mice in a _SingleCellExperiment_ object.
+
+```{r}
+x <- as.Seurat(sce)
+x
+```
+
+# Preprocess
+
+```{r fig.height=4, fig.width=6, warning=FALSE}
+x <- NormalizeData(x, verbose = FALSE)
+x <- FindVariableFeatures(x, verbose = FALSE)
+x <- ScaleData(x, verbose = FALSE)
+x <- RunPCA(x, verbose = FALSE)
+x <- RunUMAP(x, dims = 1:10, verbose = FALSE)
+x <- FindNeighbors(x, verbose = FALSE)
+x <- FindClusters(x, verbose = FALSE)
+DimPlot(x, label = TRUE) + NoLegend()
+```
+
+# Find differentially expressed genes
+
+```{r}
+deg <- FindAllMarkers(x, verbose = FALSE)
+head(deg)
+```
+
+# Add entrezgene annotations
+
+```{r}
+db <- org.Mm.eg.db::org.Mm.eg.db
+deg <- deg |> mutate(entrezgene = AnnotationDbi::mapIds(db, deg$gene, "ENTREZID", "SYMBOL"))
+```
+
+# Functional enrichment
+
+```{r}
+res <- run_enrichment(deg, type = "KEGG", org = "Mm")
+head(res)
+```
+
+```{r fig.width=6, fig.height=8}
+plot_enrichment(res, color.by = "P.Up")
+plot_enrichment(res, color.by = "P.Down")
+```
+

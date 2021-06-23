@@ -38,6 +38,8 @@ Suggests:
     leiden,
     circlize,
     limma,
+    org.Mm.eg.db,
+    AnnotationDbi
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
