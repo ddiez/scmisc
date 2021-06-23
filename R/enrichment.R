@@ -46,3 +46,29 @@ kegg_enrichment <- function(x, group.by = "cluster", use.column = "entrezgene", 
 
   lapply(ids, limma::kegga, species = org) |> bind_rows(.id = "cluster")
 }
+
+#' plot_enrichment
+#'
+#' Plot the result of run_enrichment function as a heatmap.
+#'
+#' @param x data.frame with results from run_enrichment.
+#' @param group.by grouping variable (default: cluster).
+#' @param color.by color variable (default: P.Up).
+#' @param FDR cutoff to select significantly enriched terms/pathways.
+#' @param col colors to use and passed down to ComplexHeatmap::Heatmap.
+#' @param top_ann top annotations passed down to ComplexHeatmap::Heatmap.
+#' @param ... additional arguments passed down to ComplexHeatmap::Heatmap.
+#'
+#' @export
+plot_enrichment <- function(x, group.by = "cluster", color.by = "P.Up", FDR = 0.01, col = c("white", "blue"), top_ann = NULL, ...) {
+  pathways <- x |> filter(.data[["adj.P.Up"]] < FDR | .data[["adj.P.Down"]] < FDR) |> pull("Pathway")
+
+  m <- x |> filter(.data[["Pathway"]] %in% pathways) |>
+    select("Pathway", !!group.by, !!color.by) |>
+    mutate(color = -log10(.data[[color.by]])) |>
+    pivot_wider("Pathway", names_from = group.by, values_from = "color") |>
+    column_to_rownames("Pathway") |>
+    as.matrix()
+
+  ComplexHeatmap::Heatmap(m, col = col, top_annotation = top_ann, ...)
+}
