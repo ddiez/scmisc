@@ -10,6 +10,7 @@ Authors@R:
 Description: Miscellaneus tools for the analysis of single cell data.
 Depends: R (>= 4.1.0)
 Imports:
+    stats,
     tibble,
     dplyr,
     tidyr,
@@ -32,11 +33,11 @@ Suggests:
     scran,
     slingshot,
     monocle,
-    stats,
     Rtsne,
     uwot,
     leiden,
-    circlize
+    circlize,
+    limma,
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
