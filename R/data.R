@@ -64,6 +64,8 @@ get_rowdata.Seurat <- function(x, assay = NULL, ...) {
 #' @param coord.name name of coordinates.
 #' @param feature.name name of features.
 #' @param meta.data whether to include meta.data.
+#' @param assay name of assay to use for Seurat objects.
+#' @param slot name of slot to use for Seurat objects.
 #' @param ... argument passed down to methods.
 #'
 #' @export

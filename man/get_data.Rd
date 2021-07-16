@@ -27,6 +27,10 @@ get_data(x, coord.name = NULL, feature.name = NULL, meta.data = TRUE, ...)
 \item{meta.data}{whether to include meta.data.}
 
 \item{...}{argument passed down to methods.}
+
+\item{assay}{name of assay to use for Seurat objects.}
+
+\item{slot}{name of slot to use for Seurat objects.}
 }
 \description{
 Get miscellaneous data from objects.
