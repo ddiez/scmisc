@@ -74,6 +74,6 @@ res |> filter(adj.P.Down < 0.01) |> arrange(desc(Down))
 
 
 ```{r fig.width=6, fig.height=4}
-plot_enrichment(res, padding = unit(c(.5, .5, .5, 6), "cm"), circle.scale = .15)
+plot_enrichment(res, padding = grid::unit(c(.5, .5, .5, 6), "cm"), circle.scale = .15)
 ```
 
