@@ -16,7 +16,7 @@ Imports:
     tidyr,
     ggplot2,
     Biobase,
-    Seurat,
+    SeuratObject,
     SummarizedExperiment,
     SingleCellExperiment,
     ComplexHeatmap,
