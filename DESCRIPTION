@@ -19,7 +19,8 @@ Imports:
     Seurat,
     SummarizedExperiment,
     SingleCellExperiment,
-    ComplexHeatmap
+    ComplexHeatmap,
+    grid
 Suggests:
     testthat,
     knitr,

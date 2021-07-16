@@ -7,10 +7,15 @@
 plot_enrichment(
   x,
   group.by = "cluster",
-  color.by = "P.Up",
+  direction = c("Up", "Down"),
   FDR = 0.01,
-  col = c("white", "blue"),
+  col_up = c("white", "red"),
+  col_down = c("white", "blue"),
   top_ann = NULL,
+  circle.scale = 0.2,
+  cluster_columns = FALSE,
+  border = TRUE,
+  padding = NULL,
   ...
 )
 }
@@ -19,13 +24,23 @@ plot_enrichment(
 
 \item{group.by}{grouping variable (default: cluster).}
 
-\item{color.by}{color variable (default: P.Up).}
+\item{direction}{which direction ("Up", "Down") to plot for enrichment (default: c("Up", "Down")).}
 
 \item{FDR}{cutoff to select significantly enriched terms/pathways.}
 
-\item{col}{colors to use and passed down to ComplexHeatmap::Heatmap.}
+\item{col_up}{colors to use for Up and passed down to ComplexHeatmap::Heatmap.}
+
+\item{col_down}{colors to use for Down and passed down to ComplexHeatmap::Heatmap.}
 
 \item{top_ann}{top annotations passed down to ComplexHeatmap::Heatmap.}
+
+\item{circle.scale}{scale to be applied to the circles.}
+
+\item{cluster_columns}{whether to cluster columns.}
+
+\item{border}{whether to add border.}
+
+\item{padding}{padding around heatmap passed down to ComplexHeatmap::draw.}
 
 \item{...}{additional arguments passed down to ComplexHeatmap::Heatmap.}
 }

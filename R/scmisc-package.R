@@ -7,6 +7,7 @@
 #' @import tibble dplyr tidyr ggplot2 SummarizedExperiment SingleCellExperiment
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom ComplexHeatmap Heatmap
+#' @importFrom grid gpar grid.circle unit.c
 #' @importFrom Seurat DefaultAssay GetAssayData Embeddings FetchData Reductions Stdev
 #' @importFrom stats prcomp kmeans dist hclust cutree as.dist cor p.adjust
 ## usethis namespace: end
