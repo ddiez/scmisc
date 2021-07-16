@@ -55,3 +55,45 @@ get_rowdata.Seurat <- function(x, assay = NULL, ...) {
   if (is.null(assay)) assay <- DefaultAssay(x)
   data.frame(symbol = rownames(GetAssayData(x, assay = assay)))
 }
+
+#' get_data
+#'
+#' Get miscellaneous data from objects.
+#'
+#' @param x  object to extract data from.
+#' @param coord.name name of coordinates.
+#' @param feature.name name of features.
+#' @param meta.data whether to include meta.data.
+#' @param ... argument passed down to methods.
+#'
+#' @export
+get_data <- function(x, coord.name = NULL, feature.name = NULL, meta.data = TRUE, ...) {
+  UseMethod("get_data")
+}
+
+#' @rdname get_data
+#' @export
+get_data.Seurat <- function(x, coord.name = NULL, feature.name = NULL, meta.data = TRUE, assay = NULL, slot = "data", ...) {
+  meta <- NULL
+  if (meta.data) {
+    meta <- x[[]]
+  }
+
+  coord <- NULL
+  if (!is.null(coord.name)) {
+    if (isTRUE(coord.name)) {
+      coord.name <- SeuratObject::Reductions(x)[1]
+    }
+    coord <- get_coord(x, coord.name = coord.name)
+  }
+
+  feature <- NULL
+  if(!is.null(feature.name)) {
+    feature <- sapply(feature.name, function(gene) {
+      get_expression(x, gene, assay.name = assay, slot = slot)
+    })
+  }
+
+  list(embedings = coord, meta = meta, features = feature)
+}
+
