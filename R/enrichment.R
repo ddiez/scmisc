@@ -44,7 +44,8 @@ kegg_enrichment <- function(x, group.by = "cluster", use.column = "entrezgene", 
   })
   names(ids) <- groups
 
-  lapply(ids, limma::kegga, species = org) |> bind_rows(.id = "cluster")
+  lapply(ids, limma::kegga, species = org) |>
+    bind_rows(.id = "cluster")
 }
 
 #' plot_enrichment
