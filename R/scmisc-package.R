@@ -8,7 +8,7 @@
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom ComplexHeatmap Heatmap
 #' @importFrom grid gpar grid.circle unit.c
-#' @importFrom stats prcomp kmeans dist hclust cutree as.dist cor p.adjust
 #' @importFrom SeuratObject DefaultAssay GetAssayData Embeddings FetchData Reductions Stdev
+#' @importFrom stats prcomp kmeans dist hclust cutree as.dist cor p.adjust setNames
 ## usethis namespace: end
 NULL
