@@ -17,7 +17,7 @@ sample_cells <- function(x, ...) {
 #' @rdname sample_cells
 #' @export
 sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
-  cdata <- x@meta.data |>
+  cdata <- x[[]] |>
     as_tibble(rownames = ".id")
 
   if (!is.null(group))
