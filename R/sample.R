@@ -31,13 +31,13 @@ sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
   if (!is.null(n)) {
     sel.cells <- cdata |>
       sample_n(n) |>
-      pull(.data$.id)
+      pull(.data[[".id"]])
   }
 
   if (!is.null(frac)) {
     sel.cells <- cdata |>
       sample_frac(frac) |>
-      pull(.data$.id)
+      pull(.data[[".id"]])
   }
 
   x[, sel.cells]
