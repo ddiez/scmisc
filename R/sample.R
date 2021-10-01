@@ -21,7 +21,7 @@ sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
     as_tibble(rownames = ".id")
 
   if (!is.null(group))
-    cdata <- cdata |> group_by_at(.vars = group)
+    cdata <- cdata |> group_by(.data[[group]])
 
   if (is.null(n) && is.null(frac)) {
     n <- cdata |> count() |> pull(n) |> min()
