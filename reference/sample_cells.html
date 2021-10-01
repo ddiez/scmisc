@@ -73,7 +73,7 @@ optionally by grouping." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -95,6 +95,9 @@ optionally by grouping." />
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/enrichment.html">Enrichment analysis</a>
+    </li>
     <li>
       <a href="../articles/introduction.html">Introduction to scmisc</a>
     </li>
@@ -134,7 +137,7 @@ optionally by grouping.</p>
     <pre class="usage"><span class='fu'>sample_cells</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Seurat</span>
-<span class='fu'>sample_cells</span><span class='op'>(</span><span class='va'>x</span>, group <span class='op'>=</span> <span class='cn'>NULL</span>, n <span class='op'>=</span> <span class='cn'>NULL</span>, frac <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>sample_cells</span><span class='op'>(</span><span class='va'>x</span>, group <span class='op'>=</span> <span class='cn'>NULL</span>, n <span class='op'>=</span> <span class='cn'>NULL</span>, frac <span class='op'>=</span> <span class='cn'>NULL</span>, n_max <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for SingleCellExperiment</span>
 <span class='fu'>sample_cells</span><span class='op'>(</span><span class='va'>x</span>, group <span class='op'>=</span> <span class='cn'>NULL</span>, n <span class='op'>=</span> <span class='cn'>NULL</span>, frac <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -161,6 +164,10 @@ optionally by grouping.</p>
     <tr>
       <th>frac</th>
       <td><p>fraction of cells to sample (per group).</p></td>
+    </tr>
+    <tr>
+      <th>n_max</th>
+      <td><p>number of cells to sample, if less cells available then all cells returned.</p></td>
     </tr>
     </table>
 
