@@ -8,7 +8,7 @@
 \usage{
 sample_cells(x, ...)
 
-\method{sample_cells}{Seurat}(x, group = NULL, n = NULL, frac = NULL, ...)
+\method{sample_cells}{Seurat}(x, group = NULL, n = NULL, frac = NULL, n_max = NULL, ...)
 
 \method{sample_cells}{SingleCellExperiment}(x, group = NULL, n = NULL, frac = NULL, ...)
 }
@@ -22,6 +22,8 @@ sample_cells(x, ...)
 \item{n}{number of cells to sample (per group).}
 
 \item{frac}{fraction of cells to sample (per group).}
+
+\item{n_max}{number of cells to sample, if less cells available then all cells returned.}
 }
 \description{
 Subset a single cell experiment object by sampling the number of specified cells,

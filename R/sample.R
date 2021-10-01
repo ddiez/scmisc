@@ -7,6 +7,7 @@
 #' @param group optional grouping variable.
 #' @param n number of cells to sample (per group).
 #' @param frac fraction of cells to sample (per group).
+#' @param n_max number of cells to sample, if less cells available then all cells returned.
 #' @param ... parameters passed down to methods.
 #'
 #' @export
@@ -16,16 +17,16 @@ sample_cells <- function(x, ...) {
 
 #' @rdname sample_cells
 #' @export
-sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
+sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, n_max = NULL, ...) {
   cdata <- x[[]] |>
     as_tibble(rownames = ".id")
 
   if (!is.null(group))
     cdata <- cdata |> group_by(.data[[group]])
 
-  if (is.null(n) && is.null(frac)) {
+  if (is.null(n) && is.null(frac) && is.null(n_max)) {
     n <- cdata |> count() |> pull(n) |> min()
-    message("Neither 'n' or 'frac' specified. Sampling ", n, " cells per group.")
+    message("Neither 'n', 'frac' or 'n_max) specified. Sampling ", n, " cells per group.")
   }
 
   if (!is.null(n)) {
@@ -37,6 +38,13 @@ sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, ...) {
   if (!is.null(frac)) {
     sel.cells <- cdata |>
       sample_frac(frac) |>
+      pull(.data[[".id"]])
+  }
+
+  if (!is.null(n_max)) {
+    d <- split(cdata, cdata[[group]])
+    sel.cells <- lapply(d, function(x) if (nrow(x) < n_max) x else sample_n(x, size = n_max)) |>
+      bind_rows() |>
       pull(.data[[".id"]])
   }
 
