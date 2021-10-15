@@ -13,11 +13,14 @@ process(x, ...)
   dims = 1:10,
   algorithm = 1,
   resolution = 0.6,
-  verbose = FALSE
+  verbose = FALSE,
+  ...
 )
 }
 \arguments{
 \item{x}{an object of class Seurat.}
+
+\item{...}{arguments passed down to methods.}
 
 \item{assay}{assay to use for processing.}
 
