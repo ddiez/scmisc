@@ -9,5 +9,6 @@
 #' @importFrom ComplexHeatmap Heatmap
 #' @importFrom grid gpar grid.circle unit.c
 #' @importFrom stats prcomp kmeans dist hclust cutree as.dist cor p.adjust setNames
+#' @importFrom Seurat FindClusters FindNeighbors FindVariableFeatures RunPCA RunUMAP ScaleData
 ## usethis namespace: end
 NULL

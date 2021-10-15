@@ -17,6 +17,7 @@ Imports:
     ggplot2,
     Biobase,
     SeuratObject,
+    Seurat,
     SummarizedExperiment,
     SingleCellExperiment,
     ComplexHeatmap
@@ -39,8 +40,7 @@ Suggests:
     circlize,
     limma,
     org.Mm.eg.db,
-    AnnotationDbi,
-    Seurat
+    AnnotationDbi
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
