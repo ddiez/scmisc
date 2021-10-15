@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get_coord — get_coord • scmisc</title>
+<title>process — process • scmisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="get_coord — get_coord" />
-<meta property="og:description" content="Extract coordinates (e.g. from dimensionality reduction) from bio datasets,
-optionally with annotations to help plotting them with ggplot2 package." />
+<meta property="og:title" content="process — process" />
+<meta property="og:description" content="Applies several processing steps to a single cell genomics object." />
 
 
 
@@ -124,35 +123,25 @@ optionally with annotations to help plotting them with ggplot2 package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get_coord</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ddiez/scmisc/blob/master/R/coord.R'><code>R/coord.R</code></a></small>
-    <div class="hidden name"><code>get_coord.Rd</code></div>
+    <h1>process</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddiez/scmisc/blob/master/R/process.R'><code>R/process.R</code></a></small>
+    <div class="hidden name"><code>process.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract coordinates (e.g. from dimensionality reduction) from bio datasets,
-optionally with annotations to help plotting them with ggplot2 package.</p>
+    <p>Applies several processing steps to a single cell genomics object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_coord</span><span class='op'>(</span><span class='va'>x</span>, coord.name <span class='op'>=</span> <span class='cn'>NULL</span>, add.cols <span class='op'>=</span> <span class='cn'>TRUE</span>, add.exprs <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for SingleCellExperiment</span>
-<span class='fu'>get_coord</span><span class='op'>(</span><span class='va'>x</span>, coord.name <span class='op'>=</span> <span class='cn'>NULL</span>, add.cols <span class='op'>=</span> <span class='cn'>TRUE</span>, add.exprs <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for CellDataSet</span>
-<span class='fu'>get_coord</span><span class='op'>(</span><span class='va'>x</span>, coord.name <span class='op'>=</span> <span class='st'>"A"</span>, add.cols <span class='op'>=</span> <span class='cn'>TRUE</span>, add.exprs <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for seurat</span>
-<span class='fu'>get_coord</span><span class='op'>(</span><span class='va'>x</span>, coord.name <span class='op'>=</span> <span class='st'>"tsne"</span>, add.cols <span class='op'>=</span> <span class='cn'>TRUE</span>, add.exprs <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>process</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Seurat</span>
-<span class='fu'>get_coord</span><span class='op'>(</span>
+<span class='fu'>process</span><span class='op'>(</span>
   <span class='va'>x</span>,
-  coord.name <span class='op'>=</span> <span class='cn'>NULL</span>,
-  add.cols <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  add.exprs <span class='op'>=</span> <span class='cn'>FALSE</span>,
   assay <span class='op'>=</span> <span class='cn'>NULL</span>,
-  slot <span class='op'>=</span> <span class='st'>"data"</span>,
+  dims <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,
+  algorithm <span class='op'>=</span> <span class='fl'>1</span>,
+  resolution <span class='op'>=</span> <span class='fl'>0.6</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -161,19 +150,7 @@ optionally with annotations to help plotting them with ggplot2 package.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>object to obtain coordinates.</p></td>
-    </tr>
-    <tr>
-      <th>coord.name</th>
-      <td><p>name of the holder for coordinates.</p></td>
-    </tr>
-    <tr>
-      <th>add.cols</th>
-      <td><p>logical; whether to annotate each coordinate with column data (i.e. colData).</p></td>
-    </tr>
-    <tr>
-      <th>add.exprs</th>
-      <td><p>if not NULL a list of genes to add counts obtained with get_expression().</p></td>
+      <td><p>an object of class Seurat.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -181,17 +158,26 @@ optionally with annotations to help plotting them with ggplot2 package.</p>
     </tr>
     <tr>
       <th>assay</th>
-      <td><p>name of assay for Seurat objects.</p></td>
+      <td><p>assay to use for processing.</p></td>
     </tr>
     <tr>
-      <th>slot</th>
-      <td><p>name of slot for Seurat objects.</p></td>
+      <th>dims</th>
+      <td><p>PCA dimensions to use for UMAP and clustering.</p></td>
+    </tr>
+    <tr>
+      <th>algorithm</th>
+      <td><p>algorithm to use for clustering.</p></td>
+    </tr>
+    <tr>
+      <th>resolution</th>
+      <td><p>resolution to use for clustering.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>whether to output diagnostic information.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A data.frame object.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
