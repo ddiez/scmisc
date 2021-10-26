@@ -13,6 +13,7 @@ process(x, ...)
   dims = 1:10,
   algorithm = 1,
   resolution = 0.6,
+  nfeatures = 2000,
   verbose = FALSE,
   ...
 )
@@ -29,6 +30,8 @@ process(x, ...)
 \item{algorithm}{algorithm to use for clustering.}
 
 \item{resolution}{resolution to use for clustering.}
+
+\item{nfeatures}{number of features for FindVariableFeatures().}
 
 \item{verbose}{whether to output diagnostic information.}
 }
