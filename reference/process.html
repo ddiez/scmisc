@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -141,6 +141,7 @@
   dims <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,
   algorithm <span class='op'>=</span> <span class='fl'>1</span>,
   resolution <span class='op'>=</span> <span class='fl'>0.6</span>,
+  nfeatures <span class='op'>=</span> <span class='fl'>2000</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
@@ -171,6 +172,10 @@
     <tr>
       <th>resolution</th>
       <td><p>resolution to use for clustering.</p></td>
+    </tr>
+    <tr>
+      <th>nfeatures</th>
+      <td><p>number of features for FindVariableFeatures().</p></td>
     </tr>
     <tr>
       <th>verbose</th>
