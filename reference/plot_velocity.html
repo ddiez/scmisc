@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SingleCellExperiment dataset. — sce • scmisc</title>
+<title>plot_velocity — plot_velocity • scmisc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="SingleCellExperiment dataset. — sce" />
-<meta property="og:description" content="SingleCellExperiment dataset." />
+<meta property="og:title" content="plot_velocity — plot_velocity" />
+<meta property="og:description" content="plot_velocity" />
 
 
 
@@ -123,16 +123,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>SingleCellExperiment dataset.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ddiez/scmisc/blob/master/R/scmisc-data.R'><code>R/scmisc-data.R</code></a></small>
-    <div class="hidden name"><code>sce.Rd</code></div>
+    <h1>plot_velocity</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddiez/scmisc/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
+    <div class="hidden name"><code>plot_velocity.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>SingleCellExperiment dataset.</p>
+    <p>plot_velocity</p>
     </div>
 
+    <pre class="usage"><span class='fu'>plot_velocity</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  meta <span class='op'>=</span> <span class='cn'>NULL</span>,
+  color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  grid <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  arrow.color <span class='op'>=</span> <span class='st'>"black"</span>,
+  arrow.size <span class='op'>=</span> <span class='fl'>0.2</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>data.frame with velocity information.</p></td>
+    </tr>
+    <tr>
+      <th>meta</th>
+      <td><p>cell information.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>column from meta to color cells.</p></td>
+    </tr>
+    <tr>
+      <th>grid</th>
+      <td><p>whether to plot vector field.</p></td>
+    </tr>
+    <tr>
+      <th>arrow.color</th>
+      <td><p>color for arrows.</p></td>
+    </tr>
+    <tr>
+      <th>arrow.size</th>
+      <td><p>size for arrows.</p></td>
+    </tr>
+    </table>
 
 
   </div>
