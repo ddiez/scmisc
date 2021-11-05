@@ -292,3 +292,24 @@ plot_heatmap.matrix <- function(x, scale = TRUE, show_column_names = FALSE, ...)
 
   ComplexHeatmap::Heatmap(x, name = "expression", show_column_names = show_column_names, ...)
 }
+
+
+#' plot_loadings
+#'
+#' @param x object to plot.
+#' @param features name of features to plot.
+#' @param reduction name of reduction to plot.
+#' @param cluster_columns whether to cluster heatmap columns.
+#' @param ... arguments passed down to ComplexHeatmap::Heatmap.
+#'
+#' @export
+plot_loadings <- function(x, features, reduction = "pca", cluster_columns = FALSE, ...) {
+  UseMethod("plot_loadings")
+}
+
+#' @rdname plot_loadings
+#' @export
+plot_loadings.Seurat <- function(x, features, reduction = "pca", cluster_columns = FALSE, ...) {
+  d <- SeuratObject::Loadings(x, reduction = reduction)
+  features <- intersect(features, rownames(d))
+  ComplexHeatmap::Heatmap(d[features, ], cluster_columns = cluster_columns, name = "loadings", ...)
