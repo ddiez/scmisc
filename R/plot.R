@@ -313,3 +313,41 @@ plot_loadings.Seurat <- function(x, features, reduction = "pca", cluster_columns
   d <- SeuratObject::Loadings(x, reduction = reduction)
   features <- intersect(features, rownames(d))
   ComplexHeatmap::Heatmap(d[features, ], cluster_columns = cluster_columns, name = "loadings", ...)
+}
+
+#' plot_velocity
+#'
+#' @param x data.frame with velocity information.
+#' @param meta cell information.
+#' @param color column from meta to color cells.
+#' @param grid whether to plot vector field.
+#' @param arrow.color color for arrows.
+#' @param arrow.size size for arrows.
+#'
+#' @export
+plot_velocity <- function(x, meta = NULL, color = NULL, grid = FALSE, arrow.color = "black", arrow.size = .2) {
+  d <- x$arrows |>
+    as.data.frame() |>
+    rownames_to_column("barcode")
+
+  if (! is.null(meta)) {
+    d <- d |> left_join(meta |> rownames_to_column("barcode"), by = "barcode")
+  }
+
+  if (grid) {
+    da <- x$garrow |>
+      as.data.frame()
+  } else {
+    da <- d
+  }
+
+  if (!is.null(meta) && !is.null(color)) {
+    p <- ggplot(d, aes(x = .data[["x0"]], y = .data[["y0"]], color = .data[[color]])) +
+      geom_point()
+  } else {
+    p <- ggplot(d, aes(x = .data[["x0"]], y = .data[["y0"]])) +
+      geom_point(color = "grey")
+  }
+  p + geom_segment(aes(x = .data[["x0"]], y = .data[["y0"]], xend = .data[["x1"]], yend = .data[["y1"]]), data = da, arrow = arrow(length = unit(1, "mm"), type = "closed"), color = arrow.color, size = arrow.size) +
+    theme_void()
+}
