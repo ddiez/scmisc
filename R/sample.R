@@ -1,7 +1,8 @@
 #' sample_cells
 #'
 #' Subset a single cell experiment object by sampling the number of specified cells,
-#' optionally by grouping.
+#' optionally by grouping. If neither n, frac or n_max is specified the lowest number
+#' of cells in group will be used.
 #'
 #' @param x an object to sample from.
 #' @param group optional grouping variable.
@@ -26,7 +27,7 @@ sample_cells.Seurat <- function(x, group = NULL, n = NULL, frac = NULL, n_max = 
 
   if (is.null(n) && is.null(frac) && is.null(n_max)) {
     n <- cdata |> count() |> pull(n) |> min()
-    message("Neither 'n', 'frac' or 'n_max) specified. Sampling ", n, " cells per group.")
+    message("Neither 'n', 'frac' or 'n_max' specified. Sampling ", n, " cells per group.")
   }
 
   if (!is.null(n)) {

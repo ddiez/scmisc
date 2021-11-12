@@ -27,5 +27,6 @@ sample_cells(x, ...)
 }
 \description{
 Subset a single cell experiment object by sampling the number of specified cells,
-optionally by grouping.
+optionally by grouping. If neither n, frac or n_max is specified the lowest number
+of cells in group will be used.
 }
