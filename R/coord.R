@@ -91,7 +91,7 @@ get_coord.Seurat <- function(x, coord.name = NULL, add.cols = TRUE, add.exprs = 
   d <- Embeddings(x, coord.name)[, 1:2] |> fix_coords()
 
   if (! isFALSE(add.cols)) {
-    cdata <- x@meta.data
+    cdata <- x[[]]
     if (! isTRUE(add.cols))
       cdata <- cdata[, colnames(cdata) %in% add.cols, drop = FALSE]
     d <- cbind(d, cdata)
