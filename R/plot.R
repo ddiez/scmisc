@@ -259,7 +259,7 @@ plot_heatmap <- function(x, ...) {
 #' @export
 plot_heatmap.Seurat <- function(x, assay = NULL, slot = "data", scale = TRUE, top_ann = NULL, top_ann_col = NULL, ...) {
   if (!is.null(top_ann)) {
-    df <- x[[]][, top_ann]
+    df <- x[[]][, top_ann, drop = FALSE]
     top_ann <- ComplexHeatmap::columnAnnotation(df = df, col = top_ann_col)
   }
 
@@ -267,7 +267,7 @@ plot_heatmap.Seurat <- function(x, assay = NULL, slot = "data", scale = TRUE, to
     scale = FALSE
 
   x <- GetAssayData(x, assay = assay, slot = slot)
-  plot_heatmap(as.matrix(x), scale = scale, ...)
+  plot_heatmap(as.matrix(x), scale = scale, top_ann = top_ann, ...)
 }
 
 
