@@ -351,3 +351,32 @@ plot_velocity <- function(x, meta = NULL, color = NULL, grid = FALSE, arrow.colo
   p + geom_segment(aes(x = .data[["x0"]], y = .data[["y0"]], xend = .data[["x1"]], yend = .data[["y1"]]), data = da, arrow = arrow(length = unit(1, "mm"), type = "closed"), color = arrow.color, size = arrow.size) +
     theme_void()
 }
+
+
+#' plot_volcano
+#'
+#' @param x data.frame with DEG results from FindAllMarkers.
+#' @param clusters clusters to plot. If null, plot all.
+#' @param n number of genes (per down/up-regulated) to highlight.
+#' @param fdr false discovery rate cutoff to highlight genes.
+#' @param lfc log fold change cutoff to highlight genes.
+#' @param ... arguments passed down to ggrepel functions.
+#'
+#' @export
+plot_volcano <- function(x, clusters = NULL, n = 10, fdr = 0.01, lfc = 1, ...) {
+  if (!is.null(clusters)) {
+    x <- x |> filter(.data[["cluster"]] %in% !!clusters)
+  }
+  clusters <- unique(x[["cluster"]])
+  lapply(clusters, function(cluster) {
+    tmp <- x |> filter(.data[["cluster"]] == !!cluster)
+    top.up <- tmp  |>  filter(.data[["avg_log2FC"]] >= lfc, .data[["p_val_adj"]] < fdr)  |>  head(n)
+    top.down <- tmp  |>  filter(.data[["avg_log2FC"]] <= -lfc, .data[["p_val_adj"]] < fdr)  |>  head(n)
+    ggplot(tmp, aes(.data[["avg_log2FC"]], -log10(.data[["p_val"]]))) +
+      geom_point(size = .1) +
+      geom_vline(xintercept = c(-1, 1),lty = "dotted", color = "lightgrey") +
+      ggrepel::geom_text_repel(aes(label = .data[["gene"]]), data = top.up, color = "red", min.segment.length = 0) +
+      ggrepel::geom_text_repel(aes(label = .data[["gene"]]), data = top.down, color = "blue", min.segment.length = 0, ...) +
+      labs(title = paste0("Cluster: ", cluster))
+  }) |> patchwork::wrap_plots()
+}

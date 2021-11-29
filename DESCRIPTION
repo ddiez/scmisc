@@ -40,7 +40,9 @@ Suggests:
     circlize,
     limma,
     org.Mm.eg.db,
-    AnnotationDbi
+    AnnotationDbi,
+    ggrepel,
+    patchwork
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
