@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get_coord_names — get_coord_names • scmisc</title>
+<title>plot_volcano — plot_volcano • scmisc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="get_coord_names — get_coord_names" />
-<meta property="og:description" content="get_coord_names" />
+<meta property="og:title" content="plot_volcano — plot_volcano" />
+<meta property="og:description" content="plot_volcano" />
 
 
 
@@ -123,29 +123,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get_coord_names</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ddiez/scmisc/blob/master/R/coord.R'><code>R/coord.R</code></a></small>
-    <div class="hidden name"><code>get_coord_names.Rd</code></div>
+    <h1>plot_volcano</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ddiez/scmisc/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
+    <div class="hidden name"><code>plot_volcano.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get_coord_names</p>
+    <p>plot_volcano</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_coord_names</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='co'># S3 method for SingleCellExperiment</span>
-<span class='fu'>get_coord_names</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='co'># S3 method for seurat</span>
-<span class='fu'>get_coord_names</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_volcano</span><span class='op'>(</span><span class='va'>x</span>, clusters <span class='op'>=</span> <span class='cn'>NULL</span>, n <span class='op'>=</span> <span class='fl'>10</span>, fdr <span class='op'>=</span> <span class='fl'>0.01</span>, lfc <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>object with coordinates</p></td>
+      <td><p>data.frame with DEG results from FindAllMarkers.</p></td>
+    </tr>
+    <tr>
+      <th>clusters</th>
+      <td><p>clusters to plot. If null, plot all.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>number of genes (per down/up-regulated) to highlight.</p></td>
+    </tr>
+    <tr>
+      <th>fdr</th>
+      <td><p>false discovery rate cutoff to highlight genes.</p></td>
+    </tr>
+    <tr>
+      <th>lfc</th>
+      <td><p>log fold change cutoff to highlight genes.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed down to ggrepel functions.</p></td>
     </tr>
     </table>
 
