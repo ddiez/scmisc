@@ -22,7 +22,7 @@ plot_trajectory_graph.SingleCellExperiment <- function(x, ...) {
 #' @export
 plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
   g <- slingshot::slingMST(x)
-  g <- tidygraph::as_tbl_graph(g)
+  g <- tidygraph::as_tbl_graph(g, directed = FALSE)
   g <- g |> tidygraph::activate("nodes") |>
     mutate(cluster = "middle")
 
