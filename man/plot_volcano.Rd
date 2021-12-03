@@ -4,12 +4,22 @@
 \alias{plot_volcano}
 \title{plot_volcano}
 \usage{
-plot_volcano(x, clusters = NULL, n = 10, fdr = 0.01, lfc = 1, ...)
+plot_volcano(
+  x,
+  group.by = "cluster",
+  groups = NULL,
+  n = 10,
+  fdr = 0.01,
+  lfc = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{data.frame with DEG results from FindAllMarkers.}
 
-\item{clusters}{clusters to plot. If null, plot all.}
+\item{group.by}{column to group plots by.}
+
+\item{groups}{clusters to plot. If null, plot all.}
 
 \item{n}{number of genes (per down/up-regulated) to highlight.}
 
