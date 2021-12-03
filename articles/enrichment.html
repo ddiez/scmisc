@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.9</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -64,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ddiez/scmisc/">
+  <a href="https://github.com/ddiez/scmisc/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -83,20 +79,20 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Enrichment analysis</h1>
-                        <h4 class="author">Diego Diez</h4>
+                        <h4 data-toc-skip class="author">Diego Diez</h4>
             
-            <h4 class="date">2021-11-30</h4>
+            <h4 data-toc-skip class="date">2021-12-03</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ddiez/scmisc/blob/master/vignettes/enrichment.Rmd"><code>vignettes/enrichment.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ddiez/scmisc/blob/HEAD/vignettes/enrichment.Rmd" class="external-link"><code>vignettes/enrichment.Rmd</code></a></small>
       <div class="hidden name"><code>enrichment.Rmd</code></div>
 
     </div>
 
     
     
-<div id="convert-toy-data-to-seurat-object" class="section level1">
-<h1 class="hasAnchor">
-<a href="#convert-toy-data-to-seurat-object" class="anchor"></a>Convert toy data to Seurat object</h1>
+<div class="section level1">
+<h1 id="convert-toy-data-to-seurat-object">Convert toy data to Seurat object<a class="anchor" aria-label="anchor" href="#convert-toy-data-to-seurat-object"></a>
+</h1>
 <p>This toy dataset contains 493 cells from mice in a <em>SingleCellExperiment</em> object.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">as.Seurat</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>
@@ -105,9 +101,9 @@
 <span class="co">#&gt; 434 features across 493 samples within 1 assay </span>
 <span class="co">#&gt; Active assay: originalexp (434 features, 0 variable features)</span></code></pre></div>
 </div>
-<div id="preprocess" class="section level1">
-<h1 class="hasAnchor">
-<a href="#preprocess" class="anchor"></a>Preprocess</h1>
+<div class="section level1">
+<h1 id="preprocess">Preprocess<a class="anchor" aria-label="anchor" href="#preprocess"></a>
+</h1>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">NormalizeData</span><span class="op">(</span><span class="va">x</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">FindVariableFeatures</span><span class="op">(</span><span class="va">x</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -119,12 +115,12 @@
 <span class="fu">DimPlot</span><span class="op">(</span><span class="va">x</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">NoLegend</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="enrichment_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
 </div>
-<div id="find-differentially-expressed-genes" class="section level1">
-<h1 class="hasAnchor">
-<a href="#find-differentially-expressed-genes" class="anchor"></a>Find differentially expressed genes</h1>
+<div class="section level1">
+<h1 id="find-differentially-expressed-genes">Find differentially expressed genes<a class="anchor" aria-label="anchor" href="#find-differentially-expressed-genes"></a>
+</h1>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">deg</span> <span class="op">&lt;-</span> <span class="fu">FindAllMarkers</span><span class="op">(</span><span class="va">x</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">deg</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">deg</span><span class="op">)</span>
 <span class="co">#&gt;              p_val avg_log2FC pct.1 pct.2    p_val_adj cluster  gene</span>
 <span class="co">#&gt; Cd19  4.647737e-62   2.880037 1.000 0.316 2.017118e-59       0  Cd19</span>
 <span class="co">#&gt; Cd79a 1.837977e-60   2.779207 1.000 0.365 7.976821e-58       0 Cd79a</span>
@@ -133,21 +129,21 @@
 <span class="co">#&gt; Cd79b 2.547135e-55   2.668777 1.000 0.508 1.105457e-52       0 Cd79b</span>
 <span class="co">#&gt; Iglc3 1.186951e-53   2.614278 1.000 0.412 5.151366e-51       0 Iglc3</span></code></pre></div>
 </div>
-<div id="add-entrezgene-annotations" class="section level1">
-<h1 class="hasAnchor">
-<a href="#add-entrezgene-annotations" class="anchor"></a>Add entrezgene annotations</h1>
+<div class="section level1">
+<h1 id="add-entrezgene-annotations">Add entrezgene annotations<a class="anchor" aria-label="anchor" href="#add-entrezgene-annotations"></a>
+</h1>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">org.Mm.eg.db</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/org.Mm.eg.db/man/org.Mm.egBASE.html">org.Mm.eg.db</a></span>
+<code class="sourceCode R"><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">org.Mm.eg.db</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/org.Mm.eg.db/man/org.Mm.egBASE.html" class="external-link">org.Mm.eg.db</a></span>
 <span class="co">#&gt; </span>
-<span class="va">deg</span> <span class="op">&lt;-</span> <span class="va">deg</span> |&gt; <span class="fu">mutate</span><span class="op">(</span>entrezgene <span class="op">=</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html">mapIds</a></span><span class="op">(</span><span class="va">db</span>, <span class="va">deg</span><span class="op">$</span><span class="va">gene</span>, <span class="st">"ENTREZID"</span>, <span class="st">"SYMBOL"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">deg</span> <span class="op">&lt;-</span> <span class="va">deg</span> |&gt; <span class="fu">mutate</span><span class="op">(</span>entrezgene <span class="op">=</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds</a></span><span class="op">(</span><span class="va">db</span>, <span class="va">deg</span><span class="op">$</span><span class="va">gene</span>, <span class="st">"ENTREZID"</span>, <span class="st">"SYMBOL"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 'select()' returned 1:1 mapping between keys and columns</span></code></pre></div>
 </div>
-<div id="functional-enrichment" class="section level1">
-<h1 class="hasAnchor">
-<a href="#functional-enrichment" class="anchor"></a>Functional enrichment</h1>
+<div class="section level1">
+<h1 id="functional-enrichment">Functional enrichment<a class="anchor" aria-label="anchor" href="#functional-enrichment"></a>
+</h1>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_enrichment.html">run_enrichment</a></span><span class="op">(</span><span class="va">deg</span>, type <span class="op">=</span> <span class="st">"KEGG"</span>, org <span class="op">=</span> <span class="st">"Mm"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt;                   cluster                                  Pathway  N Up Down</span>
 <span class="co">#&gt; path:mmu00010...1       0             Glycolysis / Gluconeogenesis 67  0    0</span>
 <span class="co">#&gt; path:mmu00020...2       0                Citrate cycle (TCA cycle) 32  0    0</span>
@@ -163,7 +159,7 @@
 <span class="co">#&gt; path:mmu00051...5    1      1        1          1</span>
 <span class="co">#&gt; path:mmu00052...6    1      1        1          1</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">adj.P.Up</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> |&gt; <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">Up</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">res</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">adj.P.Up</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> |&gt; <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">Up</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;                    cluster</span>
 <span class="co">#&gt; path:mmu04660            3</span>
 <span class="co">#&gt; path:mmu04060...2        3</span>
@@ -392,7 +388,7 @@
 <span class="co">#&gt; path:mmu05340...54 1.000000e+00</span>
 <span class="co">#&gt; path:mmu05140...55 1.000000e+00</span>
 <span class="co">#&gt; path:mmu05321...56 1.000000e+00</span>
-<span class="va">res</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">adj.P.Down</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> |&gt; <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">Down</span><span class="op">)</span><span class="op">)</span>
+<span class="va">res</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">adj.P.Down</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span> |&gt; <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">Down</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;                    cluster</span>
 <span class="co">#&gt; path:mmu04060            0</span>
 <span class="co">#&gt; path:mmu05152...2        0</span>
@@ -618,7 +614,7 @@
 <span class="co">#&gt; path:mmu05340...54 4.720719e-05</span>
 <span class="co">#&gt; path:mmu05340...55 9.527214e-03</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_enrichment.html">plot_enrichment</a></span><span class="op">(</span><span class="va">res</span>, padding <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.5</span>, <span class="fl">.5</span>, <span class="fl">6</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span>, circle.scale <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_enrichment.html">plot_enrichment</a></span><span class="op">(</span><span class="va">res</span>, padding <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">.5</span>, <span class="fl">.5</span>, <span class="fl">6</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span>, circle.scale <span class="op">=</span> <span class="fl">.15</span><span class="op">)</span></code></pre></div>
 <p><img src="enrichment_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 </div>
   </div>
@@ -634,11 +630,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Diego Diez.</p>
+  <p></p>
+<p>Developed by Diego Diez.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
 </div>
 
       </footer>
@@ -646,6 +644,8 @@
 
   
 
+
+  
 
   </body>
 </html>
