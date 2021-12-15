@@ -1,6 +1,6 @@
 Package: scmisc
 Title: Miscellaneus Tools for the Analysis of Single Cell Data
-Version: 0.3.9
+Version: 0.4.0
 Authors@R:
     person(given = "Diego",
            family = "Diez",
@@ -42,7 +42,8 @@ Suggests:
     org.Mm.eg.db,
     AnnotationDbi,
     ggrepel,
-    patchwork
+    patchwork,
+    Matrix
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

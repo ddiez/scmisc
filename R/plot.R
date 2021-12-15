@@ -381,3 +381,39 @@ plot_volcano <- function(x, group.by = "cluster", groups = NULL, n = 10, fdr = 0
       labs(title = paste0(group.by, ": ", group))
   }) |> patchwork::wrap_plots()
 }
+
+#' plot_pairs
+#'
+#' @param x object to plot.
+#' @param assay assay from Seurat object.
+#' @param slot slot from Seurat object.
+#' @param color.by column from metadata to use for coloring points.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+plot_pairs <- function(x, ...) {
+  UseMethod("plot_pairs")
+}
+
+#' @rdname plot_pairs
+#' @export
+plot_pairs.Seurat <- function(x, slot = "data", assay = NULL, color.by = NULL, ...) {
+  if (is.null(assay)) assay <- DefaultAssay(x)
+
+  d <- as_tibble(Matrix::t(GetAssayData(x, assay = assay, slot = slot)))
+  g <- expand.grid(x = colnames(d), y = colnames(d))
+  d <- cbind(d, x[[]])
+  apply(g, 1, function(n) {
+    if (n[1] == n[2]) {
+      ggplot(d, aes(.data[[n[1]]])) +
+        geom_histogram(bins = 30)
+    } else {
+      if (is.null(color.by))
+        ggplot(d, aes(.data[[n[1]]], .data[[n[2]]])) +
+        geom_point(size = .5)
+      else
+        ggplot(d, aes(.data[[n[1]]], .data[[n[2]]], color = .data[[color.by]])) +
+        geom_point(size = .5)
+    }
+  }) |> wrap_plots()
+}
