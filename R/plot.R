@@ -375,10 +375,10 @@ plot_volcano <- function(x, group.by = "cluster", groups = NULL, n = 10, fdr = 0
     top.down <- tmp  |>  filter(.data[["avg_log2FC"]] <= -lfc, .data[["p_val_adj"]] < fdr)  |>  head(n)
     ggplot(tmp, aes(.data[["avg_log2FC"]], -log10(.data[["p_val"]]))) +
       geom_point(size = .1) +
-      geom_vline(xintercept = c(-1, 1),lty = "dotted", color = "lightgrey") +
+      geom_vline(xintercept = c(-lfc, lfc),lty = "dotted", color = "lightgrey") +
       ggrepel::geom_text_repel(aes(label = .data[["gene"]]), data = top.up, color = "red", min.segment.length = 0) +
       ggrepel::geom_text_repel(aes(label = .data[["gene"]]), data = top.down, color = "blue", min.segment.length = 0, ...) +
-      labs(title = paste0(group.by, ": ", group))
+      labs(title = group)
   }) |> patchwork::wrap_plots()
 }
 
