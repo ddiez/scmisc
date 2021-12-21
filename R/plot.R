@@ -415,5 +415,5 @@ plot_pairs.Seurat <- function(x, slot = "data", assay = NULL, color.by = NULL, .
         ggplot(d, aes(.data[[n[1]]], .data[[n[2]]], color = .data[[color.by]])) +
         geom_point(size = .5)
     }
-  }) |> wrap_plots()
+  }) |> patchwork::wrap_plots()
 }
