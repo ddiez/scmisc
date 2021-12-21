@@ -385,6 +385,7 @@ plot_volcano <- function(x, group.by = "cluster", groups = NULL, n = 10, fdr = 0
 #' plot_pairs
 #'
 #' @param x object to plot.
+#' @param features features to use for paired plots. If null all features in assay.
 #' @param assay assay from Seurat object.
 #' @param slot slot from Seurat object.
 #' @param color.by column from metadata to use for coloring points.
@@ -397,10 +398,13 @@ plot_pairs <- function(x, ...) {
 
 #' @rdname plot_pairs
 #' @export
-plot_pairs.Seurat <- function(x, slot = "data", assay = NULL, color.by = NULL, ...) {
+plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, color.by = NULL, ...) {
   if (is.null(assay)) assay <- DefaultAssay(x)
 
-  d <- as_tibble(Matrix::t(GetAssayData(x, assay = assay, slot = slot)))
+  if (is.null(features))
+    features <- rownames(x[[assay]])
+
+  d <- as_tibble(Matrix::t(GetAssayData(x, assay = assay, slot = slot)[features, ]))
   g <- expand.grid(x = colnames(d), y = colnames(d))
   d <- cbind(d, x[[]])
   apply(g, 1, function(n) {

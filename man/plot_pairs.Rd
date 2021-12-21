@@ -7,12 +7,21 @@
 \usage{
 plot_pairs(x, ...)
 
-\method{plot_pairs}{Seurat}(x, slot = "data", assay = NULL, color.by = NULL, ...)
+\method{plot_pairs}{Seurat}(
+  x,
+  features = NULL,
+  slot = "data",
+  assay = NULL,
+  color.by = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{object to plot.}
 
 \item{...}{arguments passed down to methods.}
+
+\item{features}{features to use for paired plots. If null all features in assay.}
 
 \item{slot}{slot from Seurat object.}
 
