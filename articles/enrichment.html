@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@
       <h1 data-toc-skip>Enrichment analysis</h1>
                         <h4 data-toc-skip class="author">Diego Diez</h4>
             
-            <h4 data-toc-skip class="date">2021-12-21</h4>
+            <h4 data-toc-skip class="date">2022-01-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ddiez/scmisc/blob/HEAD/vignettes/enrichment.Rmd" class="external-link"><code>vignettes/enrichment.Rmd</code></a></small>
       <div class="hidden name"><code>enrichment.Rmd</code></div>
@@ -90,9 +90,9 @@
 
     
     
-<div class="section level1">
-<h1 id="convert-toy-data-to-seurat-object">Convert toy data to Seurat object<a class="anchor" aria-label="anchor" href="#convert-toy-data-to-seurat-object"></a>
-</h1>
+<div class="section level2">
+<h2 id="convert-toy-data-to-seurat-object">Convert toy data to Seurat object<a class="anchor" aria-label="anchor" href="#convert-toy-data-to-seurat-object"></a>
+</h2>
 <p>This toy dataset contains 493 cells from mice in a <em>SingleCellExperiment</em> object.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">as.Seurat</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>
@@ -101,9 +101,9 @@
 <span class="co">#&gt; 434 features across 493 samples within 1 assay </span>
 <span class="co">#&gt; Active assay: originalexp (434 features, 0 variable features)</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="preprocess">Preprocess<a class="anchor" aria-label="anchor" href="#preprocess"></a>
-</h1>
+<div class="section level2">
+<h2 id="preprocess">Preprocess<a class="anchor" aria-label="anchor" href="#preprocess"></a>
+</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">NormalizeData</span><span class="op">(</span><span class="va">x</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">FindVariableFeatures</span><span class="op">(</span><span class="va">x</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -115,9 +115,9 @@
 <span class="fu">DimPlot</span><span class="op">(</span><span class="va">x</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">NoLegend</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="enrichment_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
 </div>
-<div class="section level1">
-<h1 id="find-differentially-expressed-genes">Find differentially expressed genes<a class="anchor" aria-label="anchor" href="#find-differentially-expressed-genes"></a>
-</h1>
+<div class="section level2">
+<h2 id="find-differentially-expressed-genes">Find differentially expressed genes<a class="anchor" aria-label="anchor" href="#find-differentially-expressed-genes"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">deg</span> <span class="op">&lt;-</span> <span class="fu">FindAllMarkers</span><span class="op">(</span><span class="va">x</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">deg</span><span class="op">)</span>
@@ -129,18 +129,18 @@
 <span class="co">#&gt; Cd79b 2.547135e-55   2.668777 1.000 0.508 1.105457e-52       0 Cd79b</span>
 <span class="co">#&gt; Iglc3 1.186951e-53   2.614278 1.000 0.412 5.151366e-51       0 Iglc3</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="add-entrezgene-annotations">Add entrezgene annotations<a class="anchor" aria-label="anchor" href="#add-entrezgene-annotations"></a>
-</h1>
+<div class="section level2">
+<h2 id="add-entrezgene-annotations">Add entrezgene annotations<a class="anchor" aria-label="anchor" href="#add-entrezgene-annotations"></a>
+</h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">org.Mm.eg.db</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/org.Mm.eg.db/man/org.Mm.egBASE.html" class="external-link">org.Mm.eg.db</a></span>
 <span class="co">#&gt; </span>
 <span class="va">deg</span> <span class="op">&lt;-</span> <span class="va">deg</span> |&gt; <span class="fu">mutate</span><span class="op">(</span>entrezgene <span class="op">=</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">mapIds</a></span><span class="op">(</span><span class="va">db</span>, <span class="va">deg</span><span class="op">$</span><span class="va">gene</span>, <span class="st">"ENTREZID"</span>, <span class="st">"SYMBOL"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 'select()' returned 1:1 mapping between keys and columns</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="functional-enrichment">Functional enrichment<a class="anchor" aria-label="anchor" href="#functional-enrichment"></a>
-</h1>
+<div class="section level2">
+<h2 id="functional-enrichment">Functional enrichment<a class="anchor" aria-label="anchor" href="#functional-enrichment"></a>
+</h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_enrichment.html">run_enrichment</a></span><span class="op">(</span><span class="va">deg</span>, type <span class="op">=</span> <span class="st">"KEGG"</span>, org <span class="op">=</span> <span class="st">"Mm"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
@@ -636,7 +636,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
