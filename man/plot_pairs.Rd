@@ -13,6 +13,8 @@ plot_pairs(x, ...)
   slot = "data",
   assay = NULL,
   color.by = NULL,
+  add.contour = FALSE,
+  color.contour = "red",
   ...
 )
 }
@@ -28,6 +30,10 @@ plot_pairs(x, ...)
 \item{assay}{assay from Seurat object.}
 
 \item{color.by}{column from metadata to use for coloring points.}
+
+\item{add.contour}{whether to add contour plots.}
+
+\item{color.contour}{color for contour lines.}
 }
 \description{
 plot_pairs

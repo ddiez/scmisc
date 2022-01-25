@@ -389,6 +389,8 @@ plot_volcano <- function(x, group.by = "cluster", groups = NULL, n = 10, fdr = 0
 #' @param assay assay from Seurat object.
 #' @param slot slot from Seurat object.
 #' @param color.by column from metadata to use for coloring points.
+#' @param add.contour whether to add contour plots.
+#' @param color.contour color for contour lines.
 #' @param ... arguments passed down to methods.
 #'
 #' @export
@@ -398,7 +400,7 @@ plot_pairs <- function(x, ...) {
 
 #' @rdname plot_pairs
 #' @export
-plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, color.by = NULL, ...) {
+plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, color.by = NULL, add.contour = FALSE, color.contour = "red", ...) {
   if (is.null(assay)) assay <- DefaultAssay(x)
 
   if (is.null(features))
@@ -413,11 +415,14 @@ plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, c
         geom_histogram(bins = 30)
     } else {
       if (is.null(color.by))
-        ggplot(d, aes(.data[[n[1]]], .data[[n[2]]])) +
-        geom_point(size = .5)
+        p <- ggplot(d, aes(.data[[n[1]]], .data[[n[2]]])) +
+          geom_point(size = .5)
       else
-        ggplot(d, aes(.data[[n[1]]], .data[[n[2]]], color = .data[[color.by]])) +
-        geom_point(size = .5)
+        p <- ggplot(d, aes(.data[[n[1]]], .data[[n[2]]], color = .data[[color.by]])) +
+          geom_point(size = .5)
+      if (add.contour)
+        p <- p + geom_density_2d(color = color.contour)
+      p
     }
   }) |> patchwork::wrap_plots()
 }
