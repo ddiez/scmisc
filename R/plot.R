@@ -400,7 +400,7 @@ plot_pairs <- function(x, ...) {
 
 #' @rdname plot_pairs
 #' @export
-plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, color.by = NULL, add.contour = FALSE, color.contour = "red", ...) {
+plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, color.by = NULL, add.contour = FALSE, color.contour = "red", cutoff = NULL, color.cutoff = "limegreen", ...) {
   if (is.null(assay)) assay <- DefaultAssay(x)
 
   if (is.null(features))
@@ -411,8 +411,12 @@ plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, c
   d <- cbind(d, x[[]])
   apply(g, 1, function(n) {
     if (n[1] == n[2]) {
-      ggplot(d, aes(.data[[n[1]]])) +
+      p <- ggplot(d, aes(.data[[n[1]]])) +
         geom_histogram(bins = 30)
+
+      if (!is.null(cutoff))
+        p <- p + geom_vline(color = color.cutoff, xintercept = cutoff[n[1]])
+
     } else {
       if (is.null(color.by))
         p <- ggplot(d, aes(.data[[n[1]]], .data[[n[2]]])) +
@@ -422,7 +426,7 @@ plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, c
           geom_point(size = .5)
       if (add.contour)
         p <- p + geom_density_2d(color = color.contour)
-      p
     }
+    p
   }) |> patchwork::wrap_plots()
 }
