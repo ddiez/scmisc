@@ -22,10 +22,11 @@ plot_trajectory_graph.SingleCellExperiment <- function(x, ...) {
 #' @export
 plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
   g <- slingshot::slingMST(x)
+  g <- igraph::graph_from_adjacency_matrix(g, mode="undirected")
   g <- tidygraph::as_tbl_graph(g, directed = FALSE)
   g <- g |> tidygraph::activate("nodes") |>
     mutate(cluster = "middle")
-
+  
   sc <- slingshot::slingParams(x)[["start.clus"]]
   if (!is.null(sc)) {
     g <- g |> tidygraph::activate("nodes") |>
