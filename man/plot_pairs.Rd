@@ -15,6 +15,8 @@ plot_pairs(x, ...)
   color.by = NULL,
   add.contour = FALSE,
   color.contour = "red",
+  cutoff = NULL,
+  color.cutoff = "limegreen",
   ...
 )
 }
