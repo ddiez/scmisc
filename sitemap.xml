@@ -103,6 +103,15 @@
     <loc>/reference/plot_pairs.html</loc>
   </url>
   <url>
+    <loc>/reference/plot_pseudotime_gene.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_pseudotime_heatmap.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_pseudotime_modules.html</loc>
+  </url>
+  <url>
     <loc>/reference/plot_purity.html</loc>
   </url>
   <url>

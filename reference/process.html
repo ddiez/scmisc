@@ -73,6 +73,10 @@
   algorithm <span class="op">=</span> <span class="fl">1</span>,
   resolution <span class="op">=</span> <span class="fl">0.6</span>,
   nfeatures <span class="op">=</span> <span class="fl">2000</span>,
+  metric <span class="op">=</span> <span class="st">"cosine"</span>,
+  n.neighbors <span class="op">=</span> <span class="fl">30L</span>,
+  min.dist <span class="op">=</span> <span class="fl">0.3</span>,
+  spread <span class="op">=</span> <span class="fl">1</span>,
   verbose <span class="op">=</span> <span class="cn">FALSE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
@@ -94,6 +98,14 @@
 <dd><p>resolution to use for clustering.</p></dd>
 <dt>nfeatures</dt>
 <dd><p>number of features for FindVariableFeatures().</p></dd>
+<dt>metric</dt>
+<dd><p>metric used for UMAP.</p></dd>
+<dt>n.neighbors</dt>
+<dd><p>number of nearest-neighbors to use for UMAP.</p></dd>
+<dt>min.dist</dt>
+<dd><p>min.dist for UMAP.</p></dd>
+<dt>spread</dt>
+<dd><p>spread for UMAP.</p></dd>
 <dt>verbose</dt>
 <dd><p>whether to output diagnostic information.</p></dd>
 </dl></div>
