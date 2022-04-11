@@ -14,6 +14,10 @@ process(x, ...)
   algorithm = 1,
   resolution = 0.6,
   nfeatures = 2000,
+  metric = "cosine",
+  n.neighbors = 30L,
+  min.dist = 0.3,
+  spread = 1,
   verbose = FALSE,
   ...
 )
@@ -32,6 +36,14 @@ process(x, ...)
 \item{resolution}{resolution to use for clustering.}
 
 \item{nfeatures}{number of features for FindVariableFeatures().}
+
+\item{metric}{metric used for UMAP.}
+
+\item{n.neighbors}{number of nearest-neighbors to use for UMAP.}
+
+\item{min.dist}{min.dist for UMAP.}
+
+\item{spread}{spread for UMAP.}
 
 \item{verbose}{whether to output diagnostic information.}
 }
