@@ -26,7 +26,7 @@ plot_trajectory_graph.SlingshotDataSet <- function(x, ...) {
   g <- tidygraph::as_tbl_graph(g, directed = FALSE)
   g <- g |> tidygraph::activate("nodes") |>
     mutate(cluster = "middle")
-  
+
   sc <- slingshot::slingParams(x)[["start.clus"]]
   if (!is.null(sc)) {
     g <- g |> tidygraph::activate("nodes") |>
@@ -108,4 +108,123 @@ plot_trajectory.SlingshotDataSet <- function(x, ...) {
     geom_point(size = .5) +
     scale_color_distiller(palette = "Spectral") +
     facet_wrap(~curve)
+}
+
+#' plot_pseudotime_gene
+#'
+#'
+#' @param x  and object with pseudotime information.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+plot_pseudotime_gene <- function(x, ...) {
+  UseMethod("plot_pseudotime_gene")
+}
+
+#' @rdname plot_pseudotime_gene
+#' @export
+plot_pseudotime_gene.cell_data_set <- function(x, features=NULL, cutoff=0, combine=TRUE, assay="logcounts", ...) {
+  d <- cbind(get_coord(x), Matrix::t(SummarizedExperiment::assay(x, assay)[features, , drop=FALSE]))
+  d$pseudotime <- monocle3::pseudotime(x)
+
+  p <- lapply(features, function(feature) {
+    ggplot(d |> filter(.data[[feature]] > cutoff), aes(.data[["pseudotime"]], .data[[feature]], color = .data[["pseudotime"]])) +
+      geom_jitter(width=.5, size=.1) +
+      scale_color_viridis_c(option="plasma") +
+      geom_smooth(method="lm", formula=y~ splines::ns(x, df=3), se=FALSE, color="violetred")
+  })
+
+  if(length(p) == 1) return(p[[1]])
+
+  if (combine)
+    p |> wrap_plots()
+  else
+    p
+}
+
+#' plot_pseudotime_heatmap
+#'
+#'
+#' @param x  and object with pseudotime information.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+plot_pseudotime_heatmap <- function(x, ...) {
+  UseMethod("plot_pseudotime_heatmap")
+}
+
+#' @rdname plot_pseudotime_heatmap
+#' @export
+plot_pseudotime_heatmap.Seurat <- function(x, features, assay="RNA", slot="data", reduction="pseudotime", ...) {
+  pseudotime <- Embeddings(x, reduction=reduction)[, 1]
+
+  sel.good <- ! is.infinite(pseudotime)
+  pseudotime <- pseudotime[sel.good]
+  x <- x[, sel.good]
+
+  pseudotime <- sort(pseudotime)
+  cells <- names(pseudotime)
+
+  m <- GetAssayData(x, assay=assay, slot=slot)
+  m <- m[features, cells]|> as.matrix()
+  m <- t(scale(t(m)))
+
+  #pseudo_color <- circlize::colorRamp2(range(pseudotime, na.rm=TRUE), c("white", "red"))
+  r <- range(pseudotime, na.rm=TRUE)
+  pseudo_color <- circlize::colorRamp2(seq(r[1], r[2], length.out=5), viridis::magma(5))
+
+  #r <- range(m, na.rm=TRUE)
+  #m_color <- circlize::colorRamp2(seq(r[1], r[2], length.out=5), viridis::magma(5))
+
+  df <- data.frame(pseudotime = pseudotime[cells])
+  top_cols <- list(pseudotime=pseudo_color)
+  top_ann <- ComplexHeatmap::columnAnnotation(df=df, col=top_cols)
+
+  plot_heatmap(m, cluster_columns=FALSE, top_ann=top_ann, ...)
+}
+
+#' plot_pseudotime_modules
+#'
+#'
+#' @param x  and object with pseudotime information.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+plot_pseudotime_modules <- function(x, ...) {
+  UseMethod("plot_pseudotime_modules")
+}
+
+#' @rdname plot_pseudotime_modules
+#' @export
+plot_pseudotime_modules.Seurat <- function(x, gene_modules, reduction="pseudotime", assay="RNA", slot="data", filter.zero=TRUE, add.jitter=FALSE, width=1) {
+  pseudotime <- Embeddings(x, reduction=reduction)[, 1]
+  pseudotime <- pseudotime[!is.infinite(pseudotime)]
+
+
+  pseudotime <- sort(pseudotime)
+  cells <- names(pseudotime)
+
+  m <- GetAssayData(x, assay=assay, slot=slot)
+  m <- m[, cells]
+
+  modules <- unique(gene_modules$module)
+  d <- lapply(modules, function(module) {
+    genes <- gene_modules |> filter(.data[["module"]] == !!module) |> pull(gene)
+    means <- colMeans(m[genes, ])
+    data.frame(index=seq_along(pseudotime), pseudotime=pseudotime, mean=means, module=module)
+  }) |> bind_rows()
+
+  if (filter.zero)
+    d <- d |> filter(mean>0)
+
+  if (add.jitter)
+    points <- geom_jitter(size = .1, width=width)
+  else
+    points <- geom_point(size=.1)
+
+  ggplot(d, aes(pseudotime, mean, color=pseudotime)) +
+    points +
+    geom_smooth(color="violetred", method="gam", formula=y ~ s(x, bs = "cs")) +
+    scale_color_viridis_c(option="magma") +
+    facet_wrap(~module, scales="free_y")
 }
