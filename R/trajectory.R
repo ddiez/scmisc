@@ -124,7 +124,10 @@ plot_pseudotime_gene <- function(x, ...) {
 #' @rdname plot_pseudotime_gene
 #' @export
 plot_pseudotime_gene.cell_data_set <- function(x, features=NULL, cutoff=0, combine=TRUE, assay="logcounts", ...) {
-  d <- cbind(get_coord(x), Matrix::t(SummarizedExperiment::assay(x, assay)[features, , drop=FALSE]))
+  features <- intersect(features, rownames(x))
+  exprs <- SummarizedExperiment::assay(x, assay)[features, , drop=FALSE]
+  exprs <- Matrix::t(exprs)
+  d <- cbind(get_coord(x), exprs)
   d$pseudotime <- monocle3::pseudotime(x)
 
   p <- lapply(features, function(feature) {
