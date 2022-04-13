@@ -213,7 +213,7 @@ plot_pseudotime_modules.Seurat <- function(x, gene_modules, reduction="pseudotim
   modules <- unique(gene_modules$module)
   d <- lapply(modules, function(module) {
     genes <- gene_modules |> filter(.data[["module"]] == !!module) |> pull(gene)
-    means <- colMeans(m[genes, ])
+    means <- colMeans(m[genes, , drop=FALSE])
     data.frame(index=seq_along(pseudotime), pseudotime=pseudotime, mean=means, module=module)
   }) |> bind_rows()
 
