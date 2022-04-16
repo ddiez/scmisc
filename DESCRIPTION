@@ -36,6 +36,7 @@ Suggests:
     slingshot,
     monocle,
     monocle3,
+    singleCellHaystack,
     Rtsne,
     uwot,
     leiden,
