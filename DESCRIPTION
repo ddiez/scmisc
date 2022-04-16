@@ -34,6 +34,7 @@ Suggests:
     scran,
     slingshot,
     monocle,
+    monocle3,
     Rtsne,
     uwot,
     leiden,
