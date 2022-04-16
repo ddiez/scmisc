@@ -15,6 +15,7 @@ Imports:
     dplyr,
     tidyr,
     ggplot2,
+    forcats,
     Biobase,
     SeuratObject,
     Seurat,

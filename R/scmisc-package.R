@@ -5,6 +5,7 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @import tibble dplyr tidyr ggplot2 SingleCellExperiment SeuratObject
+#' @importFrom forcats fct_inseq
 #' @rawNamespace import(SummarizedExperiment, except = Assays)
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom ComplexHeatmap Heatmap columnAnnotation
