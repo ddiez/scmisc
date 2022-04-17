@@ -430,3 +430,44 @@ plot_pairs.Seurat <- function(x, features = NULL, slot = "data", assay = NULL, c
     p
   }) |> patchwork::wrap_plots()
 }
+
+#' plot_gene_modules
+#'
+#' @param x object with gene expression levels per cell.
+#' @param gene_modules data.frame with columns gene and module.
+#' @param reduction reduction to use.
+#' @param assay assay to use for Seurat objects.
+#' @param slot slot to use for Seurat objects.
+#' @param size size of the points.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+plot_gene_modules <- function(x, ...) {
+  UseMethod("plot_gene_modules")
+}
+
+#' @rdname plot_gene_modules
+#' @export
+plot_gene_modules.Seurat <- function(x, gene_modules, reduction=NULL, assay=NULL, slot="data", size=.5, ...) {
+  if (is.null(assay)) assay <- DefaultAssay(x)
+  if (is.null(reduction)) reduction <- DefaultDimReduc(x)
+  coord <- Embeddings(x, reduction=reduction)
+  coord.cols <- colnames(coord)
+  exprs <- GetAssayData(x, assay=assay, slot=slot)
+  exprs <- exprs[gene_modules[["gene"]], ]
+  exprs <- t(scale(Matrix::t(exprs)))
+  if (is.factor(gene_modules$module))
+    modules <- levels(gene_modules$module)
+  else
+    modules <- unique(gene_modules$module)
+  p <- lapply(modules, function(module) {
+    genes <- gene_modules |> filter(.data[["module"]] == !!module) |> pull(gene)
+    means <- colMeans(exprs[genes, ])
+    d <- cbind(coord, data.frame(score=means, module=module)) |> arrange(abs(score))
+    ggplot(d, aes(.data[[coord.cols[1]]], .data[[coord.cols[2]]], color=.data[["score"]])) +
+      geom_point(size=size) +
+      labs(title=paste0("Module: ", module))
+  })
+  p |> wrap_plots()
+}
+
