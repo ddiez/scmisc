@@ -466,6 +466,7 @@ plot_gene_modules.Seurat <- function(x, gene_modules, reduction=NULL, assay=NULL
     d <- cbind(coord, data.frame(score=means, module=module)) |> arrange(abs(score))
     ggplot(d, aes(.data[[coord.cols[1]]], .data[[coord.cols[2]]], color=.data[["score"]])) +
       geom_point(size=size) +
+      scale_color_gradient2(low="blue", mid="lightgrey", high="red") +
       labs(title=paste0("Module: ", module))
   })
   p |> wrap_plots()
