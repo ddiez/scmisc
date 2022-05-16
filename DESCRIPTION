@@ -1,6 +1,6 @@
 Package: scmisc
 Title: Miscellaneus Tools for the Analysis of Single Cell Data
-Version: 0.6.0
+Version: 0.7.0
 Authors@R:
     person(given = "Diego",
            family = "Diez",
@@ -50,7 +50,7 @@ Suggests:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 VignetteBuilder: knitr
 URL: https://github.com/ddiez/scmisc
 BugReports: https://github.com/ddiez/scmisc/issues
