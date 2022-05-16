@@ -472,3 +472,47 @@ plot_gene_modules.Seurat <- function(x, gene_modules, reduction=NULL, assay=NULL
   p |> wrap_plots()
 }
 
+#' plot_gene_modules_heatmap
+#'
+#' @param x object with gene expression levels per cell.
+#' @param gene_modules data.frame with columns gene and module.
+#' @param group.by identity to use for grouping cells (default: seurat_clusters).
+#' @param assay assay to use for Seurat objects.
+#' @param slot slot to use for Seurat objects.
+#' @param size size of the points.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+plot_gene_modules_heatmap <- function(x, ...) {
+  UseMethod("plot_gene_modules_heatmap")
+}
+
+#' @rdname plot_gene_modules_heatmap
+#' @export
+plot_gene_modules_heatmap.Seurat <- function(x, gene_modules, group.by="seurat_clusters", assay=NULL, slot="data") {
+  meta <- x[[]] |> rownames_to_column("cell")
+
+
+  clusters <- meta[[group.by]]
+  if (is.factor(clusters))
+    clusters <- levels(clusters)
+  else
+    clusters <- unique(clusters)
+
+  modules <- levels(y$module)
+  genes <- gene_modules$gene
+  m <- GetAssayData(x, assay=assay, slot=slot)[genes, ]
+
+  scores <- matrix(NA_real_, nrow=length(modules), ncol=length(clusters), dimnames=list(modules, clusters))
+  for (module in modules) {
+    genes <- gene_modules |> filter(.data[["module"]] == !!module) |> pull("gene")
+    for (cluster in clusters) {
+      cells <- meta |> filter(.data[[group.by]] == !!cluster) |> pull("cell")
+      scores[module, cluster] <- Matrix::mean(m[genes, cells])
+    }
+  }
+
+  scores <- t(scale(t(scores)))
+
+  ComplexHeatmap::Heatmap(scores, name="scores", row_title="Gene modules", column_title="Cell clusters")
+}
