@@ -499,7 +499,7 @@ plot_gene_modules_heatmap.Seurat <- function(x, gene_modules, group.by="seurat_c
   else
     clusters <- unique(clusters)
 
-  modules <- levels(y$module)
+  modules <- levels(gene_modules$module)
   genes <- gene_modules$gene
   m <- GetAssayData(x, assay=assay, slot=slot)[genes, ]
 
