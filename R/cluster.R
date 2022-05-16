@@ -74,7 +74,6 @@ cluster_cells.SingleCellExperiment <- function(x, method = "kmeans", ncluster = 
 #' @param return.seurat whether to return a Seurat object.
 #' @param ... arguments passed down to methods.
 #'
-#' @return
 #' @export
 #'
 cluster_genes <- function(x, ...) {

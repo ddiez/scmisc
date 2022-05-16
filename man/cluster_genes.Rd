@@ -44,9 +44,6 @@ cluster_genes(x, ...)
 
 \item{return.seurat}{whether to return a Seurat object.}
 }
-\value{
-
-}
 \description{
 Cluster genes into modules using louvain/leiden algorithm
 }
