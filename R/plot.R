@@ -86,6 +86,36 @@ plot_coord.data.frame <- function(x, size = 1, color = NULL, shape = NULL, label
   p
 }
 
+#' plot_coord2
+#'
+#' Alternative version of plot_coord using Seurat::DimPlot internally for convenience.
+#' Limited functionality at the moment, it only works with Seurat objects.
+#'
+#' @param x object from which to plot coordinates.
+#' @param expand logical; whether to expand one column to show presence/absence.
+#' @param ... further arguments passed down to DimPlot().
+#'
+#' @export
+plot_coord2 <- function(x, ...) {
+  UseMethod("plot_coord2")
+}
+
+#' @rdname plot_coord2
+#' @export
+plot_coord2.Seurat <- function(x, expand=NULL, ...) {
+  meta <- x[[]]
+  data <- meta[[expand]]
+  if (is.factor(data))
+    groups <- levels(data)
+  else
+    groups <- unique(data)
+  lapply(groups, function(group) {
+    cells <- list(Cells(x)[data == group])
+    names(cells) <- group
+    DimPlot(x, cells.highlight=cells, ...) + labs(title=group)
+  }) |> patchwork::wrap_plots()
+}
+
 #' plot_purity
 #'
 #' Plot heatmap of purity index of specified columns.
