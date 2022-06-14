@@ -13,6 +13,7 @@ calculate_module_scores(x, ...)
   group.by = "seurat_clusters",
   assay = NULL,
   slot = "data",
+  scale = TRUE,
   ...
 )
 }
@@ -29,7 +30,7 @@ calculate_module_scores(x, ...)
 
 \item{slot}{slot to use for Seurat objects.}
 
-\item{size}{size of the points.}
+\item{scale}{whether to scale the expression data.}
 }
 \description{
 Calculate gene module score per cell clusters.

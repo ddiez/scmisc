@@ -118,7 +118,7 @@ cluster_genes.Seurat <- function(x, features=NULL, reduction="pca", assay=NULL, 
 #' @param group.by identity to use for grouping cells (default: seurat_clusters).
 #' @param assay assay to use for Seurat objects.
 #' @param slot slot to use for Seurat objects.
-#' @param size size of the points.
+#' @param scale whether to scale the expression data.
 #' @param ... arguments passed down to methods.
 #'
 #' @export
@@ -128,7 +128,7 @@ calculate_module_scores <- function(x, ...) {
 
 #' @rdname calculate_module_scores
 #' @export
-calculate_module_scores.Seurat <- function(x, gene_modules, group.by="seurat_clusters", assay=NULL, slot="data", ...) {
+calculate_module_scores.Seurat <- function(x, gene_modules, group.by="seurat_clusters", assay=NULL, slot="data", scale=TRUE, ...) {
   meta <- x[[]] |> rownames_to_column("cell")
 
 
@@ -142,6 +142,9 @@ calculate_module_scores.Seurat <- function(x, gene_modules, group.by="seurat_clu
   genes <- gene_modules$gene
   m <- GetAssayData(x, assay=assay, slot=slot)[genes, ]
 
+  if (scale)
+    m <- t(scale(t(m)))
+
   scores <- matrix(NA_real_, nrow=length(modules), ncol=length(clusters), dimnames=list(modules, clusters))
   for (module in modules) {
     genes <- gene_modules |> filter(.data[["module"]] == !!module) |> pull("gene")
@@ -150,7 +153,5 @@ calculate_module_scores.Seurat <- function(x, gene_modules, group.by="seurat_clu
       scores[module, cluster] <- Matrix::mean(m[genes, cells])
     }
   }
-
-  scores <- t(scale(t(scores)))
   scores
 }
