@@ -517,6 +517,8 @@ plot_gene_modules_heatmap <- function(x, ...) {
   UseMethod("plot_gene_modules_heatmap")
 }
 
+#' @rdname plot_gene_modules_heatmap
+#' @export
 plot_gene_modules_heatmap.matrix <- function(x, ...) {
   ComplexHeatmap::Heatmap(x, name="scores", row_title="Gene modules", column_title="Cell clusters", ...)
 }

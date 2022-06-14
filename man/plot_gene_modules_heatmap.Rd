@@ -2,10 +2,13 @@
 % Please edit documentation in R/plot.R
 \name{plot_gene_modules_heatmap}
 \alias{plot_gene_modules_heatmap}
+\alias{plot_gene_modules_heatmap.matrix}
 \alias{plot_gene_modules_heatmap.Seurat}
 \title{plot_gene_modules_heatmap}
 \usage{
 plot_gene_modules_heatmap(x, ...)
+
+\method{plot_gene_modules_heatmap}{matrix}(x, ...)
 
 \method{plot_gene_modules_heatmap}{Seurat}(
   x,
