@@ -109,3 +109,48 @@ cluster_genes.Seurat <- function(x, features=NULL, reduction="pca", assay=NULL, 
   y
 }
 
+#' calculate_module_scores
+#'
+#' Calculate gene module score per cell clusters.
+#'
+#' @param x object with gene expression levels per cell.
+#' @param gene_modules data.frame with columns gene and module.
+#' @param group.by identity to use for grouping cells (default: seurat_clusters).
+#' @param assay assay to use for Seurat objects.
+#' @param slot slot to use for Seurat objects.
+#' @param size size of the points.
+#' @param ... arguments passed down to methods.
+#'
+#' @export
+calculate_module_scores <- function(x) {
+  UseMethod("calculate_module_scores")
+}
+
+#' @rdname calculate_module_scores
+#' @export
+calculate_module_scores.Seurat <- function(x, gene_modules, group.by="seurat_clusters", assay=NULL, slot="data") {
+  meta <- x[[]] |> rownames_to_column("cell")
+
+
+  clusters <- meta[[group.by]]
+  if (is.factor(clusters))
+    clusters <- levels(clusters)
+  else
+    clusters <- unique(clusters)
+
+  modules <- levels(gene_modules$module)
+  genes <- gene_modules$gene
+  m <- GetAssayData(x, assay=assay, slot=slot)[genes, ]
+
+  scores <- matrix(NA_real_, nrow=length(modules), ncol=length(clusters), dimnames=list(modules, clusters))
+  for (module in modules) {
+    genes <- gene_modules |> filter(.data[["module"]] == !!module) |> pull("gene")
+    for (cluster in clusters) {
+      cells <- meta |> filter(.data[[group.by]] == !!cluster) |> pull("cell")
+      scores[module, cluster] <- Matrix::mean(m[genes, cells])
+    }
+  }
+
+  scores <- t(scale(t(scores)))
+  scores
+}
