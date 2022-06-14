@@ -122,13 +122,13 @@ cluster_genes.Seurat <- function(x, features=NULL, reduction="pca", assay=NULL, 
 #' @param ... arguments passed down to methods.
 #'
 #' @export
-calculate_module_scores <- function(x) {
+calculate_module_scores <- function(x, ...) {
   UseMethod("calculate_module_scores")
 }
 
 #' @rdname calculate_module_scores
 #' @export
-calculate_module_scores.Seurat <- function(x, gene_modules, group.by="seurat_clusters", assay=NULL, slot="data") {
+calculate_module_scores.Seurat <- function(x, gene_modules, group.by="seurat_clusters", assay=NULL, slot="data", ...) {
   meta <- x[[]] |> rownames_to_column("cell")
 
 

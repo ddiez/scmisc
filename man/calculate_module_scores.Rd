@@ -5,18 +5,21 @@
 \alias{calculate_module_scores.Seurat}
 \title{calculate_module_scores}
 \usage{
-calculate_module_scores(x)
+calculate_module_scores(x, ...)
 
-calculate_module_scores.Seurat(
+\method{calculate_module_scores}{Seurat}(
   x,
   gene_modules,
   group.by = "seurat_clusters",
   assay = NULL,
-  slot = "data"
+  slot = "data",
+  ...
 )
 }
 \arguments{
 \item{x}{object with gene expression levels per cell.}
+
+\item{...}{arguments passed down to methods.}
 
 \item{gene_modules}{data.frame with columns gene and module.}
 
@@ -27,8 +30,6 @@ calculate_module_scores.Seurat(
 \item{slot}{slot to use for Seurat objects.}
 
 \item{size}{size of the points.}
-
-\item{...}{arguments passed down to methods.}
 }
 \description{
 Calculate gene module score per cell clusters.
