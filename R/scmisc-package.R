@@ -4,7 +4,7 @@
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
-#' @import tibble dplyr tidyr ggplot2 SingleCellExperiment SeuratObject
+#' @import tibble dplyr tidyr ggplot2 SingleCellExperiment SeuratObject Matrix
 #' @importFrom forcats fct_inseq
 #' @rawNamespace import(SummarizedExperiment, except = Assays)
 #' @rawNamespace import(Biobase, except = combine)
