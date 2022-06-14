@@ -499,7 +499,7 @@ plot_gene_modules.Seurat <- function(x, gene_modules, reduction=NULL, assay=NULL
       scale_color_gradient2(low="blue", mid="lightgrey", high="red") +
       labs(title=paste0("Module: ", module))
   })
-  p |> wrap_plots()
+  p |> patchwork::wrap_plots()
 }
 
 #' plot_gene_modules_heatmap
