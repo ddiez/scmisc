@@ -6,6 +6,7 @@
 ## usethis namespace: start
 #' @import tibble dplyr tidyr ggplot2 SingleCellExperiment SeuratObject Matrix
 #' @importFrom forcats fct_inseq
+#' @importFrom patchwork wrap_plots
 #' @rawNamespace import(SummarizedExperiment, except = Assays)
 #' @rawNamespace import(Biobase, except = combine)
 #' @importFrom ComplexHeatmap Heatmap columnAnnotation

@@ -140,7 +140,7 @@ plot_pseudotime_gene.cell_data_set <- function(x, features=NULL, cutoff=0, combi
   if(length(p) == 1) return(p[[1]])
 
   if (combine)
-    p |> wrap_plots()
+    p |> patchwork::wrap_plots()
   else
     p
 }

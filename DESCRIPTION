@@ -22,7 +22,8 @@ Imports:
     SummarizedExperiment,
     SingleCellExperiment,
     ComplexHeatmap,
-    Matrix
+    Matrix,
+    patchwork
 Suggests:
     testthat,
     knitr,
@@ -45,8 +46,7 @@ Suggests:
     limma,
     org.Mm.eg.db,
     AnnotationDbi,
-    ggrepel,
-    patchwork
+    ggrepel
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
