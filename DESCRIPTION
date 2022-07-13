@@ -23,7 +23,8 @@ Imports:
     SingleCellExperiment,
     ComplexHeatmap,
     Matrix,
-    patchwork
+    patchwork,
+    readr
 Suggests:
     testthat,
     knitr,
