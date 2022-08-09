@@ -181,7 +181,7 @@ plot_pseudotime_heatmap.Seurat <- function(x, features, assay="RNA", slot="data"
 
   df <- data.frame(pseudotime = pseudotime[cells])
   top_cols <- list(pseudotime=pseudo_color)
-  top_ann <- ComplexHeatmap::columnAnnotation(df=df, col=top_cols)
+  top_ann <- ComplexHeatmap::columnAnnotation(df=df, col=top_cols, show_legend=FALSE)
 
   plot_heatmap(m, cluster_columns=FALSE, top_ann=top_ann, ...)
 }
