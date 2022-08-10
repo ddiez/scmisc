@@ -4,14 +4,14 @@
 \alias{plot_cpdb_dotplot}
 \title{plot_cpdb_dotplot}
 \usage{
-plot_cpdb_dotplot(path, cutoff = 0.001, filter = NULL)
+plot_cpdb_dotplot(x, cutoff = 0.001, filter = NULL)
 }
 \arguments{
-\item{path}{path to the folder containing cellphonedb results.}
-
 \item{cutoff}{cutoff for pvalues.}
 
 \item{filter}{filter for cell pairs. Can be a regular expression.}
+
+\item{path}{path to the folder containing cellphonedb results.}
 }
 \description{
 Plot cellphonedb results as a dotplot.

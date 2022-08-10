@@ -1,3 +1,25 @@
+#' read_cpdb_out
+#'
+#' Read cellphonedb results.
+#'
+#' @param path path to the folder containing cellphonedb results.
+#'
+#' @export
+#'
+read_cpdb_out <- function(path) {
+  cols <- c("id_cp_interaction", "interacting_pair", "partner_a", "partner_b", "gene_a", "gene_b", "secreted", "receptor_a", "receptor_b", "annotation_strategy", "is_integrin")
+  d_pval <- read_tsv(file.path(path, "pvalues.txt"), show_col_types=FALSE)
+  d_mean <- read_tsv(file.path(path, "means.txt"), show_col_types=FALSE)
+
+  cells <- setdiff(colnames(d_pval), cols)
+
+  m_pval <- d_pval[, cells]
+  m_mean <- d_mean[, cells]
+  meta <- d_pval[, cols]
+
+  list(mean=d_mean, pval=d_pval, cols=cols, cells=cells, meta=meta, m_mean=m_mean, m_pval=m_pval)
+}
+
 #' plot_cpdb_dotplot
 #'
 #' Plot cellphonedb results as a dotplot.
@@ -8,12 +30,20 @@
 #'
 #' @export
 #'
-plot_cpdb_dotplot <- function(path, cutoff=1e-3, filter=NULL) {
-  cols <- c("id_cp_interaction", "interacting_pair", "partner_a", "partner_b", "gene_a", "gene_b", "secreted", "receptor_a", "receptor_b", "annotation_strategy", "is_integrin")
-  d.pval <- read_tsv(file.path(path, "pvalues.txt"), show_col_types=FALSE)
-  d.mean <- read_tsv(file.path(path, "means.txt"), show_col_types=FALSE)
+plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL) {
+  #cols <- c("id_cp_interaction", "interacting_pair", "partner_a", "partner_b", "gene_a", "gene_b", "secreted", "receptor_a", "receptor_b", "annotation_strategy", "is_integrin")
+  #d.pval <- read_tsv(file.path(path, "pvalues.txt"), show_col_types=FALSE)
+  #d.mean <- read_tsv(file.path(path, "means.txt"), show_col_types=FALSE)
 
-  cells <- setdiff(colnames(d.pval), cols)
+  d.pval <- x$pval
+  d.mean <- x$mean
+
+  #cells <- setdiff(colnames(d.pval), cols)
+
+  cols <- x$cols
+
+  if (is.null(cells))
+    cells <- x$cells
 
   if (!is.null(filter))
     cells <- grep(filter, cells, value=TRUE)
