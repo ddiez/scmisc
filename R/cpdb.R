@@ -21,6 +21,9 @@ plot_cpdb_dotplot <- function(path, cutoff=1e-3, filter=NULL) {
   d.pval <- d.pval[, c("interacting_pair", cells)]
   d.mean <- d.mean[, c("interacting_pair", cells)]
 
+  d.pval[["interacting_pair"]] <- make.names(d.pval[["interacting_pair"]], unique=TRUE)
+  d.mean[["interacting_pair"]] <- make.names(d.mean[["interacting_pair"]], unique=TRUE)
+
   pval <- d.pval |> column_to_rownames("interacting_pair") |> as.matrix()
   sig_inter <- rownames(pval)[rowSums(pval < cutoff) != 0]
 
@@ -35,5 +38,5 @@ plot_cpdb_dotplot <- function(path, cutoff=1e-3, filter=NULL) {
     geom_point() +
     scale_color_distiller(palette="RdYlBu") +
     guides(size=guide_legend("-log10(p.value)")) +
-    RotatedAxis()
+    Seurat::RotatedAxis()
 }
