@@ -30,10 +30,12 @@ read_cpdb_out <- function(path) {
 #' @param filter filter for cell pairs using regular expression.
 #' @param cells subset cell pairs.
 #' @param proteins subset protein pairs.
+#' @param cluster_cells logical; whether to cluster cells.
+#' @param cluster_proteins logigcal; whether to cluster proteins.
 #'
 #' @export
 #'
-plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL, proteins=NULL) {
+plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL, proteins=NULL, cluster_cells=FALSE, cluster_proteins=FALSE) {
   d.pval <- x$pval
   d.mean <- x$mean
 
@@ -56,6 +58,15 @@ plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL, proteins=
 
   pval <- d.pval |> column_to_rownames("interacting_pair") |> as.matrix()
   sig_inter <- rownames(pval)[rowSums(pval < cutoff) != 0]
+  pval <- pval[sig_inter, ]
+
+  if (cluster_proteins) {
+    ord_proteins <- rownames(pval)[hclust(dist(pval))$order]
+  }
+
+  if (cluster_cells) {
+    ord_cells <- colnames(pval)[hclust(dist(t(pval)))$order]
+  }
 
   d.pval <- d.pval |> filter(.data[["interacting_pair"]] %in% sig_inter)
   d.mean <- d.mean |> filter(.data[["interacting_pair"]] %in% sig_inter)
@@ -64,6 +75,13 @@ plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL, proteins=
   d.mean <- d.mean |> pivot_longer(cells, names_to="cells", values_to="mean")
 
   d <- left_join(d.pval, d.mean, by = c("interacting_pair", "cells"))
+
+  if (cluster_proteins)
+    d$interacting_pair <- factor(d$interacting_pair, ord_proteins)
+
+  if (cluster_cells)
+    d$cells <- factor(d$cells, ord_cells)
+
   ggplot(d, aes(interacting_pair, cells, size=-log10(p.value + 1e-3), color=log2(mean))) +
     geom_point() +
     scale_color_distiller(palette="RdYlBu") +

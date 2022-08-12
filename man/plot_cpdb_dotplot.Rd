@@ -9,7 +9,9 @@ plot_cpdb_dotplot(
   cutoff = 0.001,
   filter = NULL,
   cells = NULL,
-  proteins = NULL
+  proteins = NULL,
+  cluster_cells = FALSE,
+  cluster_proteins = FALSE
 )
 }
 \arguments{
@@ -20,6 +22,10 @@ plot_cpdb_dotplot(
 \item{cells}{subset cell pairs.}
 
 \item{proteins}{subset protein pairs.}
+
+\item{cluster_cells}{logical; whether to cluster cells.}
+
+\item{cluster_proteins}{logigcal; whether to cluster proteins.}
 
 \item{path}{path to the folder containing cellphonedb results.}
 }
