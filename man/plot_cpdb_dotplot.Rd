@@ -4,12 +4,22 @@
 \alias{plot_cpdb_dotplot}
 \title{plot_cpdb_dotplot}
 \usage{
-plot_cpdb_dotplot(x, cutoff = 0.001, filter = NULL)
+plot_cpdb_dotplot(
+  x,
+  cutoff = 0.001,
+  filter = NULL,
+  cells = NULL,
+  proteins = NULL
+)
 }
 \arguments{
 \item{cutoff}{cutoff for pvalues.}
 
-\item{filter}{filter for cell pairs. Can be a regular expression.}
+\item{filter}{filter for cell pairs using regular expression.}
+
+\item{cells}{subset cell pairs.}
+
+\item{proteins}{subset protein pairs.}
 
 \item{path}{path to the folder containing cellphonedb results.}
 }

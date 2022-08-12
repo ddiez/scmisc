@@ -12,12 +12,13 @@ read_cpdb_out <- function(path) {
   d_mean <- read_tsv(file.path(path, "means.txt"), show_col_types=FALSE)
 
   cells <- setdiff(colnames(d_pval), cols)
+  proteins <- d_pval[["interacting_pair"]]
 
   m_pval <- d_pval[, cells]
   m_mean <- d_mean[, cells]
   meta <- d_pval[, cols]
 
-  list(mean=d_mean, pval=d_pval, cols=cols, cells=cells, meta=meta, m_mean=m_mean, m_pval=m_pval)
+  list(mean=d_mean, pval=d_pval, cols=cols, cells=cells, proteins=proteins, meta=meta, m_mean=m_mean, m_pval=m_pval)
 }
 
 #' plot_cpdb_dotplot
@@ -26,21 +27,20 @@ read_cpdb_out <- function(path) {
 #'
 #' @param path path to the folder containing cellphonedb results.
 #' @param cutoff cutoff for pvalues.
-#' @param filter filter for cell pairs. Can be a regular expression.
+#' @param filter filter for cell pairs using regular expression.
+#' @param cells subset cell pairs.
+#' @param proteins subset protein pairs.
 #'
 #' @export
 #'
-plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL) {
-  #cols <- c("id_cp_interaction", "interacting_pair", "partner_a", "partner_b", "gene_a", "gene_b", "secreted", "receptor_a", "receptor_b", "annotation_strategy", "is_integrin")
-  #d.pval <- read_tsv(file.path(path, "pvalues.txt"), show_col_types=FALSE)
-  #d.mean <- read_tsv(file.path(path, "means.txt"), show_col_types=FALSE)
-
+plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL, proteins=NULL) {
   d.pval <- x$pval
   d.mean <- x$mean
 
-  #cells <- setdiff(colnames(d.pval), cols)
-
   cols <- x$cols
+
+  if (is.null(proteins))
+    proteins <- x$proteins
 
   if (is.null(cells))
     cells <- x$cells
@@ -48,8 +48,8 @@ plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL) {
   if (!is.null(filter))
     cells <- grep(filter, cells, value=TRUE)
 
-  d.pval <- d.pval[, c("interacting_pair", cells)]
-  d.mean <- d.mean[, c("interacting_pair", cells)]
+  d.pval <- d.pval[, c("interacting_pair", cells)] |> filter(.data[["interacting_pair"]] %in% proteins)
+  d.mean <- d.mean[, c("interacting_pair", cells)] |> filter(.data[["interacting_pair"]] %in% proteins)
 
   d.pval[["interacting_pair"]] <- make.names(d.pval[["interacting_pair"]], unique=TRUE)
   d.mean[["interacting_pair"]] <- make.names(d.mean[["interacting_pair"]], unique=TRUE)
