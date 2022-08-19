@@ -57,7 +57,7 @@ plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL, proteins=
   d.mean[["interacting_pair"]] <- make.names(d.mean[["interacting_pair"]], unique=TRUE)
 
   pval <- d.pval |> column_to_rownames("interacting_pair") |> as.matrix()
-  sig_inter <- rownames(pval)[rowSums(pval < cutoff) != 0]
+  sig_inter <- rownames(pval)[rowSums(pval <= cutoff) != 0]
   pval <- pval[sig_inter, ]
 
   if (cluster_proteins) {
