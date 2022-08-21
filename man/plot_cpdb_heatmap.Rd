@@ -14,3 +14,6 @@ plot_cpdb_heatmap(x, cutoff = 0.001)
 \description{
 Plot cellphonedb results as a heatmap of cell types.
 }
+\details{
+The score is calculated as the number of significant interactions (based on cutoff) per cell pair.
+}

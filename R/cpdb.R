@@ -96,6 +96,8 @@ plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL, proteins=
 #' @param path path to the folder containing cellphonedb results.
 #' @param cutoff cutoff for pvalues.
 #'
+#' @details The score is calculated as the number of significant interactions (based on cutoff) per cell pair.
+#'
 #' @export
 #'
 plot_cpdb_heatmap <- function(x, cutoff=1e-3) {
