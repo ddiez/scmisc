@@ -88,3 +88,28 @@ plot_cpdb_dotplot <- function(x, cutoff=1e-3, filter=NULL, cells=NULL, proteins=
     guides(size=guide_legend("-log10(p.value)")) +
     Seurat::RotatedAxis()
 }
+
+#' plot_cpdb_heatmap
+#'
+#' Plot cellphonedb results as a heatmap of cell types.
+#'
+#' @param path path to the folder containing cellphonedb results.
+#' @param cutoff cutoff for pvalues.
+#'
+#' @export
+#'
+plot_cpdb_heatmap <- function(x, cutoff=1e-3) {
+  res <- colSums(x[["m_pval"]] <= cutoff)
+  d <- data.frame(cells=names(res), score=res)
+  d <- d |> separate(col="cells", into=c("cell_a", "cell_b"), sep="\\|")
+  m <- d |> pivot_wider(names_from="cell_b", values_from="score", values_fill=0) |> column_to_rownames("cell_a")
+  o <- hclust(dist(m))$order
+  cell_order <- rownames(m)[o]
+  d <- d |>
+    mutate(cell_a=factor(.data[["cell_a"]], levels=cell_order)) |>
+    mutate(cell_b=factor(.data[["cell_b"]], levels=cell_order))
+  ggplot(d, aes(.data[["cell_b"]], .data[["cell_a"]], fill=.data[["score"]])) +
+    geom_tile() +
+    scale_fill_distiller(palette="Spectral") +
+    Seurat::RotatedAxis()
+}
