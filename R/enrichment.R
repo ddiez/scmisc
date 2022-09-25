@@ -16,19 +16,10 @@ run_enrichment <- function(x, ...) {
 
 #' @rdname run_enrichment
 #' @export
-run_enrichment.data.frame <- function(x, type = "kegg", group.by = "cluster", use.column = "entrezgene", org = "Mm", FDR = 0.01, p.adjust.method = "bonferroni", ...) {
+run_enrichment.data.frame <- function(x, type="kegg", group.by="cluster", use.column="entrezgene", org="Mm", FDR=0.01, p.adjust.method="bonferroni", ...) {
   if (!is.null(FDR))
     x <- x |> filter(.data[["p_val_adj"]] <= FDR)
 
-  res <- kegg_enrichment(x, group.by = group.by, use.column = use.column, org = org)
-
-  res |> mutate(
-    adj.P.Up = p.adjust(.data[["P.Up"]], method = p.adjust.method),
-    adj.P.Down = p.adjust(.data[["P.Down"]], method = p.adjust.method),
-  )
-}
-
-kegg_enrichment <- function(x, group.by = "cluster", use.column = "entrezgene", org = "Mm") {
   x <- x |> drop_na(any_of(use.column))
 
   groups <- x[[group.by]]
@@ -44,8 +35,21 @@ kegg_enrichment <- function(x, group.by = "cluster", use.column = "entrezgene", 
   })
   names(ids) <- groups
 
-  lapply(ids, limma::kegga, species = org) |>
-    bind_rows(.id = "cluster")
+  if (type=="kegg")
+    fun <- limma::kegga
+
+  if (type=="go")
+    fun <- limma::goana
+
+  res <- lapply(ids, function(id) {
+    fun(id, species=org) |>
+      rownames_to_column("id")
+  }) |> bind_rows(.id="cluster")
+
+  res |> mutate(
+    adj.P.Up = p.adjust(.data[["P.Up"]], method = p.adjust.method),
+    adj.P.Down = p.adjust(.data[["P.Down"]], method = p.adjust.method),
+  )
 }
 
 #' plot_enrichment
