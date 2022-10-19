@@ -14,7 +14,7 @@ plot_result_rank <- function(x, highlight=NULL, sort.by="log.p.adj") {
 #' @export
 plot_result_rank.haystack <- function(x, highlight=NULL, sort.by="log.p.adj") {
   sum <- show_result_haystack(x)
-  plot_result_rank(sum, highlight=highlight)
+  plot_result_rank(sum, highlight=highlight, sort.by=sort.by)
 }
 
 #' @rdname plot_result_rank
