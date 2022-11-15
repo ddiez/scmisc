@@ -147,10 +147,6 @@ plot_enrichment <- function(x, group.by = "cluster", direction = c("Up", "Down")
 
 #' @export
 plot_enrichment_barplot <- function(x, n=10, cutoff=0.05, ontology="BP") {
-  #if ("Term" %in% colnames(x)) {
-  #  x <- x |> filter(.data[["Ont"]] == ontology)
-  #}
-
   top.up <- x |> arrange(.data[["P.Up"]]) |> head(n)
   top.down <- x |> arrange(.data[["P.Down"]]) |> head(n)
 
@@ -164,6 +160,7 @@ plot_enrichment_barplot <- function(x, n=10, cutoff=0.05, ontology="BP") {
 
   d <- d |>
     gather(direction, p.value, up, down) |>
+    mutate(direction = factor(direction, levels=c("up", "down"))) |>
     mutate(score = ifelse(direction == "up", -1 * log10(p.value), log10(p.value))) |>
     mutate(term = fct_reorder(term, score))
 
