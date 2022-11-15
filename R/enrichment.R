@@ -146,7 +146,7 @@ plot_enrichment <- function(x, group.by = "cluster", direction = c("Up", "Down")
 }
 
 #' @export
-plot_enrichment_barplot <- function(x, n=10, cutoff=0.05, ontology="BP") {
+plot_enrichment_barplot <- function(x, n=10, cutoff=0.05, ontology="BP", col.up="red", col.down="blue") {
   top.up <- x |> arrange(.data[["P.Up"]]) |> head(n)
   top.down <- x |> arrange(.data[["P.Down"]]) |> head(n)
 
@@ -168,7 +168,7 @@ plot_enrichment_barplot <- function(x, n=10, cutoff=0.05, ontology="BP") {
     geom_hline(yintercept=0, lty="dotted") +
     geom_col() +
     geom_hline(yintercept = c(-log10(cutoff), log10(cutoff)), lty="dotted") +
-    scale_fill_manual(values = c("up"="red", "down"="blue")) +
+    scale_fill_manual(values = c("up"=col.up, "down"=col.down)) +
     coord_flip() +
     labs(x = NULL, y = NULL)
 }
