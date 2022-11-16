@@ -118,3 +118,35 @@ calculate_cpdb_cell_graph <- function(x, cutoff=1e-3) {
   d |> mutate(cell_a=factor(.data[["cell_a"]], levels=cell_order)) |>
     mutate(cell_b=factor(.data[["cell_b"]], levels=cell_order))
 }
+
+#' @export
+calculate_cpdb_cellxcell_matrix <- function(x) {
+  calculate_cpdb_cell_graph(x) |> pivot_wider(names_from="cell_b", values_from="score") |> column_to_rownames("cell_a") |> as.matrix()
+}
+
+#' @export
+plot_cpdb_cellxcell <- function(x, name="scores", ...) {
+    m <- calculate_cpdb_cellxcell_matrix(x)
+    Heatmap(m, name=name, ...)
+}
+
+#' @export
+plot_cpdb_cellxpair <- function(x, cells=NULL, pval.cutoff=0.01, mean.cutoff=1, scale=FALSE, ...) {
+  m_mean <- as.matrix(x$m_mean)
+  rownames(m_mean) <- x$proteins
+
+  m_pval <- as.matrix(x$m_pval)
+
+  if (is.null(cells))
+    cells <- x$cells
+
+  if (scale)
+    s_mean <- t(scale(t(m_mean)))
+  else
+    s_mean <- m_mean
+
+  sel.pval <- rowSums(m_pval[, cells, drop=FALSE] < pval.cutoff) > 0
+  sel.mean <- rowSums(m_mean[, cells, drop=FALSE] > mean.cutoff) > 0
+
+  Heatmap(s_mean[sel.pval & sel.mean, cells], show_column_names=TRUE, show_row_names=TRUE, name="score", ...)
+}
