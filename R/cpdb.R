@@ -131,7 +131,7 @@ plot_cpdb_cellxcell <- function(x, name="scores", ...) {
 }
 
 #' @export
-plot_cpdb_cellxpair <- function(x, cells=NULL, pval.cutoff=0.01, mean.cutoff=1, scale=FALSE, ...) {
+plot_cpdb_cellxpair <- function(x, cells=NULL, pval.cutoff=0.01, mean.cutoff=1, scale=TRUE, ...) {
   m_mean <- as.matrix(x$m_mean)
   rownames(m_mean) <- x$proteins
 
