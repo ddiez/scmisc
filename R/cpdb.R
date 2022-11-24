@@ -131,7 +131,7 @@ plot_cpdb_cellxcell <- function(x, name="scores", ...) {
 }
 
 #' @export
-plot_cpdb_cellxpair <- function(x, cells=NULL, pval.cutoff=0.01, mean.cutoff=1, scale=TRUE, ...) {
+plot_cpdb_cellxpair <- function(x, cells=NULL, pval.cutoff=0.01, mean.cutoff=1, scale=TRUE, show_column_names=TRUE, show_row_names=TRUE, name="score", ...) {
   m_mean <- as.matrix(x$m_mean)
   rownames(m_mean) <- x$proteins
 
@@ -148,5 +148,5 @@ plot_cpdb_cellxpair <- function(x, cells=NULL, pval.cutoff=0.01, mean.cutoff=1, 
   sel.pval <- rowSums(m_pval[, cells, drop=FALSE] < pval.cutoff) > 0
   sel.mean <- rowSums(m_mean[, cells, drop=FALSE] > mean.cutoff) > 0
 
-  Heatmap(s_mean[sel.pval & sel.mean, cells], show_column_names=TRUE, show_row_names=TRUE, name="score", ...)
+  Heatmap(s_mean[sel.pval & sel.mean, cells], show_column_names=show_column_names, show_row_names=show_row_names, name=name, ...)
 }
