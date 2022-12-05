@@ -391,10 +391,12 @@ plot_velocity <- function(x, meta = NULL, color = NULL, grid = FALSE, arrow.colo
 #' @param n number of genes (per down/up-regulated) to highlight.
 #' @param fdr false discovery rate cutoff to highlight genes.
 #' @param lfc log fold change cutoff to highlight genes.
+#' @param min.segment.length minimum segment length for ggrepel.
+#' @param max.overkaps max number of overlaps for ggrepel.
 #' @param ... arguments passed down to ggrepel functions.
 #'
 #' @export
-plot_volcano <- function(x, group.by = "cluster", groups = NULL, n = 10, fdr = 0.01, lfc = 1, ...) {
+plot_volcano <- function(x, group.by = "cluster", groups = NULL, n = 10, fdr = 0.01, lfc = 1, min.segment.length=0, max.overlaps=Inf, ...) {
   if (!is.null(groups)) {
     x <- x |> filter(.data[[group.by]] %in% !!groups)
   }
@@ -406,8 +408,8 @@ plot_volcano <- function(x, group.by = "cluster", groups = NULL, n = 10, fdr = 0
     ggplot(tmp, aes(.data[["avg_log2FC"]], -log10(.data[["p_val"]]))) +
       geom_point(size = .1) +
       geom_vline(xintercept = c(-lfc, lfc),lty = "dotted", color = "lightgrey") +
-      ggrepel::geom_text_repel(aes(label = .data[["gene"]]), data = top.up, color = "red", min.segment.length = 0) +
-      ggrepel::geom_text_repel(aes(label = .data[["gene"]]), data = top.down, color = "blue", min.segment.length = 0, ...) +
+      ggrepel::geom_text_repel(aes(label = .data[["gene"]]), data = top.up, color = "red", min.segment.length = min.segment.length, max.overlaps=max.overlaps, ...) +
+      ggrepel::geom_text_repel(aes(label = .data[["gene"]]), data = top.down, color = "blue", min.segment.length = min.segment.length, max.overlaps=max.overlaps, ...) +
       labs(title = group)
   }) |> patchwork::wrap_plots()
 }

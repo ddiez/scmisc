@@ -11,6 +11,8 @@ plot_volcano(
   n = 10,
   fdr = 0.01,
   lfc = 1,
+  min.segment.length = 0,
+  max.overlaps = Inf,
   ...
 )
 }
@@ -27,7 +29,11 @@ plot_volcano(
 
 \item{lfc}{log fold change cutoff to highlight genes.}
 
+\item{min.segment.length}{minimum segment length for ggrepel.}
+
 \item{...}{arguments passed down to ggrepel functions.}
+
+\item{max.overkaps}{max number of overlaps for ggrepel.}
 }
 \description{
 plot_volcano
