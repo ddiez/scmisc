@@ -29,5 +29,5 @@ plot_spatial.Seurat <- function(x, features, size=.5) {
       k <- k + 1
     }
   }
-  wrap_plots(p, byrow=FALSE, ncol=length(images)) + theme(aspect.ratio=1)
+  wrap_plots(p, byrow=FALSE, ncol=length(images)) & theme(aspect.ratio=1)
 }
