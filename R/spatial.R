@@ -17,7 +17,7 @@ plot_spatial.Seurat <- function(x, features, size=.5) {
     coord <- SeuratObject::GetTissueCoordinates(x, image=image)
 
     sel <- grep(paste0(image, "_"), colnames(exprs))
-    d <- cbind(coord, Matrix::t(exprs[, sel]))
+    d <- cbind(coord, Matrix::t(exprs[, sel, drop=FALSE]))
 
     for (feature in features) {
       p[[k]] <- ggplot(d, aes(-imagerow, imagecol, fill=.data[[feature]])) +
