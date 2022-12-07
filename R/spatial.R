@@ -23,7 +23,7 @@ plot_spatial.Seurat <- function(x, features, size=.5) {
       p[[k]] <- ggplot(d, aes(-imagerow, imagecol, fill=.data[[feature]])) +
         geom_point(shape=21, size=size, stroke=.1) +
         coord_flip() +
-        scale_fill_gradientn(colors=SeuratObject:::SpatialColors(1000)) + #, limits=c(NA, maxlim[feature])) +
+        scale_fill_gradientn(colors=Seurat:::SpatialColors(1000)) + #, limits=c(NA, maxlim[feature])) +
         labs(title=image, subtitle=feature) +
         theme(axis.line=element_blank(), axis.text=element_blank(), axis.ticks=element_blank(), axis.title=element_blank())
       k <- k + 1
