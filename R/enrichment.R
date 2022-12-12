@@ -22,7 +22,7 @@ run_enrichment.data.frame <- function(x, type="kegg", group.by="cluster", use.co
     x <- x |> filter(.data[["p_val_adj"]] <= fdr)
 
   if (!is.null(lfc))
-    x <- x |> filter(abs(.data[["avg_log2FC"]]) <= lfc)
+    x <- x |> filter(abs(.data[["avg_log2FC"]]) >= lfc)
 
   x <- x |> drop_na(any_of(use.column))
 
