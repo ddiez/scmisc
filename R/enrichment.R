@@ -5,7 +5,8 @@
 #' @param group.by which variable to use for grouping (default: cluster).
 #' @param use.column which column contains entrez gene identifiers (default: entrezgene).
 #' @param org organisms (default: Mm).
-#' @param FDR cutoff for selection of DEG used for enrichment.
+#' @param lfc avg_log2FC cutoff for selection of DEG used for enrichment.
+#' @param fdr p_val_adj cutoff for selection of DEG used for enrichment.
 #' @param p.adjust.method method to adjust p.values from enrichment (default: bonferroni).
 #' @param ... arguments passed down to methods.
 #'
@@ -16,9 +17,12 @@ run_enrichment <- function(x, ...) {
 
 #' @rdname run_enrichment
 #' @export
-run_enrichment.data.frame <- function(x, type="kegg", group.by="cluster", use.column="entrezgene", org="Mm", FDR=0.01, p.adjust.method="bonferroni", ...) {
-  if (!is.null(FDR))
-    x <- x |> filter(.data[["p_val_adj"]] <= FDR)
+run_enrichment.data.frame <- function(x, type="kegg", group.by="cluster", use.column="entrezgene", org="Mm", lfc=1, fdr=0.01, p.adjust.method="bonferroni", ...) {
+  if (!is.null(fdr))
+    x <- x |> filter(.data[["p_val_adj"]] <= fdr)
+
+  if (!is.null(lfc))
+    x <- x |> filter(abs(.data[["avg_log2FC"]]) <= lfc)
 
   x <- x |> drop_na(any_of(use.column))
 

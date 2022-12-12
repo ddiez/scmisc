@@ -13,7 +13,8 @@ run_enrichment(x, ...)
   group.by = "cluster",
   use.column = "entrezgene",
   org = "Mm",
-  FDR = 0.01,
+  lfc = 1,
+  fdr = 0.01,
   p.adjust.method = "bonferroni",
   ...
 )
@@ -31,7 +32,9 @@ run_enrichment(x, ...)
 
 \item{org}{organisms (default: Mm).}
 
-\item{FDR}{cutoff for selection of DEG used for enrichment.}
+\item{lfc}{avg_log2FC cutoff for selection of DEG used for enrichment.}
+
+\item{fdr}{p_val_adj cutoff for selection of DEG used for enrichment.}
 
 \item{p.adjust.method}{method to adjust p.values from enrichment (default: bonferroni).}
 }
