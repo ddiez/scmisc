@@ -4,7 +4,7 @@
 \alias{plot_deg_barplot}
 \title{plot_deg_barplot}
 \usage{
-plot_deg_barplot(x, lfc = 0.25, fdr = 0.05, group = "cluster")
+plot_deg_barplot(x, lfc = 1, fdr = 0.05, group = "cluster")
 }
 \arguments{
 \item{x}{data.frame or similar with DEGs.}
