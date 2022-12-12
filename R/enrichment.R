@@ -40,13 +40,13 @@ run_enrichment.data.frame <- function(x, type="kegg", group.by="cluster", use.co
   names(ids) <- groups
 
   if (type=="kegg")
-    fun <- limma::kegga
+    .fun <- limma::kegga
 
   if (type=="go")
-    fun <- limma::goana
+    .fun <- limma::goana
 
   res <- lapply(ids, function(id) {
-    fun(id, species=org) |>
+    .fun(id, species=org) |>
       rownames_to_column("id")
   }) |> bind_rows(.id="cluster")
 
