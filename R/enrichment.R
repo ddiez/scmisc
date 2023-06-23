@@ -166,7 +166,7 @@ plot_enrichment_barplot <- function(x, n=10, cutoff=0.05, ontology="BP", col.up=
     gather(direction, p.value, up, down) |>
     mutate(direction = factor(direction, levels=c("up", "down"))) |>
     mutate(score = ifelse(direction == "up", -1 * log10(p.value), log10(p.value))) |>
-    mutate(term = fct_reorder(term, score))
+    mutate(term = forcats::fct_reorder(term, score))
 
   ggplot(d, aes(.data[["term"]], .data[["score"]], fill = .data[["direction"]])) +
     geom_hline(yintercept=0, lty="dotted") +
