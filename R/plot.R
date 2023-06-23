@@ -278,6 +278,7 @@ plot_violin.data.frame <- function(x, feature, group, size = .1, ...) {
 #' @param top_ann names of columns to be used as top annotations.
 #' @param top_ann_col color definition for the categories in the top annotations.
 #' @param show_column_names whether to show column names (default: FALSE).
+#' @param name name for the main legend.
 #' @param ... arguments passed down to ComplexHeatmap::Heatmap.
 #'
 #' @export
@@ -316,11 +317,11 @@ plot_heatmap.SingleCellExperiment <- function(x, assay = "logcounts", top_ann = 
 
 #' @rdname plot_heatmap
 #' @export
-plot_heatmap.matrix <- function(x, scale = TRUE, show_column_names = FALSE, ...) {
+plot_heatmap.matrix <- function(x, scale = TRUE, show_column_names = FALSE, name="expression", ...) {
   if (scale)
     x <- t(scale(t(x)))
 
-  ComplexHeatmap::Heatmap(x, name = "expression", show_column_names = show_column_names, ...)
+  ComplexHeatmap::Heatmap(x, name = name, show_column_names = show_column_names, ...)
 }
 
 
