@@ -150,7 +150,11 @@ plot_enrichment <- function(x, group.by = "cluster", direction = c("Up", "Down")
 }
 
 #' @export
-plot_enrichment_barplot <- function(x, n=10, cutoff=0.05, ontology="BP", col.up="red", col.down="blue") {
+plot_enrichment_barplot <- function(x, n=10, cutoff=0.05, ontology=NULL, col.up="red", col.down="blue") {
+  if (!is.null(ontology) && "Term" %in% colnames(x)) {
+    x <- x |> filter(.data[["Ont"]] == ontology)
+  }
+
   top.up <- x |> arrange(.data[["P.Up"]]) |> head(n)
   top.down <- x |> arrange(.data[["P.Down"]]) |> head(n)
 
