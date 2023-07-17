@@ -158,7 +158,7 @@ plot_pseudotime_heatmap <- function(x, ...) {
 
 #' @rdname plot_pseudotime_heatmap
 #' @export
-plot_pseudotime_heatmap.Seurat <- function(x, features, assay="RNA", slot="data", reduction="pseudotime", ...) {
+plot_pseudotime_heatmap.Seurat <- function(x, features, assay="RNA", slot="data", reduction="pseudotime", pseudo.color=NULL, ...) {
   pseudotime <- Embeddings(x, reduction=reduction)[, 1]
 
   sel.good <- ! is.infinite(pseudotime)
@@ -173,8 +173,10 @@ plot_pseudotime_heatmap.Seurat <- function(x, features, assay="RNA", slot="data"
   m <- t(scale(t(m)))
 
   #pseudo_color <- circlize::colorRamp2(range(pseudotime, na.rm=TRUE), c("white", "red"))
-  r <- range(pseudotime, na.rm=TRUE)
-  pseudo_color <- circlize::colorRamp2(seq(r[1], r[2], length.out=5), viridis::magma(5))
+  if (is.null(pseudo.color)) {
+    r <- range(pseudotime, na.rm=TRUE)
+    pseudo_color <- circlize::colorRamp2(seq(r[1], r[2], length.out=64), viridis::plasma(64))
+  }
 
   #r <- range(m, na.rm=TRUE)
   #m_color <- circlize::colorRamp2(seq(r[1], r[2], length.out=5), viridis::magma(5))
