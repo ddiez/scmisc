@@ -44,10 +44,10 @@ create_chromatin_assay <- function(x, layer=NULL, mod=NULL, fragments=NULL, anno
 }
 
 #' @export
-create_dimreduc <- function(x, reduction, mod=NULL) {
+create_dimreduc <- function(x, reduction, mod=NULL, assay="RNA") {
   if (!is.null(mod))
     x = x[mod]
 
   reduction <- get_obsm(x, reduction)
-  SeuratObject::CreateDimReducObject(reduction)
+  SeuratObject::CreateDimReducObject(reduction, assay=assay)
 }
