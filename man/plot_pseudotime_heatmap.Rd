@@ -13,6 +13,7 @@ plot_pseudotime_heatmap(x, ...)
   assay = "RNA",
   slot = "data",
   reduction = "pseudotime",
+  pseudo.color = NULL,
   ...
 )
 }
