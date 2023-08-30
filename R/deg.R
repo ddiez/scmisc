@@ -26,7 +26,7 @@ plot_deg_barplot <- function(x, lfc=1, fdr=0.01, group="cluster") {
   d <- x |> filter(p_val_adj < fdr, abs(avg_log2FC) > lfc) |>
     mutate(direction=ifelse(avg_log2FC>0, "Up", "Down")) |>
     mutate(direction=factor(.data[["direction"]], levels=c("Up", "Down"))) |>
-    count(.data[[group]], .data[["direction"]])
+    count(.data[[group]], .data[["direction"]], .drop=FALSE)
   ggplot(d, aes(.data[[group]], .data[["n"]], fill=.data[["direction"]])) +
     geom_col(position="dodge") +
     scale_fill_manual(values=list("Up"="red", "Down"="blue")) +
