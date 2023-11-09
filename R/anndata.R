@@ -22,32 +22,35 @@ get_obsm <- function(x, obsm) {
 }
 
 #' @export
-create_assay <- function(x, layer=NULL, mod=NULL) {
+create_assay <- function(x, layer=NULL, mod=NULL, ...) {
   if (!is.null(mod))
     x = x[mod]
 
   X = get_matrix(x, layer=layer)
 
-  SeuratObject::CreateAssayObject(X)
+  SeuratObject::CreateAssayObject(X, ...)
 }
 
 #' @export
-create_chromatin_assay <- function(x, layer=NULL, mod=NULL, fragments=NULL, annotation=NULL) {
+create_chromatin_assay <- function(x, layer=NULL, mod=NULL, fragments=NULL, annotation=NULL, filter.chromosomes=FALSE, ...) {
   if (!is.null(mod))
     x = x[mod]
 
   X = get_matrix(x, layer=layer)
   ranges <- Signac::StringToGRanges(rownames(X), sep = c(":", "-"))
-  sel <- as.vector(seqnames(ranges) %in% standardChromosomes(ranges))
-  
-  Signac::CreateChromatinAssay(X[sel, ], sep = c(":", "-"), fragments=fragments, annotation=annotation)
+  if (filter.chromosomes) {
+    sel <- as.vector(seqnames(ranges) %in% GenomeInfoDb::standardChromosomes(ranges))
+    X <- X[sel, ]
+  }
+
+  Signac::CreateChromatinAssay(X, sep = c(":", "-"), fragments=fragments, annotation=annotation, ...)
 }
 
 #' @export
-create_dimreduc <- function(x, reduction, mod=NULL, assay="RNA") {
+create_dimreduc <- function(x, reduction, mod=NULL, assay="RNA", key=NULL) {
   if (!is.null(mod))
     x = x[mod]
 
   reduction <- get_obsm(x, reduction)
-  SeuratObject::CreateDimReducObject(reduction, assay=assay)
+  SeuratObject::CreateDimReducObject(reduction, assay=assay, key=key)
 }
