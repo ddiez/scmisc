@@ -169,7 +169,7 @@ plot_pseudotime_heatmap.Seurat <- function(x, features, assay="RNA", slot="data"
   cells <- names(pseudotime)
 
   m <- GetAssayData(x, assay=assay, slot=slot)
-  m <- m[features, cells]|> as.matrix()
+  m <- m[features, cells] |> as.matrix()
   m <- t(scale(t(m)))
 
   #pseudo_color <- circlize::colorRamp2(range(pseudotime, na.rm=TRUE), c("white", "red"))
