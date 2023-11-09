@@ -1,4 +1,4 @@
-#' @rdname plot_spatial
+#' plot_spatial
 #' @export
 plot_spatial <- function(x, features, size=.5, rotate=FALSE) {
   UseMethod("plot_spatial")
@@ -29,7 +29,7 @@ plot_spatial.Seurat <- function(x, features, size=.5, rotate=FALSE) {
     }
 
     for (feature in features) {
-      p[[k]] <- ggplot(d, aes(x, y, fill=.data[[feature]])) +
+      p[[k]] <- ggplot(d, aes(.data[["x"]], .data[["y"]], fill=.data[[feature]])) +
         geom_point(shape=21, size=size, stroke=.1) +
         scale_fill_gradientn(colors=Seurat:::SpatialColors(1000)) + #, limits=c(NA, maxlim[feature])) +
         labs(title=image, subtitle=feature) +
