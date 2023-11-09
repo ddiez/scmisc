@@ -110,9 +110,9 @@ plot_coord2.Seurat <- function(x, expand=NULL, ...) {
   else
     groups <- unique(data)
   lapply(groups, function(group) {
-    cells <- list(Cells(x)[data == group])
+    cells <- list(SeuratObject::Cells(x)[data == group])
     names(cells) <- group
-    DimPlot(x, cells.highlight=cells, ...) + labs(title=group)
+    Seurat::DimPlot(x, cells.highlight=cells, ...) + labs(title=group)
   }) |> patchwork::wrap_plots()
 }
 
