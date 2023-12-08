@@ -16,6 +16,6 @@
 #' @importFrom grid gpar grid.circle unit.c
 #' @importFrom stats prcomp kmeans dist hclust cutree as.dist cor p.adjust setNames
 #' @importFrom utils tail head
-#' @importFrom Seurat FindClusters FindNeighbors FindVariableFeatures RunPCA RunUMAP ScaleData
+#' @importFrom Seurat FindClusters FindNeighbors FindVariableFeatures RunPCA RunUMAP ScaleData DietSeurat
 ## usethis namespace: end
 NULL
