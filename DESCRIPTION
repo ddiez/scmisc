@@ -1,6 +1,6 @@
 Package: scmisc
 Title: Miscellaneus Tools for the Analysis of Single Cell Data
-Version: 0.8.2
+Version: 0.8.3
 Authors@R:
     person(given = "Diego",
            family = "Diez",
@@ -45,6 +45,7 @@ Suggests:
     leiden,
     circlize,
     limma,
+    edgeR,
     org.Mm.eg.db,
     AnnotationDbi,
     ggrepel
