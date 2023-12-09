@@ -24,7 +24,8 @@ Imports:
     ComplexHeatmap,
     Matrix,
     patchwork,
-    readr
+    readr,
+    GenomeInfoDb
 Suggests:
     testthat,
     knitr,
