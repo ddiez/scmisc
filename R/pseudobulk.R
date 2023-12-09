@@ -20,7 +20,11 @@ pseudobulk <- function(x, split.by, group.by, samples=NULL, genes=NULL, ...) {
   if (!is.null(assay))
     DefaultAssay(x) <- assay
   assay <- DefaultAssay(x)
+
+  if (packageVersion("Seurat") >= "5.0.0")
   x <- Seurat::DietSeurat(x, layers=layers, assay=assay)
+  else
+    x <- Seurat::DietSeurat(x, counts=TRUE, data=TRUE, assay=assay)
 
   groups <- x[[]][[split.by]]
   if (!is.factor(groups)) groups <- factor(groups)
