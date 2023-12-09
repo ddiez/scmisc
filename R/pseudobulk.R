@@ -9,20 +9,23 @@
 #' @param genes A data.frame with gene information to include in slot "genes" in the DGEList object.
 #' @param assay Seurat assay to use. Default: NULL (default assay).
 #' @param layers Seurat layers to use. Default: counts.
+#' @param sort_samples whetner to sort the columns of the pseudobulk samples based on the order in the samples data.frame.
 #'
 #' @export
-pseudobulk <- function(x, split.by, group.by, samples=NULL, genes=NULL, ...) {
+pseudobulk <- function(x, split.by, group.by, samples=NULL, genes=NULL, sort_samples=TRUE, ...) {
   UseMethod("pseudobulk")
 }
 
 #' @rdname pseudobulk
 #' @export
+pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, assay=NULL, layers="counts", sort_samples=TRUE, ...) {
   if (!is.null(assay))
     DefaultAssay(x) <- assay
+
   assay <- DefaultAssay(x)
 
   if (packageVersion("Seurat") >= "5.0.0")
-  x <- Seurat::DietSeurat(x, layers=layers, assay=assay)
+    x <- Seurat::DietSeurat(x, layers=layers, assay=assay)
   else
     x <- Seurat::DietSeurat(x, counts=TRUE, data=TRUE, assay=assay)
 
@@ -61,6 +64,12 @@ pseudobulk <- function(x, split.by, group.by, samples=NULL, genes=NULL, ...) {
     tmp
   })
   names(dge) <- names(xl)
+
+  if (sort_samples) {
+    dge <- lapply(dge, function(x) {
+      x[, sort(rownames(samples))]
+    })
+  }
 
   dge
 }

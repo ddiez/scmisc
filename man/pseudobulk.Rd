@@ -5,7 +5,15 @@
 \alias{pseudobulk.Seurat}
 \title{pseudobulk}
 \usage{
-pseudobulk(x, split.by, group.by, samples = NULL, genes = NULL, ...)
+pseudobulk(
+  x,
+  split.by,
+  group.by,
+  samples = NULL,
+  genes = NULL,
+  sort_samples = TRUE,
+  ...
+)
 
 \method{pseudobulk}{Seurat}(
   x,
@@ -15,6 +23,7 @@ pseudobulk(x, split.by, group.by, samples = NULL, genes = NULL, ...)
   genes = NULL,
   assay = NULL,
   layers = "counts",
+  sort_samples = TRUE,
   ...
 )
 }
@@ -28,6 +37,8 @@ pseudobulk(x, split.by, group.by, samples = NULL, genes = NULL, ...)
 \item{samples}{A data.frame with sample information to include in slot "samples" in the DGEList object.}
 
 \item{genes}{A data.frame with gene information to include in slot "genes" in the DGEList object.}
+
+\item{sort_samples}{whetner to sort the columns of the pseudobulk samples based on the order in the samples data.frame.}
 
 \item{assay}{Seurat assay to use. Default: NULL (default assay).}
 
