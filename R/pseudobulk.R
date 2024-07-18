@@ -47,7 +47,7 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
   }
 
   xl <- lapply(xl, function(x) {
-    m <- matrix(0, nrow=nrow(x), ncol=length(samples))
+    m <- matrix(0, nrow=nrow(x), ncol=length(samples), dimnames=list(rownames(x), rownames(samples)))
 
     if (packageVersion("Seurat") >= "5.0.0")
       tmp <- Seurat::AggregateExpression(x, group.by=group.by, assay=assay)[[assay]]
