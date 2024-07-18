@@ -63,7 +63,6 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
     s$cluster <- n
     tmp <- edgeR::DGEList(xl[[n]], samples=s)
     tmp$genes <- genes
-    tmp <- xl[[n]]
     #colnames(tmp) <- unname(colnames(tmp))
     tmp
   })
