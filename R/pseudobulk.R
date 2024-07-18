@@ -59,21 +59,17 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
   })
 
   dge <- lapply(names(xl), function(n) {
-    #s <- samples
-    #s$cluster <- n
     tmp <- edgeR::DGEList(xl[[n]], samples=samples, genes=genes)
     tmp$samples$cluster <- n
-    #tmp$genes <- genes
-    #colnames(tmp) <- unname(colnames(tmp))
     tmp
   })
   names(dge) <- names(xl)
 
-  #if (sort_samples) {
-  #  dge <- lapply(dge, function(x) {
-  #    x[, sort(rownames(samples))]
-  #  })
-  #}
+  if (sort_samples) {
+    dge <- lapply(dge, function(x) {
+      x[, sort(rownames(samples))]
+    })
+  }
 
   dge
 }
