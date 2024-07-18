@@ -18,7 +18,7 @@ pseudobulk <- function(x, split.by, group.by, samples=NULL, genes=NULL, sort_sam
 
 #' @rdname pseudobulk
 #' @export
-pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, assay=NULL, layers="counts", sort_samples=TRUE, ...) {
+pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, assay=NULL, layers="counts", sort_samples=FALSE, ...) {
   if (!is.null(assay))
     DefaultAssay(x) <- assay
 
