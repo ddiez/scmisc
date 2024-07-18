@@ -37,14 +37,14 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
   })
   names(xl) <- group_levels
 
-  if (is.null(samples)) {
-    samples <- x[[]][[group.by]]
-    if (!is.factor(samples))
-      samples <- factor(samples)
-    
-    samples <- levels(samples)
-    samples <- data.frame(row.names=samples)
-  }
+  # if (is.null(samples)) {
+  #   samples <- x[[]][[group.by]]
+  #   if (!is.factor(samples))
+  #     samples <- factor(samples)
+
+  #   samples <- levels(samples)
+  #   samples <- data.frame(row.names=samples)
+  # }
 
   xl <- lapply(xl, function(x) {
     if (packageVersion("Seurat") >= "5.0.0")
