@@ -40,7 +40,9 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
   if (is.null(samples)) {
     samples <- x[[]][[group.by]]
     if (!is.factor(samples))
-      samples <- levels(factor(samples))
+      samples <- factor(samples)
+    
+    samples <- levels(samples)
     samples <- data.frame(row.names=samples)
   }
 
