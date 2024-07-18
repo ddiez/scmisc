@@ -37,24 +37,27 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
   })
   names(xl) <- group_levels
 
-  # if (is.null(samples)) {
-  #   samples <- x[[]][[group.by]]
-  #   if (!is.factor(samples))
-  #     samples <- factor(samples)
+  if (is.null(samples)) {
+    samples <- x[[]][[group.by]]
+    if (!is.factor(samples))
+      samples <- factor(samples)
 
-  #   samples <- levels(samples)
-  #   samples <- data.frame(row.names=samples)
-  # }
+    samples <- levels(samples)
+    samples <- data.frame(row.names=samples)
+  }
 
   xl <- lapply(xl, function(x) {
+    m <- matrix(0, nrow=nrow(x), ncol=length(samples))
+
     if (packageVersion("Seurat") >= "5.0.0")
       tmp <- Seurat::AggregateExpression(x, group.by=group.by, assay=assay)[[assay]]
     else
       tmp <- Seurat:::PseudobulkExpression(x, pb.method="aggregate", group.by=group.by, assay=assay, slot=layers[1])[[assay]]
 
-    if (!is.null(samples))
-      tmp <- tmp[, rownames(samples)]
-    tmp
+    m[rownames(tmp), colnames(tmp)] <- tmp
+    #tmp <- tmp[, rownames(samples)]
+    #tmp
+    m
   })
 
   dge <- lapply(names(xl), function(n) {
@@ -63,7 +66,7 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
     #tmp <- edgeR::DGEList(xl[[n]])#, samples=s)
     #tmp$genes <- genes
     tmp <- xl[[n]]
-    colnames(tmp) <- unname(colnames(tmp))
+    #colnames(tmp) <- unname(colnames(tmp))
     tmp
   })
   names(dge) <- names(xl)
