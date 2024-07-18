@@ -55,16 +55,14 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
       tmp <- Seurat:::PseudobulkExpression(x, pb.method="aggregate", group.by=group.by, assay=assay, slot=layers[1])[[assay]]
 
     m[rownames(tmp), colnames(tmp)] <- tmp
-    #tmp <- tmp[, rownames(samples)]
-    #tmp
     m
   })
 
   dge <- lapply(names(xl), function(n) {
-    #s <- samples
-    #s$cluster <- n
-    #tmp <- edgeR::DGEList(xl[[n]])#, samples=s)
-    #tmp$genes <- genes
+    s <- samples
+    s$cluster <- n
+    tmp <- edgeR::DGEList(xl[[n]], samples=s)
+    tmp$genes <- genes
     tmp <- xl[[n]]
     #colnames(tmp) <- unname(colnames(tmp))
     tmp
