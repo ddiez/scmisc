@@ -54,7 +54,7 @@ pseudobulk.Seurat <- function(x, split.by, group.by, samples=NULL, genes=NULL, a
     else
       tmp <- Seurat:::PseudobulkExpression(x, pb.method="aggregate", group.by=group.by, assay=assay, slot=layers[1])[[assay]]
 
-    m[rownames(tmp), colnames(tmp)] <- tmp
+    m[rownames(tmp), colnames(tmp)] <- as.matrix(tmp)
     m
   })
 
